@@ -1,105 +1,368 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatpan - Portfolio</title>
-    <!-- Google Fonts Inter -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ghatfan Almer Yusria — Portofolio</title>
+  <meta name="description" content="Portofolio Ghatfan Almer Yusria — pengembang antarmuka di Jakarta. Karya, keahlian, dan cara menghubungi. Indonesia & English.">
+  <meta name="theme-color" content="#e8dac6">
+  <meta property="og:title" content="Ghatfan Almer Yusria">
+  <meta property="og:description" content="Portofolio pribadi — antarmuka hangat, karya pilihan, Jakarta.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="../gambar/og.jpg">
+  <link rel="icon" href="../gambar/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <!--
+    CARA EDIT (tanpa framework):
+    - Tulisan Indonesia: ubah teks di dalam tag.
+    - Tulisan Inggris: ubah data-en="..." pada tag yang sama.
+    - Proyek baru: salin satu <article class="card"> di bagian PROYEK.
+    - Foto: taruh di folder gambar/, lalu tulis src="../gambar/nama.jpg".
+    - Email: ubah teks di #email-link (sekali saja).
+    - Warna: styles.css, bagian :root.
+    - Pesan tombol (tersalin, error, jumlah karya): blok JSON id="strings" di bawah.
+  -->
 
-    <!-- Navbar -->
-    <nav>
-        <div class="nav-indicator"></div>
-        <a href="#about" class="active">About</a>
-        <a href="#projects">Projects</a>
-        <a href="#services">Services</a>
-        <a href="#skills">Skills</a>
-        <a href="#contact">Contact</a>
-    </nav>
+  <svg class="sprite" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+    <symbol id="i-work" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+    <symbol id="i-skills" viewBox="0 0 24 24"><path d="m15 12-8.373 8.373a1 1 0 1 1-3-3L12 9"/><path d="m18 15 4-4"/><path d="m21.5 11.5-1.914-1.914A2 2 0 0 1 19 8.172V7l-2.26-2.26a6 6 0 0 0-4.202-1.756L9 2.5l.92.82A6.18 6.18 0 0 1 12 8.4V10l2 2h2.172a2 2 0 0 1 1.414.586L19.5 14.5"/></symbol>
+    <symbol id="i-about" viewBox="0 0 24 24"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  </svg>
 
-    <div class="main-container">
-        <!-- Hero Section -->
-        <header class="hero" id="home">
-            <p class="tagline">Student · Explorer · Builder</p>
-            <h1 class="title wave-text">
-                <span>G</span><span>H</span><span>A</span><span>T</span><span>F</span><span>A</span><span>N</span><span class="asterisk">*</span>
-            </h1>
-            <p class="desc">Pelajar yang mengeksplorasi web development, OSINT, keamanan digital, dan reverse engineering.</p>
-            <a href="#projects" class="btn">Lihat karya saya <span class="chevron">&gt;</span></a>
-        </header>
+  <a class="skip chunky chunky-amber" href="#home" data-en="Home">Beranda</a>
 
-        <hr class="divider">
-
-        <!-- About Section -->
-        <section class="about fade-in" id="about">
-            <p class="terminal">$ whoami</p>
-            <h2>Saya Gatpan. Pelajar yang tertarik ke dunia IT karena rasa penasaran.</h2>
-            <p>Bermula dari pandemi, sekarang kebanyakan waktu saya habis untuk reverse engineering dan OSINT.</p>
-        </section>
-    </div>
-
-    <!-- Marquee -->
-    <div class="marquee">
-        <div class="marquee-content">
-            <span>currently exploring Reverse Engineering • OSINT workflows • Web Development • </span>
-            <span>currently exploring Reverse Engineering • OSINT workflows • Web Development • </span>
+  <header class="topbar">
+    <div class="bar">
+      <div class="top-row">
+        <a class="plaque" href="#home" data-go="home">
+          <span class="grain"></span>
+          <span class="rivet desktop-only" aria-hidden="true"><i></i></span>
+          <strong>GHATFAN</strong>
+          <span class="badge shimmer-badge">ALMER</span>
+          <span class="rivet flip desktop-only" aria-hidden="true"><i></i></span>
+        </a>
+        <div class="controls">
+          <div class="lang-group" role="group" aria-label="Bahasa" data-en-label="Language">
+            <button type="button" class="chunky chunky-green lang-btn" data-lang="id" aria-pressed="true">ID</button>
+            <button type="button" class="chunky chunky-cream lang-btn" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+          <button type="button" id="theme" class="chunky chunky-cream icon-btn" aria-label="Mode gelap" data-id-light="Mode terang" data-id-dark="Mode gelap" data-en-light="Light mode" data-en-dark="Dark mode">
+            <svg class="ico icon-moon"><use href="#i-moon"></use></svg>
+            <svg class="ico icon-sun"><use href="#i-sun"></use></svg>
+          </button>
+          <button type="button" id="menu" class="chunky chunky-cream icon-btn menu-btn" aria-label="Menu" data-en-label="Menu" aria-expanded="false">
+            <svg class="ico"><use href="#i-menu"></use></svg>
+          </button>
         </div>
+      </div>
+
+      <form id="search-form" class="search-shell" role="search">
+        <span class="bolt left" aria-hidden="true"><span class="stem"></span><span class="head"><i></i></span></span>
+        <span class="bolt right" aria-hidden="true"><span class="stem"></span><span class="head"><i></i></span></span>
+        <span class="grain"></span>
+        <label>
+          <span class="sr-only" data-en="Search projects or tech">Cari proyek atau teknologi</span>
+          <svg class="ico search"><use href="#i-search"></use></svg>
+          <input id="search" type="search" placeholder="Cari proyek atau teknologi" data-en-placeholder="Search projects or tech">
+        </label>
+      </form>
+
+      <div class="scroller no-scrollbar mobile-nav" aria-label="Pilih bagian" data-en-label="Pick a section">
+        <button type="button" class="chip is-active" data-go="home" data-en="Home">Beranda</button>
+        <button type="button" class="chip" data-go="work" data-en="Projects">Proyek</button>
+        <button type="button" class="chip" data-go="skills" data-en="Skills">Keahlian</button>
+        <button type="button" class="chip" data-go="about" data-en="About">Tentang</button>
+        <button type="button" class="chip" data-go="contact" data-en="Contact">Kontak</button>
+      </div>
     </div>
+  </header>
 
-    <div class="main-container">
-        <!-- Projects Section -->
-        <section class="projects fade-in" id="projects">
-            <h2>Selected Work</h2>
-            <div class="card">
-                <h3>01 OSINT Toolkit</h3>
-                <p>Platform untuk mengumpulkan tools OSINT publik dalam satu tempat.</p>
+  <div id="scrim" class="scrim"></div>
+  <aside id="drawer" class="drawer" inert>
+    <span class="grain grain-diag"></span>
+    <div class="drawer-head">
+      <div class="who">
+        <svg class="alive mascot sm" viewBox="0 0 96 96" aria-hidden="true"><ellipse cx="48" cy="82" rx="20" ry="5" fill="#4a260c" opacity="0.28"/><path d="M22 48 30 16l14 26Z" fill="#f6e2c4" stroke="#4a260c" stroke-width="3" stroke-linejoin="round"/><path d="M74 48 66 16 52 42Z" fill="#f6e2c4" stroke="#4a260c" stroke-width="3" stroke-linejoin="round"/><circle cx="48" cy="52" r="28" fill="#fff6e4" stroke="#4a260c" stroke-width="3"/><circle cx="38" cy="50" r="3.2" fill="#2a1608"/><circle cx="58" cy="50" r="3.2" fill="#2a1608"/><path d="M43 61q5 7 10 0" fill="none" stroke="#2a1608" stroke-width="2.4" stroke-linecap="round"/><path d="M18 58c6 2 10-2 12-6" fill="none" stroke="#c47a3a" stroke-width="3" stroke-linecap="round"/><path d="M78 58c-6 2-10-2-12-6" fill="none" stroke="#c47a3a" stroke-width="3" stroke-linecap="round"/></svg>
+        <div>
+          <p>GHATFAN</p>
+          <small data-en="Pick a section">Pilih bagian</small>
+        </div>
+      </div>
+      <button type="button" id="drawer-close" class="chunky chunky-cream icon-btn" aria-label="Tutup" data-en-label="Close">
+        <svg class="ico"><use href="#i-x"></use></svg>
+      </button>
+    </div>
+    <nav aria-label="Pilih bagian" data-en-label="Pick a section">
+      <button type="button" class="nav-tile is-active" data-go="home" aria-current="true"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-home"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="Home">Beranda</span><span class="nav-note" data-en="A short hello">Perkenalan singkat</span></span></button>
+      <button type="button" class="nav-tile" data-go="work"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-work"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="Projects">Proyek</span><span class="nav-note" data-en="Selected work">Karya pilihan</span></span></button>
+      <button type="button" class="nav-tile" data-go="skills"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-skills"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="Skills">Keahlian</span><span class="nav-note" data-en="What I use">Yang saya kuasai</span></span></button>
+      <button type="button" class="nav-tile" data-go="about"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-about"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="About">Tentang</span><span class="nav-note" data-en="Background & value">Latar & nilai</span></span></button>
+      <button type="button" class="nav-tile" data-go="contact"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-mail"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="Contact">Kontak</span><span class="nav-note" data-en="Say hello">Ajak bicara</span></span></button>
+    </nav>
+  </aside>
+
+  <div class="layout">
+    <aside class="side">
+      <span class="wood-post" aria-hidden="true"></span>
+      <svg class="alive mascot" viewBox="0 0 96 96" aria-hidden="true"><ellipse cx="48" cy="82" rx="20" ry="5" fill="#4a260c" opacity="0.28"/><path d="M22 48 30 16l14 26Z" fill="#f6e2c4" stroke="#4a260c" stroke-width="3" stroke-linejoin="round"/><path d="M74 48 66 16 52 42Z" fill="#f6e2c4" stroke="#4a260c" stroke-width="3" stroke-linejoin="round"/><circle cx="48" cy="52" r="28" fill="#fff6e4" stroke="#4a260c" stroke-width="3"/><circle cx="38" cy="50" r="3.2" fill="#2a1608"/><circle cx="58" cy="50" r="3.2" fill="#2a1608"/><path d="M43 61q5 7 10 0" fill="none" stroke="#2a1608" stroke-width="2.4" stroke-linecap="round"/><path d="M18 58c6 2 10-2 12-6" fill="none" stroke="#c47a3a" stroke-width="3" stroke-linecap="round"/><path d="M78 58c-6 2-10-2-12-6" fill="none" stroke="#c47a3a" stroke-width="3" stroke-linecap="round"/></svg>
+      <div class="sign up"><span class="rivet" aria-hidden="true"><i></i></span><span data-en="Pick a section">Pilih bagian</span><span class="rivet flip" aria-hidden="true"><i></i></span></div>
+      <nav class="side-nav" aria-label="Pilih bagian" data-en-label="Pick a section">
+        <button type="button" class="nav-tile is-active" data-go="home" aria-current="true"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-home"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="Home">Beranda</span><span class="nav-note" data-en="A short hello">Perkenalan singkat</span></span></button>
+        <button type="button" class="nav-tile" data-go="work"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-work"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="Projects">Proyek</span><span class="nav-note" data-en="Selected work">Karya pilihan</span></span></button>
+        <button type="button" class="nav-tile" data-go="skills"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-skills"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="Skills">Keahlian</span><span class="nav-note" data-en="What I use">Yang saya kuasai</span></span></button>
+        <button type="button" class="nav-tile" data-go="about"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-about"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="About">Tentang</span><span class="nav-note" data-en="Background & value">Latar & nilai</span></span></button>
+        <button type="button" class="nav-tile" data-go="contact"><span class="grain grain-diag"></span><span class="rivet" aria-hidden="true"><i></i></span><span class="icon-tile"><svg class="ico"><use href="#i-mail"></use></svg></span><span class="nav-copy"><span class="nav-label" data-en="Contact">Kontak</span><span class="nav-note" data-en="Say hello">Ajak bicara</span></span></button>
+      </nav>
+    </aside>
+
+    <main>
+      <!-- ========== BERANDA ========== -->
+      <section id="home" class="section">
+        <div class="hd-card hero rise">
+          <div>
+            <div class="sign up kicker"><span class="rivet" aria-hidden="true"><i></i></span><span data-en="Personal portfolio">Portofolio pribadi</span><span class="rivet flip" aria-hidden="true"><i></i></span></div>
+            <h1>Ghatfan<span>Almer Yusria</span></h1>
+            <p class="role" data-en="Interface developer & digital product maker">Pengembang antarmuka & pembuat produk digital</p>
+            <p class="lead" data-en="I design interfaces that feel warm and easy on a laptop or a phone, then build them until they come alive — structure, motion, and the words.">Saya merancang tampilan yang hangat dan mudah dipakai di laptop maupun ponsel, lalu menyusunnya sampai jadi produk yang hidup — dari struktur, gerak, sampai kata-katanya.</p>
+            <div class="actions">
+              <button type="button" class="chunky chunky-amber" data-go="work" data-en="View Projects">Lihat Proyek</button>
+              <button type="button" class="chunky chunky-green" data-go="contact" data-en="Contact Me">Hubungi Saya</button>
             </div>
-            <div class="card">
-                <h3>02 Web Exploration</h3>
-                <p>Eksplorasi layout, navigasi, dan struktur konten.</p>
-            </div>
-        </section>
+            <p class="city">Jakarta, Indonesia</p>
+            <dl class="stats">
+              <div class="stat"><dt>6</dt><dd data-en="selected works">karya pilihan</dd></div>
+              <div class="stat"><dt>4</dt><dd data-en="skill areas">bidang keahlian</dd></div>
+              <div class="stat"><dt>2</dt><dd data-en="interface languages">bahasa antarmuka</dd></div>
+            </dl>
+          </div>
+          <figure class="portrait">
+            <div class="frame alive"><img src="../gambar/portrait.jpg" alt="Ghatfan Almer Yusria"></div>
+            <figcaption data-en="Temporary illustration. Send a photo if you want it swapped.">Ilustrasi sementara. Kirim fotomu kalau ingin diganti.</figcaption>
+          </figure>
+        </div>
+      </section>
 
-        <hr class="divider">
+      <!-- ========== PROYEK ==========
+           Tambah proyek: salin <article> lalu ganti teks, foto, data-cat
+           (product / interface / experiment), dan data-featured (true / false). -->
+      <section id="work" class="section">
+        <div class="section-head">
+          <div class="sign"><span class="rivet" aria-hidden="true"><i></i></span><h2 data-en="Selected work">Karya pilihan</h2><span class="rivet flip" aria-hidden="true"><i></i></span></div>
+          <span id="count" class="count">6 karya</span>
+        </div>
+        <div class="scroller no-scrollbar" role="group" aria-label="Kategori">
+          <button type="button" class="chip is-active" data-cat="all" aria-pressed="true" data-en="All">Semua</button>
+          <button type="button" class="chip" data-cat="product" aria-pressed="false" data-en="Product">Produk</button>
+          <button type="button" class="chip" data-cat="interface" aria-pressed="false" data-en="Interface">Antarmuka</button>
+          <button type="button" class="chip" data-cat="experiment" aria-pressed="false" data-en="Experiment">Eksperimen</button>
+        </div>
+        <p id="empty" class="hd-card empty is-hidden">Tidak ada yang cocok. Coba kata lain, atau kosongkan pencarian.</p>
+        <div class="cards works">
+          <article class="hd-card card" data-cat="product" data-featured="true" data-year="2026" data-title="Pasar Kayu" data-cover="../gambar/pasar.jpg" data-role="Desain antarmuka & prototipe" data-en-role="Interface design & prototype" data-tech="Figma|React|TypeScript" data-desc="Studi produk untuk pasar kerajinan: pengunjung memilih kategori, membandingkan karya, lalu menyimpan favorit tanpa tersesat. Fokusnya ritme grid, foto yang besar, dan tombol beli yang selalu kelihatan di ponsel." data-en-desc="A product study for a craft market: visitors pick a category, compare pieces, and save favorites without getting lost. The focus is grid rhythm, large photos, and a buy button that stays visible on a phone.">
+            <div class="cover"><img src="../gambar/pasar.jpg" alt="Pasar Kayu"><span class="shimmer-badge ribbon" data-en="Featured">Unggulan</span></div>
+            <h3>Pasar Kayu</h3>
+            <p class="blurb" data-en="A local craft catalog with scannable cards and filters that feel instant.">Katalog kerajinan lokal dengan kartu yang enak dipindai dan filter yang langsung terasa.</p>
+            <ul class="techs"><li class="tech-pill">Figma</li><li class="tech-pill">React</li><li class="tech-pill">TypeScript</li></ul>
+            <button type="button" class="chunky chunky-cream view-btn" data-en="View details">Lihat detail</button>
+          </article>
 
-        <!-- Services Section -->
-        <section class="services fade-in" id="services">
-            <h2>Services</h2>
-            <div class="card">
-                <h3>Basic Pentest</h3>
-                <p>Surface-level APK audit & network traffic inspection.</p>
-            </div>
-        </section>
+          <article class="hd-card card" data-cat="product" data-featured="true" data-year="2025" data-title="Senja Notes" data-cover="../gambar/senja.jpg" data-role="Produk & front-end" data-en-role="Product & front-end" data-tech="React|TypeScript|localStorage" data-desc="Aplikasi catatan harian yang menyimpan tulisan di perangkat. Halaman ditulis ulang supaya kontras tetap lembut di malam hari, dan animasi buka-tutup catatan tidak mengganggu orang yang sedang menulis." data-en-desc="A daily journal that keeps writing on the device. The pages were tuned so night contrast stays soft, and open-close motion never fights someone mid-sentence.">
+            <div class="cover"><img src="../gambar/senja.jpg" alt="Senja Notes"><span class="shimmer-badge ribbon" data-en="Featured">Unggulan</span></div>
+            <h3>Senja Notes</h3>
+            <p class="blurb" data-en="A quiet night journal whose dark mode feels like a desk lamp, not an inverted palette.">Jurnal malam yang tenang, dengan mode gelap yang terasa seperti lampu meja, bukan sekadar warna terbalik.</p>
+            <ul class="techs"><li class="tech-pill">React</li><li class="tech-pill">TypeScript</li><li class="tech-pill">localStorage</li></ul>
+            <button type="button" class="chunky chunky-cream view-btn" data-en="View details">Lihat detail</button>
+          </article>
 
-        <hr class="divider">
+          <article class="hd-card card" data-cat="interface" data-featured="true" data-year="2025" data-title="Arunika" data-cover="../gambar/arunika.jpg" data-role="UI & visualisasi" data-en-role="UI & visualization" data-tech="React|Tailwind|Recharts" data-desc="Alih-alih menumpuk grafik, Arunika menaruh satu saran di atas — berangkat sekarang atau tunggu hujan reda — lalu detail di bawahnya. Cocok dibaca dalam tiga detik sambil berdiri di halte." data-en-desc="Instead of stacking charts, Arunika leads with one suggestion — leave now or wait out the rain — and tucks the detail underneath. Readable in three seconds while standing at a stop.">
+            <div class="cover"><img src="../gambar/arunika.jpg" alt="Arunika"><span class="shimmer-badge ribbon" data-en="Featured">Unggulan</span></div>
+            <h3>Arunika</h3>
+            <p class="blurb" data-en="A morning commute board for Jakarta: weather, travel time, and one clear decision.">Dasbor perjalanan pagi untuk komuter Jakarta: cuaca, waktu tempuh, dan satu keputusan yang jelas.</p>
+            <ul class="techs"><li class="tech-pill">React</li><li class="tech-pill">Tailwind</li><li class="tech-pill">Recharts</li></ul>
+            <button type="button" class="chunky chunky-cream view-btn" data-en="View details">Lihat detail</button>
+          </article>
 
-        <!-- Skills Section -->
-        <section class="skills fade-in" id="skills">
-            <h2>Skills & Toolkit</h2>
-            <ul>
-                <li>Web Development (HTML, CSS, JS)</li>
-                <li>OSINT & Research</li>
-                <li>Reverse Engineering</li>
+          <article class="hd-card card" data-cat="product" data-featured="false" data-year="2025" data-title="DapurKita" data-cover="../gambar/dapur.jpg" data-role="Alur produk" data-en-role="Product flow" data-tech="Figma|React|Zod" data-desc="Dirancang untuk layar kecil di dapur. Kartu resep besar, langkah yang bisa dicentang dengan ibu jari, dan daftar belanja yang mengelompok sendiri menurut bagian pasar." data-en-desc="Designed for a small screen in the kitchen. Large recipe cards, steps you can check with a thumb, and a shopping list that groups itself by market aisle.">
+            <div class="cover"><img src="../gambar/dapur.jpg" alt="DapurKita"></div>
+            <h3>DapurKita</h3>
+            <p class="blurb" data-en="A weekly cooking planner: recipes, ingredients, and a shopping list in one flow.">Perencana masak mingguan: resep, bahan, dan daftar belanja dalam satu alur.</p>
+            <ul class="techs"><li class="tech-pill">Figma</li><li class="tech-pill">React</li><li class="tech-pill">Zod</li></ul>
+            <button type="button" class="chunky chunky-cream view-btn" data-en="View details">Lihat detail</button>
+          </article>
+
+          <article class="hd-card card" data-cat="interface" data-featured="false" data-year="2026" data-title="Lembar" data-cover="../gambar/lembar.jpg" data-role="Desain & sistem" data-en-role="Design & systems" data-tech="Figma|CSS|TypeScript" data-desc="Bukan template umum. Lembar mengatur hierarki supaya nama proyek, peran, dan teknologi kebaca sebelum orang menggulir. Tipografinya tegas, paletnya hangat, dan tetap rapi saat dwibahasa." data-en-desc="Not a generic template. Lembar sets hierarchy so the project name, role, and stack are readable before anyone scrolls. Type is firm, the palette is warm, and it stays tidy in two languages.">
+            <div class="cover"><img src="../gambar/lembar.jpg" alt="Lembar"></div>
+            <h3>Lembar</h3>
+            <p class="blurb" data-en="An editorial portfolio system: big titles, case studies, and room to breathe.">Sistem halaman portofolio editorial: judul besar, studi kasus, dan jarak yang bernapas.</p>
+            <ul class="techs"><li class="tech-pill">Figma</li><li class="tech-pill">CSS</li><li class="tech-pill">TypeScript</li></ul>
+            <button type="button" class="chunky chunky-cream view-btn" data-en="View details">Lihat detail</button>
+          </article>
+
+          <article class="hd-card card" data-cat="experiment" data-featured="false" data-year="2026" data-title="Titik" data-cover="../gambar/titik.jpg" data-role="Eksperimen sistem" data-en-role="Systems experiment" data-tech="CSS|React|Tokens" data-desc="Eksperimen untuk merakit bahasa visual. Setiap ubin adalah token — krem, kakao, amber, hijau — yang bisa disusun ulang sampai kontras dan ritme tombolnya terasa pas di jari." data-en-desc="An experiment for assembling a visual language. Each tile is a token — cream, cocoa, amber, green — rearranged until contrast and button rhythm feel right under the thumb.">
+            <div class="cover"><img src="../gambar/titik.jpg" alt="Titik"></div>
+            <h3>Titik</h3>
+            <p class="blurb" data-en="A design-token bench: color, radius, and motion tried live, not in a spreadsheet.">Meja kerja token desain: warna, radius, dan gerak dicoba langsung, bukan di spreadsheet.</p>
+            <ul class="techs"><li class="tech-pill">CSS</li><li class="tech-pill">React</li><li class="tech-pill">Tokens</li></ul>
+            <button type="button" class="chunky chunky-cream view-btn" data-en="View details">Lihat detail</button>
+          </article>
+        </div>
+      </section>
+
+      <!-- ========== KEAHLIAN ========== -->
+      <section id="skills" class="section">
+        <div class="sign" style="margin-bottom:0.75rem"><span class="rivet" aria-hidden="true"><i></i></span><h2 data-en="Technical skills">Keahlian teknis</h2><span class="rivet flip" aria-hidden="true"><i></i></span></div>
+        <p class="skills-lead" data-en="Not a long list for show. These are the tools I actually use while shaping a product.">Bukan daftar yang panjang supaya kelihatan. Ini alat yang benar-benar saya pakai saat membentuk produk.</p>
+        <div class="cards skills">
+          <article class="hd-card skill">
+            <h3 data-en="Interface">Antarmuka</h3>
+            <p data-en="Shape, space, and hierarchy so people understand at a glance.">Bentuk, jarak, dan hierarki yang bikin orang langsung paham.</p>
+            <ul class="pills"><li class="chip">Figma</li><li class="chip">Design system</li><li class="chip">Tipografi</li><li class="chip">Prototipe</li><li class="chip">Motion</li></ul>
+          </article>
+          <article class="hd-card skill">
+            <h3 data-en="Front-end">Front-end</h3>
+            <p data-en="From sketch to a living page, tidy on laptop and phone.">Dari sketsa ke halaman yang hidup, rapi di laptop dan di ponsel.</p>
+            <ul class="pills"><li class="chip">React</li><li class="chip">TypeScript</li><li class="chip">Tailwind</li><li class="chip">HTML & CSS</li><li class="chip">Aksesibilitas</li></ul>
+          </article>
+          <article class="hd-card skill">
+            <h3 data-en="Product">Produk</h3>
+            <p data-en="Short flows, plain words, and decisions that do not confuse.">Alur yang pendek, kata yang jelas, dan keputusan yang tidak membingungkan.</p>
+            <ul class="pills"><li class="chip">UX writing</li><li class="chip">Riset cepat</li><li class="chip">Informasi</li><li class="chip">Bahasa ID & EN</li></ul>
+          </article>
+          <article class="hd-card skill">
+            <h3 data-en="Craft">Kerajinan</h3>
+            <p data-en="Small details: buttons that feel pressed, contrast, and empty states.">Detail kecil: tombol yang terasa ditekan, kontras, dan keadaan kosong.</p>
+            <ul class="pills"><li class="chip">Git</li><li class="chip">Vite</li><li class="chip">Komponen</li><li class="chip">QA visual</li></ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- ========== TENTANG ========== -->
+      <section id="about" class="section">
+        <div class="sign" style="margin-bottom:1rem"><span class="rivet" aria-hidden="true"><i></i></span><h2 data-en="Summary">Ringkasan</h2><span class="rivet flip" aria-hidden="true"><i></i></span></div>
+        <div class="about-grid">
+          <article class="hd-card panel">
+            <h3 data-en="Background">Latar belakang</h3>
+            <p data-en="Based in Jakarta. I learn by making — from interface sketches to pages you can actually click. I focus on web products that feel close, clear, and unsurprising in daily use.">Berbasis di Jakarta. Saya belajar dengan membuat — dari sketsa antarmuka sampai halaman yang benar-benar bisa diklik. Fokus saya ada di produk web yang terasa dekat, jelas, dan tidak membingungkan saat dipakai sehari-hari.</p>
+          </article>
+          <article class="hd-card panel">
+            <h3 data-en="Interests">Minat</h3>
+            <ul class="pills">
+              <li class="tech-pill interest" data-en="Warm interfaces">Antarmuka hangat</li>
+              <li class="tech-pill interest" data-en="Motion with a reason">Gerak yang punya alasan</li>
+              <li class="tech-pill interest" data-en="Typography">Tipografi</li>
+              <li class="tech-pill interest" data-en="Coffee">Kopi</li>
+              <li class="tech-pill interest" data-en="Design systems">Sistem desain</li>
+              <li class="tech-pill interest" data-en="Small screens">Layar kecil</li>
             </ul>
-        </section>
+          </article>
+        </div>
+        <article class="hd-card panel" style="margin-top:1rem">
+          <h3 data-en="What I add">Nilai tambah</h3>
+          <p class="value-lead" data-en="What I bring is not only a look, but a tidy way of working from the first sketch to something you can try.">Yang saya bawa ke sebuah kerjaan bukan hanya tampilan, melainkan cara kerja yang rapi dari awal sampai bisa dicoba.</p>
+          <div class="values">
+            <div class="value">
+              <h4 data-en="Usable first, then beautiful">Pakai dulu, baru cantik</h4>
+              <p data-en="Every screen is checked at phone width. Touch targets stay large, text does not clip, and there is one primary action.">Setiap layar dicek di lebar ponsel. Target sentuh besar, teks tidak kepotong, dan aksi utama selalu satu.</p>
+            </div>
+            <div class="value">
+              <h4 data-en="Details you can feel">Detail yang terasa</h4>
+              <p data-en="Buttons press, cards lift gently, and dark mode is not just an inverted palette.">Tombol punya tekanan, kartu terangkat pelan, dan mode gelap bukan sekadar membalik warna.</p>
+            </div>
+            <div class="value">
+              <h4 data-en="Words in two languages">Kata yang dua bahasa</h4>
+              <p data-en="I write in Indonesian and English so the content and the interface stay equally clear.">Saya menulis dalam Indonesia dan Inggris supaya isi dan antarmukanya sama jelasnya.</p>
+            </div>
+          </div>
+        </article>
+      </section>
 
-        <hr class="divider">
+      <!-- ========== KONTAK ========== -->
+      <section id="contact" class="section">
+        <div class="sign" style="margin-bottom:0.75rem"><span class="rivet" aria-hidden="true"><i></i></span><h2 data-en="Let's talk">Mari bicara</h2><span class="rivet flip" aria-hidden="true"><i></i></span></div>
+        <div class="hd-card contact-grid">
+          <div>
+            <p class="prose" data-en="A project, a collaboration, or just a hello? Leave a short note below.">Punya proyek, kolaborasi, atau sekadar ingin menyapa? Tulis pesan singkat di bawah.</p>
+            <a id="email-link" class="email" href="mailto:halo@ghatfanalmer.id">halo@ghatfanalmer.id</a>
+            <div><button type="button" id="copy-email" class="chunky chunky-green" style="margin-top:0.75rem">Salin email</button></div>
+          </div>
+          <form id="contact-form" novalidate>
+            <label><span data-en="Name">Nama</span><input class="field" name="name" autocomplete="name" placeholder="Nama kamu" data-en-placeholder="Your name"></label>
+            <label><span data-en="Email">Email</span><input class="field" name="email" type="email" autocomplete="email" placeholder="nama@email.com" data-en-placeholder="name@email.com"></label>
+            <label><span data-en="Message">Pesan</span><textarea class="field" name="message" rows="4" placeholder="Cerita singkat tentang apa yang ingin dibuat…" data-en-placeholder="A short note about what you want to make…"></textarea></label>
+            <button type="submit" class="chunky chunky-amber" data-en="Send Message">Kirim Pesan</button>
+            <p id="form-note" class="form-note" role="status"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
 
-        <!-- Footer / Contact -->
-        <footer id="contact">
-            <h2>Get in touch</h2>
-            <p>Email : fannalmer@gmail.com</p>
-            <p>WhatsApp : +62 887-0547-0118</p>
-            <p>Instagram : @ghtfnalmr_</p>
-            <p>&copy; 2026 Gatpan. Built with professional precision.</p>
-        </footer>
+  <footer class="footer">
+    <div class="hd-card footer-card">
+      <nav>
+        <button type="button" data-go="work" data-en="Work">Karya</button>
+        <span class="dot" aria-hidden="true">•</span>
+        <button type="button" data-go="skills" data-en="Skills">Keahlian</button>
+        <span class="dot" aria-hidden="true">•</span>
+        <button type="button" class="go-contact" data-go="contact" data-en="Contact">Kontak</button>
+      </nav>
+      <p>© 2026 Ghatfan Almer Yusria. <span data-en="A personal portfolio. Warm on a big screen, still easy in a pocket.">Portofolio pribadi. Hangat di layar besar, tetap enak di saku.</span></p>
     </div>
+  </footer>
 
-    <script src="script.js"></script>
+  <div id="modal" class="modal" hidden>
+    <button type="button" class="modal-back" data-close aria-label="Tutup" data-en-label="Close"></button>
+    <div class="modal-card hd-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-head">
+        <h3 id="modal-title"></h3>
+        <button type="button" class="chunky chunky-cream icon-btn" data-close aria-label="Tutup" data-en-label="Close"><svg class="ico"><use href="#i-x"></use></svg></button>
+      </div>
+      <img id="modal-img" alt="">
+      <p id="modal-desc"></p>
+      <dl class="meta">
+        <div><dt data-en="Role">Peran</dt><dd id="modal-role"></dd></div>
+        <div><dt data-en="Year">Tahun</dt><dd id="modal-year"></dd></div>
+        <div><dt data-en="Tech">Teknologi</dt><dd id="modal-tech"></dd></div>
+      </dl>
+    </div>
+  </div>
+
+  <script type="application/json" id="strings">
+  {
+    "id": {
+      "empty": "Tidak ada yang cocok. Coba kata lain, atau kosongkan pencarian.",
+      "item": "karya",
+      "items": "karya",
+      "copy": "Salin email",
+      "copied": "Tersalin",
+      "sent": "Siap dikirim. Aplikasi email terbuka dengan pesanmu — tinggal tekan kirim.",
+      "error": "Lengkapi nama, email yang benar, dan pesan.",
+      "subject": "Halo Ghatfan"
+    },
+    "en": {
+      "empty": "Nothing matches. Try another word, or clear the search.",
+      "item": "work",
+      "items": "works",
+      "copy": "Copy email",
+      "copied": "Copied",
+      "sent": "Ready to send. Your mail app opens with the note — just hit send.",
+      "error": "Add your name, a valid email, and a message.",
+      "subject": "Hello Ghatfan"
+    }
+  }
+  </script>
+  <script src="app.js"></script>
 </body>
 </html>
