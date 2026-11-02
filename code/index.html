@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07080c">
+  <meta name="description" content="Vander Morder — Product engineer building quiet, precise products.">
+  <meta property="og:title" content="Vander Morder — Portfolio">
+  <meta property="og:description" content="Product websites, operational tools, and systems."
+  >
+  <meta property="og:image" content="assets/og.jpg">
+  <title>Vander Morder — Portfolio</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <nav class="nav wrap" aria-label="Primary navigation">
+      <a class="logo" href="#home">Vander<span class="logo-dot"></span></a>
+      <div class="nav-pill" id="navLinks">
+        <a class="nav-link active" href="#home" data-i18n="navHome">홈</a>
+        <a class="nav-link" href="#experience" data-i18n="navExperience">경력</a>
+        <a class="nav-link" href="#projects" data-i18n="navProjects">프로젝트</a>
+        <a class="nav-link" href="#skills" data-i18n="navSkills">스킬</a>
+        <a class="nav-link" href="#contact" data-i18n="navContact">연락</a>
+      </div>
+      <div class="nav-controls">
+        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch color theme" title="Switch color theme"><span id="themeIcon">☼</span></button>
+        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language"><span class="lang-knob"></span><span data-lang="kr">KR</span><span data-lang="en">EN</span></button>
+        <a class="cv-btn" href="cv.html" data-i18n="downloadCv">이력서</a>
+        <button class="menu-btn" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
+      </div>
+    </nav>
+    <div class="mobile-drawer" id="mobileDrawer">
+      <a href="#home" data-i18n="navHome">홈</a><a href="#experience" data-i18n="navExperience">경력</a><a href="#projects" data-i18n="navProjects">프로젝트</a><a href="#skills" data-i18n="navSkills">스킬</a><a href="#contact" data-i18n="navContact">연락</a><a href="cv.html" data-i18n="downloadCv">이력서</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="home">
+      <div class="hero-stamp" aria-hidden="true"><svg viewBox="0 0 100 100"><defs><path id="stampPath" d="M50 50m-38 0a38 38 0 1 1 76 0a38 38 0 1 1-76 0"/></defs><text><textPath href="#stampPath">• AVAILABLE FOR WORK • VANDER MORDER •</textPath></text></svg><i></i></div>
+      <div class="hero-copy wrap">
+        <div class="status-pill"><i></i><span data-i18n="statusAvailable">새 프로젝트를 받고 있습니다</span><span>—</span><b id="typedRole">프로덕트 엔지니어</b></div>
+        <h1 class="hero-title" data-i18n="heroTitle">안녕, 세상아<span class="orange-dot">.</span></h1>
+        <p class="hero-name"><span data-i18n="iPrefix">저는</span> <strong>Vander Morder.</strong></p>
+        <p class="craft" data-i18n="craftLine">조용하고 정확한 제품을 만듭니다.</p>
+        <p class="domain">ghatfan.my.id</p>
+        <p class="hero-sub" data-i18n="heroSub">스트리밍 카탈로그, 운영 도구, 제품 웹을 하나의 결로 설계합니다. 노트북에서도 휴대폰에서도 같은 호흡입니다.</p>
+        <div class="hero-actions"><a class="btn-primary" href="#projects"><span data-i18n="viewProjects">프로젝트 보기</span><span>↗</span></a><a class="btn-ghost" href="#about"><span>▷</span><span data-i18n="aboutMe">소개</span></a></div>
+      </div>
+      <div class="hero-stage wrap">
+        <div class="portrait-frame"><img src="assets/portrait.jpg" alt="Portrait of Vander Morder"></div>
+        <article class="orbit-card orbit-one"><span class="orbit-num">01</span><div><h3 data-i18n="orbit1T">집중</h3><p data-i18n="orbit1D">깔끔한 코드, 분명한 사용.</p></div></article>
+        <article class="orbit-card orbit-two"><span class="orbit-num">02</span><div><h3 data-i18n="orbit2T">인터페이스</h3><p data-i18n="orbit2D">한 제품, 두 언어.</p></div></article>
+        <article class="orbit-card orbit-three"><span class="orbit-num">03</span><div><h3 data-i18n="orbit3T">시스템</h3><p data-i18n="orbit3D">과정을 행동으로.</p></div></article>
+        <article class="side-card side-left"><div class="code-icon">⌘</div><h3 data-i18n="cardLTitle">스케치에서 시스템으로.</h3><p data-i18n="cardLDesc">아이디어를 화면과 운영 흐름으로 바꿉니다.</p></article>
+        <article class="side-card side-right"><div class="stack-icons"><span>Re</span><span>Ts</span><span>Php</span><span>+</span></div><h3 data-i18n="cardRTitle">어디서나 같은 완성도.</h3><p data-i18n="cardRDesc">큰 화면과 작은 화면.</p></article>
+        <div class="stage-caption stage-caption-left"><p data-i18n="cornerL">플랫폼을 넘어 협업합니다.</p><div class="social-row"><a href="mailto:hello@ghatfan.my.id" aria-label="Email">✉</a><a href="#contact" aria-label="GitHub">⌘</a><a href="#contact" aria-label="LinkedIn">in</a></div></div>
+        <div class="stage-caption stage-caption-right"><p><span data-i18n="cornerR1">소음은 줄이고.</span><br><span data-i18n="cornerR2">신호는 남깁니다.</span></p></div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="about">
+      <header class="section-head"><span class="tag" data-i18n="aboutTag">소개</span><h2 class="section-title" data-i18n="aboutTitle">Vander Morder</h2></header>
+      <div class="about-grid">
+        <div class="about-photo"><img src="assets/portrait.jpg" alt="Vander Morder portrait"></div>
+        <div class="about-copy"><p class="lede" data-i18n="aboutP1">자카르타에서 일하는 프로덕트 엔지니어입니다. 겉은 조용하고 속은 단단한 웹 제품을 만듭니다. 카탈로그, 운영 데스크, 그리고 팀이 실제로 계속 쓰는 작은 시스템입니다.</p><p class="lede" data-i18n="aboutP2">일의 대부분은 인터페이스와 구조 사이에 있습니다. 두 언어의 UI, 한눈에 읽히는 표, 월요일에도 무너지지 않는 흐름. WebStreamAnime가 가장 분명한 예입니다.</p><p class="lede" data-i18n="aboutP3">리듬을 중요하게 생각합니다. 움직임은 설명해야지, 장식이 되면 안 됩니다. 휴대폰에서도 분명하고, 노트북에서는 편집 디자인의 호흡이 남아야 합니다.</p>
+          <dl class="facts"><div><dt data-i18n="lblName">이름</dt><dd>Vander Morder</dd></div><div><dt data-i18n="lblRole">역할</dt><dd data-i18n="valRole">프로덕트 엔지니어</dd></div><div><dt data-i18n="lblEmail">이메일</dt><dd><a href="mailto:hello@ghatfan.my.id">hello@ghatfan.my.id</a></dd></div><div><dt data-i18n="lblFrom">지역</dt><dd data-i18n="valFrom">인도네시아 자카르타</dd></div><div><dt data-i18n="lblLangs">언어</dt><dd data-i18n="valLangs">영어 · 한국어</dd></div></dl>
+        </div>
+      </div>
+      <div class="stats"><div><b data-count="4">0</b><span data-i18n="yearsLabel">Years building</span></div><div><b data-count="6">0</b><span data-i18n="productsLabel">Products</span></div><div><b data-count="3">0</b><span data-i18n="teamsLabel">Teams</span></div><div><b data-count="2">0</b><span data-i18n="langsLabel">Product languages</span></div></div>
+    </section>
+
+    <section class="section section-alt" id="experience"><div class="wrap">
+      <header class="section-head"><span class="tag" data-i18n="expTag">경력</span><h2 class="section-title" data-i18n="expTitle">일의 짧은 기록</h2><p class="lede" data-i18n="expIntro">역할, 인턴십, 그리고 함께 출시하며 배운 자리들입니다.</p></header>
+      <div class="filter-row" id="experienceFilters"><button class="chip is-on" data-exp-filter="all" data-i18n="filterAll">전체</button><button class="chip" data-exp-filter="work" data-i18n="workLabel">업무</button><button class="chip" data-exp-filter="org" data-i18n="orgLabel">조직</button><span class="muted" id="experienceCount"></span></div>
+      <div class="experience-grid" id="experienceGrid"></div>
+      <div class="subhead-row"><div><span class="tag" data-i18n="orgLabel">조직</span><h3 class="sub-title" data-i18n="orgTitle">Leadership & community</h3></div></div>
+      <div class="community-grid" id="communityGrid"></div>
+    </div></section>
+
+    <section class="section wrap" id="projects">
+      <header class="section-head"><span class="tag" data-i18n="projectsTag">프로젝트</span><h2 class="section-title" data-i18n="projectsTitle">열어볼 수 있는 작업</h2><p class="lede" data-i18n="projectsIntro">모든 프로젝트는 표에 있습니다. 행을 열면 노트가 펼쳐집니다.</p></header>
+      <div class="project-cards" id="projectCards"></div>
+      <div class="project-index"><h3 class="sub-title" data-i18n="snapshot">요약 표</h3>
+        <div class="filter-row project-filters"><input id="projectSearch" class="search-input" type="search" data-placeholder="searchPh" placeholder="프로젝트, 스택, 키워드 검색"><div class="chip-group" id="projectFilters"><button class="chip is-on" data-kind="all" data-i18n="filterAll">전체</button><button class="chip" data-kind="product" data-i18n="filterProduct">프로덕트</button><button class="chip" data-kind="system" data-i18n="filterSystem">시스템</button><button class="chip" data-kind="web" data-i18n="filterWeb">웹</button></div><select id="projectSort" class="select-input" aria-label="Sort projects"><option value="new" data-i18n="sortNew">최신순</option><option value="name" data-i18n="sortName">이름순</option></select><span class="muted" id="projectCount"></span></div>
+        <div class="table-wrap"><table class="data-table"><thead><tr><th data-i18n="colProject">프로젝트</th><th data-i18n="colKind">종류</th><th data-i18n="colYear">연도</th><th data-i18n="colStack">스택</th><th data-i18n="colStatus">상태</th><th data-i18n="colVisit">방문</th></tr></thead><tbody id="projectRows"></tbody></table></div><div class="mobile-project-list" id="mobileProjectRows"></div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="skills"><div class="wrap">
+      <header class="section-head"><span class="tag" data-i18n="skillsTag">스킬</span><h2 class="section-title" data-i18n="skillsTitle">손에 익은 도구</h2><p class="lede" data-i18n="skillsIntro">분야를 바꾸면 카드와 표가 함께 갱신됩니다.</p></header>
+      <div class="tabs" id="skillTabs"><button class="tab is-on" data-group="frontend" data-i18n="tabFront">프론트엔드</button><button class="tab" data-group="backend" data-i18n="tabBack">백엔드</button><button class="tab" data-group="design" data-i18n="tabDesign">디자인</button><button class="tab" data-group="tools" data-i18n="tabTools">도구</button></div>
+      <div class="skill-grid" id="skillGrid"></div>
+      <div class="table-wrap skills-table-wrap"><table class="data-table"><thead><tr><th data-i18n="colSkill">스킬</th><th data-i18n="colDomain">분야</th><th data-i18n="colLevel">수준</th><th data-i18n="colNote">메모</th></tr></thead><tbody id="skillRows"></tbody></table></div>
+      <div class="achievements"><header class="section-head compact"><span class="tag" data-i18n="achiTag">Achievements</span><h3 class="sub-title" data-i18n="achiTitle">Notes worth keeping</h3></header><div class="achievement-grid" id="achievementGrid"></div></div>
+    </div></section>
+
+    <section class="section wrap" id="contact">
+      <header class="section-head"><span class="tag" data-i18n="contactTag">연락</span><h2 class="section-title" data-i18n="contactTitle">연락해요</h2><p class="lede" data-i18n="contactIntro">아래에 작성하면 메일 앱에서 내용을 확인하고 보낼 수 있습니다.</p></header>
+      <div class="contact-grid"><article class="contact-card"><span class="contact-icon">✉</span><h3 data-i18n="email">Email</h3><p>hello@ghatfan.my.id</p><button class="btn-ghost" id="copyEmail" type="button"><span>▣</span><span data-i18n="copy">복사</span></button></article><article class="contact-card"><span class="contact-icon">⌖</span><h3 data-i18n="location">Location</h3><p data-i18n="valFrom">인도네시아 자카르타</p><p class="muted">ghatfan.my.id</p></article></div>
+      <form class="contact-form" id="contactForm"><div class="field"><label for="contactName" data-i18n="formName">이름</label><input id="contactName" name="name" autocomplete="name" required minlength="2"></div><div class="field"><label for="contactEmail" data-i18n="formEmail">이메일</label><input id="contactEmail" name="email" type="email" autocomplete="email" required></div><div class="field full"><label for="contactMessage" data-i18n="formMsg">메시지</label><textarea id="contactMessage" name="message" rows="5" required minlength="8"></textarea></div><div class="field full form-submit"><button class="btn-primary" type="submit" data-i18n="formSend">메일 작성</button><p class="form-note" id="formNote" role="status"></p></div></form>
+    </section>
+  </main>
+  <footer class="site-footer"><p data-i18n="footer">© 2026 · Vander Morder가 설계하고 코딩했습니다</p><span>ghatfan.my.id</span><a href="#home" class="back-top" aria-label="Back to top">↑</a></footer>
+  <div class="modal" id="detailModal" aria-hidden="true"><div class="modal-backdrop" data-close-modal></div><article class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><button class="modal-close" type="button" data-close-modal aria-label="Close">×</button><span class="tag" id="modalTag"></span><h3 id="modalTitle"></h3><p class="muted" id="modalIssuer"></p><p class="modal-detail" id="modalDetail"></p><button class="btn-primary" type="button" data-close-modal data-i18n="close">닫기</button></article></div>
+  <div class="toast" id="toast" role="status"></div>
+</body>
+</html>
