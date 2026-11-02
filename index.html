@@ -77,15 +77,15 @@
 </head>
 <body class="min-h-screen flex items-center justify-center text-white px-4 select-none overflow-hidden relative">
 
-    <!-- Language Toggle Switch (Stylish & Animated) -->
+    <!-- Language Toggle Switch (Presisi Sempurna) -->
     <div class="absolute top-6 right-6 z-20">
-        <button id="langToggle" aria-label="Toggle Language" class="relative flex items-center bg-[#181a20]/80 backdrop-blur-md border border-white/10 rounded-full p-1 w-24 h-10 transition-all duration-300 hover:border-white/20 shadow-lg focus:outline-none">
+        <button id="langToggle" aria-label="Toggle Language" class="relative grid grid-cols-2 bg-[#181a20]/90 backdrop-blur-md border border-white/10 rounded-full p-1 w-[96px] h-[40px] items-center shadow-lg focus:outline-none overflow-hidden cursor-pointer">
             <!-- Sliding Indicator Pill -->
-            <div id="toggleIndicator" class="absolute top-1 left-1 w-11 h-8 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full shadow-md transition-transform duration-300 ease-out"></div>
+            <div id="toggleIndicator" class="absolute top-1 left-1 bottom-1 w-[44px] bg-gradient-to-r from-orange-500 to-amber-500 rounded-full shadow-md transition-transform duration-300 ease-out"></div>
             
             <!-- Labels -->
-            <span id="labelKR" class="relative z-10 w-11 text-center text-xs font-bold tracking-wider text-white transition-colors duration-300">KR</span>
-            <span id="labelEN" class="relative z-10 w-11 text-center text-xs font-bold tracking-wider text-gray-400 transition-colors duration-300">EN</span>
+            <span id="labelKR" class="relative z-10 flex items-center justify-center text-xs font-bold tracking-wider text-white transition-colors duration-300 pointer-events-none">KR</span>
+            <span id="labelEN" class="relative z-10 flex items-center justify-center text-xs font-bold tracking-wider text-gray-400 transition-colors duration-300 pointer-events-none">EN</span>
         </button>
     </div>
 
@@ -133,12 +133,11 @@
         };
 
         langToggle.addEventListener('click', () => {
-            // Toggle state
             currentLang = currentLang === 'KR' ? 'EN' : 'KR';
 
-            // Animate Toggle Switch Indicator
+            // Animate Toggle Switch Indicator (Geser presisi 44px)
             if (currentLang === 'EN') {
-                indicator.style.transform = 'translateX(36px)';
+                indicator.style.transform = 'translateX(44px)';
                 labelEN.classList.replace('text-gray-400', 'text-white');
                 labelKR.classList.replace('text-white', 'text-gray-400');
             } else {
@@ -147,7 +146,7 @@
                 labelEN.classList.replace('text-white', 'text-gray-400');
             }
 
-            // Animate Text Transition (Fade Out -> Swap -> Fade In)
+            // Animate Text Transition
             mainHeading.classList.add('hidden-text');
             subHeading.classList.add('hidden-text');
 
