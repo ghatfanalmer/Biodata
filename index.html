@@ -3,71 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vander</title>
+    <title>Vander Morder - 안녕, 세상아.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Korean (Noto Sans KR) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
         body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: #121316;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            color: #ffffff;
         }
 
-        .container {
-            text-align: center;
+        /* Continuous gentle wave/bounce greeting animation */
+        @keyframes waveGreeting {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            20% {
+                transform: translateY(-8px) rotate(-2deg);
+            }
+            40% {
+                transform: translateY(0) rotate(2deg);
+            }
+            60% {
+                transform: translateY(-4px) rotate(-1deg);
+            }
+            80% {
+                transform: translateY(0) rotate(0deg);
+            }
         }
 
-        .heading {
-            font-size: 5rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
+        /* Subtle glow animation for the orange dot */
+        @keyframes dotPulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.15);
+            }
         }
 
-        .dot {
+        .animate-greeting {
+            display: inline-block;
+            animation: waveGreeting 3.5s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .dot-accent {
             color: #ff8c32;
-        }
-
-        .subheading {
-            font-size: 1.25rem;
-            margin-bottom: 2.5rem;
-            font-weight: 400;
-        }
-
-        .korean-text {
-            color: #8b9bb4;
-        }
-
-        .name {
-            color: #ffffff;
-            font-weight: 600;
-        }
-
-        .domain {
-            font-size: 0.9rem;
-            color: #6c7a89;
-            letter-spacing: 1px;
+            display: inline-block;
+            animation: dotPulse 3.5s ease-in-out infinite;
         }
     </style>
 </head>
-<body>
+<body class="min-h-screen flex items-center justify-center text-white px-4 select-none">
 
-    <div class="container">
-        <h1 class="heading">안녕, 세상아<span class="dot">.</span></h1>
-        <p class="subheading">
-            <span class="korean-text">저는</span> 
-            <span class="name">Vander</span><span class="korean-text">.</span>
+    <main class="text-center space-y-6 md:space-y-8">
+        <!-- Main Korean Text with Waving Animation -->
+        <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-tight">
+            <span class="animate-greeting">안녕, 세상아</span><span class="dot-accent">.</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="text-lg sm:text-xl md:text-2xl font-normal tracking-wide">
+            <span class="text-[#8b9bb4]">저는</span>
+            <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>
         </p>
-        <p class="domain">ghatfan.my.id</p>
-    </div>
+
+        <!-- Domain Footer -->
+        <div class="pt-6">
+            <p class="text-xs sm:text-sm text-[#6c7a89] tracking-widest font-mono">
+                ghatfan.my.id
+            </p>
+        </div>
+    </main>
 
 </body>
 </html>
