@@ -77,11 +77,11 @@
 </head>
 <body class="min-h-screen flex items-center justify-center text-white px-4 select-none overflow-hidden relative">
 
-    <!-- Language Toggle Switch (Presisi Sempurna) -->
+    <!-- Language Toggle Switch (Simetris Semua Sisi 4px) -->
     <div class="absolute top-6 right-6 z-20">
-        <button id="langToggle" aria-label="Toggle Language" class="relative grid grid-cols-2 bg-[#181a20]/90 backdrop-blur-md border border-white/10 rounded-full p-1 w-[96px] h-[40px] items-center shadow-lg focus:outline-none overflow-hidden cursor-pointer">
-            <!-- Sliding Indicator Pill -->
-            <div id="toggleIndicator" class="absolute top-1 left-1 bottom-1 w-[44px] bg-gradient-to-r from-orange-500 to-amber-500 rounded-full shadow-md transition-transform duration-300 ease-out"></div>
+        <button id="langToggle" aria-label="Toggle Language" class="relative grid grid-cols-2 bg-[#181a20]/90 backdrop-blur-md border border-white/10 rounded-full w-[96px] h-[40px] items-center shadow-lg focus:outline-none overflow-hidden cursor-pointer">
+            <!-- Sliding Indicator Pill (Jarak 4px seragam dari atas, bawah, kiri) -->
+            <div id="toggleIndicator" class="absolute top-1 bottom-1 left-1 w-[44px] bg-gradient-to-r from-orange-500 to-amber-500 rounded-full shadow-md transition-transform duration-300 ease-out"></div>
             
             <!-- Labels -->
             <span id="labelKR" class="relative z-10 flex items-center justify-center text-xs font-bold tracking-wider text-white transition-colors duration-300 pointer-events-none">KR</span>
@@ -135,7 +135,7 @@
         langToggle.addEventListener('click', () => {
             currentLang = currentLang === 'KR' ? 'EN' : 'KR';
 
-            // Animate Toggle Switch Indicator (Geser presisi 44px)
+            // Geser presisi 44px
             if (currentLang === 'EN') {
                 indicator.style.transform = 'translateX(44px)';
                 labelEN.classList.replace('text-gray-400', 'text-white');
