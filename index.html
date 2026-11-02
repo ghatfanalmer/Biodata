@@ -64,18 +64,39 @@
             display: inline-block;
             animation: dotPulse 3.5s ease-in-out infinite;
         }
+
+        /* Transition smooth untuk pergantian teks */
+        .text-fade {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .text-fade.hidden-text {
+            opacity: 0;
+            transform: translateY(-6px) scale(0.98);
+        }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center text-white px-4 select-none overflow-hidden">
+<body class="min-h-screen flex items-center justify-center text-white px-4 select-none overflow-hidden relative">
+
+    <!-- Language Toggle Switch (Stylish & Animated) -->
+    <div class="absolute top-6 right-6 z-20">
+        <button id="langToggle" aria-label="Toggle Language" class="relative flex items-center bg-[#181a20]/80 backdrop-blur-md border border-white/10 rounded-full p-1 w-24 h-10 transition-all duration-300 hover:border-white/20 shadow-lg focus:outline-none">
+            <!-- Sliding Indicator Pill -->
+            <div id="toggleIndicator" class="absolute top-1 left-1 w-11 h-8 bg-gradient-to-r from-orange-500 to-amber-500 rounded-full shadow-md transition-transform duration-300 ease-out"></div>
+            
+            <!-- Labels -->
+            <span id="labelKR" class="relative z-10 w-11 text-center text-xs font-bold tracking-wider text-white transition-colors duration-300">KR</span>
+            <span id="labelEN" class="relative z-10 w-11 text-center text-xs font-bold tracking-wider text-gray-400 transition-colors duration-300">EN</span>
+        </button>
+    </div>
 
     <main class="text-center space-y-6 md:space-y-8 z-10">
-        <!-- Main Korean Text with Stop-Motion Tilt Animation -->
+        <!-- Main Text with Waving Animation -->
         <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-tight">
-            <span class="animate-tilt">안녕, 세상아</span><span class="dot-accent">.</span>
+            <span id="mainHeading" class="animate-greeting text-fade">안녕, 세상아</span><span class="dot-accent">.</span>
         </h1>
 
         <!-- Subheading -->
-        <p class="text-lg sm:text-xl md:text-2xl font-normal tracking-wide">
+        <p id="subHeading" class="text-lg sm:text-xl md:text-2xl font-normal tracking-wide text-fade">
             <span class="text-[#8b9bb4]">저는</span>
             <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>
         </p>
@@ -87,6 +108,58 @@
             </p>
         </div>
     </main>
+
+    <!-- JavaScript Toggle Logic -->
+    <script>
+        const langToggle = document.getElementById('langToggle');
+        const indicator = document.getElementById('toggleIndicator');
+        const labelKR = document.getElementById('labelKR');
+        const labelEN = document.getElementById('labelEN');
+        
+        const mainHeading = document.getElementById('mainHeading');
+        const subHeading = document.getElementById('subHeading');
+
+        let currentLang = 'KR';
+
+        const content = {
+            KR: {
+                main: '안녕, 세상아',
+                sub: '<span class="text-[#8b9bb4]">저는</span> <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>'
+            },
+            EN: {
+                main: 'Hello, World',
+                sub: '<span class="text-[#8b9bb4]">I am</span> <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>'
+            }
+        };
+
+        langToggle.addEventListener('click', () => {
+            // Toggle state
+            currentLang = currentLang === 'KR' ? 'EN' : 'KR';
+
+            // Animate Toggle Switch Indicator
+            if (currentLang === 'EN') {
+                indicator.style.transform = 'translateX(36px)';
+                labelEN.classList.replace('text-gray-400', 'text-white');
+                labelKR.classList.replace('text-white', 'text-gray-400');
+            } else {
+                indicator.style.transform = 'translateX(0px)';
+                labelKR.classList.replace('text-gray-400', 'text-white');
+                labelEN.classList.replace('text-white', 'text-gray-400');
+            }
+
+            // Animate Text Transition (Fade Out -> Swap -> Fade In)
+            mainHeading.classList.add('hidden-text');
+            subHeading.classList.add('hidden-text');
+
+            setTimeout(() => {
+                mainHeading.textContent = content[currentLang].main;
+                subHeading.innerHTML = content[currentLang].sub;
+
+                mainHeading.classList.remove('hidden-text');
+                subHeading.classList.remove('hidden-text');
+            }, 250);
+        });
+    </script>
 
 </body>
 </html>
