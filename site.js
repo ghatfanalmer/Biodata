@@ -1,168 +1,147 @@
-(() => {
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
+/* Vander Morder portfolio — plain JavaScript, no build step required. */
+const EMAIL = 'hello@ghatfan.my.id';
+const STORAGE = { lang: 'vm-lang', theme: 'vm-theme' };
+const readPref = key => { try { return localStorage.getItem(key); } catch { return null; } };
+const writePref = (key, value) => { try { localStorage.setItem(key, value); } catch { /* file:// storage can be unavailable; the page still works */ } };
+let currentLang = readPref(STORAGE.lang) === 'en' ? 'en' : 'kr';
+let currentTheme = readPref(STORAGE.theme) === 'light' ? 'light' : 'dark';
+let experienceFilter = 'all';
+let projectKind = 'all';
+let projectSort = 'new';
+let skillGroup = 'frontend';
+let openProject = null;
 
-  const SUN = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>`;
-  const MOON = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 14.5A8.5 8.5 0 1 1 9.5 3 7 7 0 0 0 21 14.5z"/></svg>`;
-
-  const LABELS = {
-    en: { themeToLight: "Switch to light", themeToDark: "Switch to dark" },
-    kr: { themeToLight: "라이트 모드", themeToDark: "다크 모드" }
-  };
-
-  const state = {
-    lang: document.documentElement.classList.contains("lang-kr") ? "kr" : "en",
-    theme: document.documentElement.classList.contains("light") ? "light" : "dark",
-  };
-
-  function applyChrome() {
-    const t = LABELS[state.lang];
-    document.documentElement.lang = state.lang === "kr" ? "ko" : "en";
-    document.documentElement.classList.toggle("lang-kr", state.lang === "kr");
-    document.documentElement.classList.toggle("light", state.theme === "light");
-
-    const title = state.lang === "kr" ? document.body.dataset.titleKr : document.body.dataset.titleEn;
-    if (title) document.title = title;
-
-    $$(".lang").forEach((btn) => {
-      btn.dataset.lang = state.lang;
-      btn.setAttribute("aria-label", state.lang === "kr" ? "Switch to English" : "한국어로 전환");
-    });
-
-    $$("[data-theme-toggle]").forEach((btn) => {
-      btn.innerHTML = state.theme === "dark" ? SUN : MOON;
-      btn.setAttribute("aria-label", state.theme === "dark" ? t.themeToLight : t.themeToDark);
-    });
+const I18N = {
+  en: {
+    navHome:'Home',navExperience:'Experience',navProjects:'Projects',navSkills:'Skills',navContact:'Contact',downloadCv:'Download CV',
+    footer:'© 2026 · Designed and coded by Vander Morder',statusAvailable:'Available for new projects',heroTitle:'Hello, world',iPrefix:"I'm",craftLine:'building quiet, precise products.',heroSub:'Streaming catalogs, operational tools, and product websites — shaped as one calm system, equally at home on a laptop or a phone.',viewProjects:'View Projects',aboutMe:'About Me',
+    cardLTitle:'From sketch to system.',cardLDesc:'Design, build, and settle the workflow.',cardRTitle:'The same finish, everywhere.',cardRDesc:'Interfaces that hold up on every screen.',orbit1T:'Focus',orbit1D:'Clean code, clearer use.',orbit2T:'Interface',orbit2D:'English and Korean, one product.',orbit3T:'Systems',orbit3D:'Turn a process into action.',cornerL:'Connect and collaborate across platforms.',cornerR1:'Less noise.',cornerR2:'More signal.',
+    aboutTag:'About',aboutTitle:'Vander Morder',aboutP1:'I am a product engineer based in Jakarta. I design and build web products that feel quiet on the surface and sturdy underneath — catalogs, operational desks, and the small systems teams actually keep using.',aboutP2:'Most of my work sits between interface and infrastructure: bilingual UI, tables people can scan, and flows that survive a real Monday. WebStreamAnime is the clearest example — a catalog you can open, filter, and visit.',aboutP3:'I care about rhythm. Motion should explain, not decorate. A page should be obvious on a phone without losing the editorial pace of a laptop.',lblName:'Name',lblRole:'Role',lblEmail:'Email',lblFrom:'From',lblLangs:'Languages',valRole:'Product engineer',valFrom:'Jakarta, Indonesia',valLangs:'English · Korean',yearsLabel:'Years building',productsLabel:'Products',teamsLabel:'Teams',langsLabel:'Product languages',
+    expTag:'Experience',expTitle:'A short record of the work',expIntro:'Roles, internships, and the rooms where I learned to ship with other people. Open a row to jump to the full note.',filterAll:'All',workLabel:'Work',orgLabel:'Organization',shown:'shown',orgTitle:'Leadership & community',
+    projectsTag:'Projects',projectsTitle:'Work you can open',projectsIntro:'Every project lives in the table. Open a row for the note, or choose Details to see the project story.',searchPh:'Search project, stack, or keyword',filterProduct:'Product',filterSystem:'System',filterWeb:'Web',sortNew:'Newest',sortName:'Name',snapshot:'Project index',colProject:'Project',colKind:'Kind',colYear:'Year',colStack:'Stack',colStatus:'Status',colVisit:'Details',visit:'Preview',details:'Details',close:'Close',role:'Role',highlights:'Highlights',liveUrl:'Project',statusLive:'Live',statusShipped:'Shipped',statusOngoing:'In progress',kindProduct:'Product',kindSystem:'System',kindWeb:'Web',empty:'Nothing matches that filter.',
+    skillsTag:'Skills',skillsTitle:'What I reach for',skillsIntro:'Switch a field and both the cards and the table update together.',tabFront:'Frontend',tabBack:'Backend',tabDesign:'Design',tabTools:'Tools',lvlAdv:'Advanced',lvlInt:'Intermediate',lvlBas:'Basic',colSkill:'Skill',colDomain:'Domain',colLevel:'Level',colNote:'Note',achiTag:'Achievements',achiTitle:'Notes worth keeping',
+    contactTag:'Contact',contactTitle:"Let's get in touch",contactIntro:'Write below and your mail app opens with the note ready. Or copy the address and send it your own way.',email:'Email',location:'Location',copy:'Copy',copied:'Copied',formName:'Name',formEmail:'Your email',formMsg:'Message',formSend:'Open in mail',formOk:'Your mail app should open with this note.',invalid:'Add a name, a real email, and a short message.',
+    cvTag:'Curriculum vitae',cvPrint:'Print or save PDF',cvSummary:'Product engineer in Jakarta. I build bilingual web products, operational tools, and catalogs with a calm interface and a clear table of contents.',backPortfolio:'Back to portfolio',present:'Present',period:'Period',where:'Where',focus:'Focus',jump:'Read',
+    menuOpen:'Open menu',menuClose:'Close menu',themeToLight:'Switch to light',themeToDark:'Switch to dark'
+  },
+  kr: {
+    navHome:'홈',navExperience:'경력',navProjects:'프로젝트',navSkills:'스킬',navContact:'연락',downloadCv:'이력서',
+    footer:'© 2026 · Vander Morder가 설계하고 코딩했습니다',statusAvailable:'새 프로젝트를 받고 있습니다',heroTitle:'안녕, 세상아',iPrefix:'저는',craftLine:'조용하고 정확한 제품을 만듭니다.',heroSub:'스트리밍 카탈로그, 운영 도구, 제품 웹을 하나의 결로 설계합니다. 노트북에서도 휴대폰에서도 같은 호흡입니다.',viewProjects:'프로젝트 보기',aboutMe:'소개',
+    cardLTitle:'스케치에서 시스템으로.',cardLDesc:'아이디어를 화면과 운영 흐름으로 바꿉니다.',cardRTitle:'어디서나 같은 완성도.',cardRDesc:'큰 화면과 작은 화면.',orbit1T:'집중',orbit1D:'깔끔한 코드, 분명한 사용.',orbit2T:'인터페이스',orbit2D:'한 제품, 두 언어.',orbit3T:'시스템',orbit3D:'과정을 행동으로.',cornerL:'플랫폼을 넘어 협업합니다.',cornerR1:'소음은 줄이고.',cornerR2:'신호는 남깁니다.',
+    aboutTag:'소개',aboutTitle:'Vander Morder',aboutP1:'자카르타에서 일하는 프로덕트 엔지니어입니다. 겉은 조용하고 속은 단단한 웹 제품을 만듭니다. 카탈로그, 운영 데스크, 그리고 팀이 실제로 계속 쓰는 작은 시스템입니다.',aboutP2:'일의 대부분은 인터페이스와 구조 사이에 있습니다. 두 언어의 UI, 한눈에 읽히는 표, 월요일에도 무너지지 않는 흐름. WebStreamAnime가 가장 분명한 예입니다. 열어 보고, 거르고, 그 웹으로 들어갈 수 있습니다.',aboutP3:'리듬을 중요하게 생각합니다. 움직임은 설명해야지, 장식이 되면 안 됩니다. 휴대폰에서도 분명하고, 노트북에서는 편집 디자인의 호흡이 남아야 합니다.',lblName:'이름',lblRole:'역할',lblEmail:'이메일',lblFrom:'지역',lblLangs:'언어',valRole:'프로덕트 엔지니어',valFrom:'인도네시아 자카르타',valLangs:'영어 · 한국어',yearsLabel:'작업 연수',productsLabel:'제품',teamsLabel:'팀',langsLabel:'제품 언어',
+    expTag:'경력',expTitle:'일의 짧은 기록',expIntro:'역할, 인턴십, 그리고 함께 출시하며 배운 자리들입니다. 항목을 열어 자세한 기록을 확인하세요.',filterAll:'전체',workLabel:'업무',orgLabel:'조직',shown:'개 표시',orgTitle:'리더십과 커뮤니티',
+    projectsTag:'프로젝트',projectsTitle:'열어볼 수 있는 작업',projectsIntro:'모든 프로젝트는 표에 있습니다. 행을 열거나 자세히를 눌러 작업 기록을 확인하세요.',searchPh:'프로젝트, 스택, 키워드 검색',filterProduct:'프로덕트',filterSystem:'시스템',filterWeb:'웹',sortNew:'최신순',sortName:'이름순',snapshot:'프로젝트 목록',colProject:'프로젝트',colKind:'종류',colYear:'연도',colStack:'스택',colStatus:'상태',colVisit:'자세히',visit:'미리보기',details:'자세히',close:'닫기',role:'역할',highlights:'핵심',liveUrl:'프로젝트',statusLive:'라이브',statusShipped:'출시',statusOngoing:'진행 중',kindProduct:'프로덕트',kindSystem:'시스템',kindWeb:'웹',empty:'조건에 맞는 프로젝트가 없습니다.',
+    skillsTag:'스킬',skillsTitle:'손에 익은 도구',skillsIntro:'분야를 바꾸면 카드와 표가 함께 갱신됩니다.',tabFront:'프론트엔드',tabBack:'백엔드',tabDesign:'디자인',tabTools:'도구',lvlAdv:'고급',lvlInt:'중급',lvlBas:'기초',colSkill:'스킬',colDomain:'분야',colLevel:'수준',colNote:'메모',achiTag:'성과',achiTitle:'기억할 만한 기록',
+    contactTag:'연락',contactTitle:'연락해요',contactIntro:'아래에 작성하면 메일 앱에서 내용을 확인하고 보낼 수 있습니다. 이메일을 복사해 직접 보내도 됩니다.',email:'이메일',location:'지역',copy:'복사',copied:'복사됨',formName:'이름',formEmail:'이메일',formMsg:'메시지',formSend:'메일 작성',formOk:'메일 앱에서 메시지를 확인할 수 있습니다.',invalid:'이름, 올바른 이메일, 짧은 메시지를 입력해 주세요.',
+    cvTag:'이력서',cvPrint:'인쇄 또는 PDF 저장',cvSummary:'자카르타 기반의 프로덕트 엔지니어입니다. 차분한 인터페이스와 명확한 구조로 이중 언어 웹 제품, 운영 도구, 카탈로그를 만듭니다.',backPortfolio:'포트폴리오로 돌아가기',present:'현재',period:'기간',where:'장소',focus:'집중 분야',jump:'읽기',
+    menuOpen:'메뉴 열기',menuClose:'메뉴 닫기',themeToLight:'라이트 모드로 전환',themeToDark:'다크 모드로 전환'
   }
+};
 
-  function setLang(lang) {
-    state.lang = lang;
-    try { localStorage.setItem("vm-lang", lang); } catch (e) {}
-    applyChrome();
-    restartType();
-  }
+const projects = [
+  {slug:'webstreamanime',name:'WebStreamAnime',year:2025,kind:'product',status:'live',stack:['React','TypeScript','Vite'],url:'webstreamanime.app',role:{en:'Product engineer',kr:'프로덕트 엔지니어'},summary:{en:'An original-series catalog with search, a weekly table, and a lightweight player. Built to be scanned on a phone and lingered on from a laptop.',kr:'검색, 주간 편성표, 가벼운 플레이어를 갖춘 오리지널 시리즈 카탈로그. 휴대폰에서는 훑고, 노트북에서는 머물 수 있게 만들었습니다.'},points:{en:['Catalog, airing table, and episode player share one data set.','Visit opens the product itself, not a dead slide.','Layout holds at 390px without a horizontal scroll.'],kr:['카탈로그, 편성표, 에피소드 플레이어가 하나의 데이터를 씁니다.','방문은 슬라이드가 아니라 제품 그 자체로 이어집니다.','390px에서도 가로 스크롤 없이 유지됩니다.']}},
+  {slug:'north-ledger',name:'North Ledger',year:2024,kind:'system',status:'live',stack:['Laravel','MySQL','Tailwind'],url:'northledger.app',role:{en:'Full-stack',kr:'풀스택'},summary:{en:'A studio finance desk for income, expenses, and a monthly close. The table is the product — filters first, charts second.',kr:'수입, 지출, 월간 마감을 다루는 스튜디오 재무 데스크. 제품의 중심은 표입니다. 필터가 먼저, 차트는 그다음.'},points:{en:['Entries can be filtered by kind without leaving the page.','Monthly totals recompute from the visible rows.','Built for operators, not for a pitch deck.'],kr:['페이지를 벗어나지 않고 종류별로 거를 수 있습니다.','월간 합계는 보이는 행에서 다시 계산됩니다.','발표 자료가 아니라 실무자를 위해 만들었습니다.']}},
+  {slug:'sejuk-bar',name:'Sejuk Bar',year:2024,kind:'web',status:'shipped',stack:['HTML','CSS','JavaScript'],url:'sejuk.bar',role:{en:'Designer & front-end',kr:'디자인 · 프론트엔드'},summary:{en:'A small-batch drink bar site: menu, hours, and a reservation note. Cool on purpose, fast on a café Wi-Fi.',kr:'소규모 드링크 바 사이트. 메뉴, 영업시간, 예약 메모. 일부러 차갑게, 카페 와이파이에서도 빠르게.'},points:{en:['Menu is a real list you can filter by mood.','No account, no cart — just a clear way to choose.','Type and spacing carry the brand more than photos.'],kr:['메뉴는 분위기별로 거를 수 있는 실제 목록입니다.','계정과 장바구니 없이, 고르는 일만 분명합니다.','사진보다 글자와 간격이 브랜드를 맡습니다.']}},
+  {slug:'vow-note',name:'Vow Note',year:2023,kind:'web',status:'shipped',stack:['HTML','CSS','JavaScript'],url:'vow.note',role:{en:'Front-end',kr:'프론트엔드'},summary:{en:'A digital wedding note with the day, the place, and a quiet RSVP list. Editorial, not a template with doves.',kr:'날짜, 장소, 조용한 참석 목록이 있는 디지털 청첩장. 비둘기 템플릿이 아니라 편집 디자인입니다.'},points:{en:['The schedule is a table guests can actually read.','RSVP names stay on the page as a living list.','Motion is limited to the stamp and the reveal.'],kr:['일정은 하객이 실제로 읽을 수 있는 표입니다.','참석 이름은 페이지 위의 살아 있는 목록으로 남습니다.','움직임은 스탬프와 등장에만 둡니다.']}},
+  {slug:'pelita-desk',name:'Pelita Desk',year:2025,kind:'system',status:'live',stack:['Apps Script','HTML','Bootstrap'],url:'pelita.desk',role:{en:'Systems',kr:'시스템'},summary:{en:'A certificate desk for a training floor. Search a name, open the record, keep the issuer and the year in one row.',kr:'연수 현장을 위한 수료증 데스크. 이름을 찾고, 기록을 열고, 발급처와 연도를 한 행에 둡니다.'},points:{en:['Records open in a dialog instead of a new maze of pages.','Issuers and years are filterable.','The sheet stays readable when the list grows.'],kr:['기록은 페이지의 미로 대신 대화창에서 열립니다.','발급처와 연도로 거를 수 있습니다.','목록이 늘어도 표는 읽힙니다.']}},
+  {slug:'lumen-coop',name:'Lumen Coop',year:2024,kind:'system',status:'ongoing',stack:['Laravel','MySQL','Bootstrap'],url:'lumen.coop',role:{en:'Web developer',kr:'웹 개발'},summary:{en:'Member savings and loans for a staff cooperative. Balances, last activity, and a visit into each member’s line.',kr:'직원 협동조합의 저축과 대출. 잔액, 최근 활동, 그리고 조합원별 내역으로의 방문.'},points:{en:['Member table is the home screen, not a buried report.','A row opens that member’s recent lines.','Still in progress — the close-of-month flow is next.'],kr:['조합원 표가 홈입니다. 묻힌 보고서가 아닙니다.','행을 열면 그 조합원의 최근 내역이 나옵니다.','아직 진행 중이며, 다음은 월말 마감 흐름입니다.']}}
+];
 
-  function setTheme(theme) {
-    state.theme = theme;
-    try { localStorage.setItem("vm-theme", theme); } catch (e) {}
-    applyChrome();
-  }
+const jobs = [
+  {id:'atelier',kind:'work',org:'Atelier North',role:{en:'Product engineer',kr:'프로덕트 엔지니어'},place:'Jakarta',start:'2024',end:{en:'Present',kr:'현재'},focus:{en:'Product websites & internal desks',kr:'제품 웹과 사내 데스크'},points:{en:['Shipped WebStreamAnime’s catalog, airing table, and player as one surface.','Set the bilingual EN/KR pattern used across client portals.','Kept a single accent and a square grid so every new page still belongs.'],kr:['WebStreamAnime의 카탈로그, 편성표, 플레이어를 하나의 화면으로 출시했습니다.','고객 포털 전반에 쓰는 영어/한국어 패턴을 정했습니다.','하나의 강조색과 사각 그리드로 새 페이지도 같은 집에 속하게 했습니다.']}},
+  {id:'sable',kind:'work',org:'Sable Studio',role:{en:'Web developer',kr:'웹 개발자'},place:'Remote · Semarang',start:'2022',end:{en:'2024',kr:'2024'},focus:{en:'Marketing sites & invitations',kr:'마케팅 사이트와 초대장'},points:{en:['Designed and built Sejuk Bar and Vow Note from type, not from a theme.','Introduced a shared component rhythm the studio still reuses.','Ran short workshops so clients could edit copy without breaking layout.'],kr:['테마가 아니라 타이포그래피에서 Sejuk Bar와 Vow Note를 설계하고 만들었습니다.','스튜디오가 아직 재사용하는 공통 컴포넌트 리듬을 들였습니다.','레이아웃이 깨지지 않게 고객이 문장을 고치는 짧은 워크숍을 진행했습니다.']}},
+  {id:'harbor',kind:'work',org:'Harbor Cooperative',role:{en:'Web intern',kr:'웹 인턴'},place:'Jakarta',start:'2021',end:{en:'2022',kr:'2022'},focus:{en:'Savings, loans, reporting',kr:'저축, 대출, 보고'},points:{en:['Extended the member ledger that later became Lumen Coop.','Cleaned a year of inconsistent transaction labels into one vocabulary.','Sat with staff during month-end so the table matched how they actually talk.'],kr:['나중에 Lumen Coop이 된 조합원 장부를 확장했습니다.','한 해 동안 들쭉날쭉하던 거래 이름을 하나의 어휘로 정리했습니다.','월말에 직원 옆에 앉아, 표가 실제 말과 맞도록 고쳤습니다.']}}
+];
+const orgs = [
+  {id:'grid-club',org:'Grid Club Jakarta',role:{en:'Program lead',kr:'프로그램 리드'},place:'Jakarta',start:'2023',end:{en:'2025',kr:'2025'},focus:{en:'Critique nights & shipping circles',kr:'크리틱 나이트와 출시 모임'},points:{en:['Hosted monthly critiques with a strict one-accent, one-type rule.','Helped six members publish a first public page.'],kr:['강조색 하나, 서체 하나를 규칙으로 한 월간 크리틱을 열었습니다.','멤버 여섯 명이 첫 공개 페이지를 내도록 도왔습니다.']}},
+  {id:'media-lab',org:'Campus Media Lab',role:{en:'Design member',kr:'디자인 멤버'},place:'Semarang',start:'2021',end:{en:'2023',kr:'2023'},focus:{en:'Posters, titles, short films',kr:'포스터, 타이틀, 단편'},points:{en:['Title cards and posters for student films.','Learned to cut decoration until the type could stand alone.'],kr:['학생 단편의 타이틀 카드와 포스터를 맡았습니다.','글자만으로 설 때까지 장식을 덜어 내는 법을 배웠습니다.']}},
+  {id:'youth-forum',org:'Local Youth Forum',role:{en:'Volunteer',kr:'봉사'},place:'Rembang',start:'2018',end:{en:'2021',kr:'2021'},focus:{en:'Events & guest care',kr:'행사와 손님 응대'},points:{en:['Ran day-of schedules so a crowded hall still felt legible.','The habit of a clear table started here, on paper.'],kr:['북적이는 홀도 읽히도록 당일 일정을 운영했습니다.','분명한 표라는 습관은 여기서, 종이 위에서 시작됐습니다.']}}
+];
+const skills = [
+  ['frontend','TypeScript','Language','advanced','Daily driver for UI and data.','언어','UI와 데이터의 기본 언어.'],['frontend','React','Library','advanced','Routes, tables, and small product shells.','라이브러리','라우트, 표, 작은 제품 셸.'],['frontend','HTML & CSS','Markup','advanced','Layout, type, and the grid underneath.','마크업','레이아웃, 글자, 그리고 밑의 그리드.'],['frontend','Tailwind','Styling','advanced','Tokens first, utilities second.','스타일','토큰이 먼저, 유틸리티는 그다음.'],['frontend','Motion','Interaction','intermediate','Reveal, type, and state — nothing decorative.','인터랙션','등장, 타이핑, 상태. 장식은 넣지 않습니다.'],
+  ['backend','PHP','Language','intermediate','Ledger and cooperative desks.','언어','장부와 조합 데스크.'],['backend','Laravel','Framework','intermediate','North Ledger and Lumen Coop.','프레임워크','North Ledger와 Lumen Coop.'],['backend','MySQL','Database','intermediate','Clear tables, boring on purpose.','데이터베이스','일부러 지루할 만큼 분명한 표.'],['backend','Node','Runtime','basic','Glue and small scripts.','런타임','접착제와 짧은 스크립트.'],
+  ['design','Figma','Design','advanced','Frames that match the build.','디자인','구현과 맞는 프레임.'],['design','Typography','Design','intermediate','Serif for the line, sans for the UI.','디자인','문장은 세리프, UI는 산세리프.'],['design','Prototyping','Design','intermediate','Clickable tables before code.','디자인','코드 전에 눌러 보는 표.'],
+  ['tools','Git','Version control','intermediate','Small commits, readable history.','버전 관리','작은 커밋, 읽히는 기록.'],['tools','Vite','Build','advanced','Default for product shells.','빌드','제품 셸의 기본.'],['tools','Google Workspace','Productivity','advanced','Sheets as a first database.','생산성','첫 데이터베이스로서의 시트.'],['tools','Apps Script','Automation','intermediate','Pelita Desk lives here.','자동화','Pelita Desk가 여기 있습니다.']
+].map(([group,name,domain,level,noteEn,domainKr,noteKr])=>({group,name,domain:{en:domain,kr:domainKr},level,note:{en:noteEn,kr:noteKr}}));
+const achievements = [
+  {year:'2025',title:{en:'WebStreamAnime public catalog',kr:'WebStreamAnime 공개 카탈로그'},issuer:{en:'Atelier North',kr:'Atelier North'},detail:{en:'Shipped the catalog, the weekly airing table, and the episode player as one visit.',kr:'카탈로그, 주간 편성표, 에피소드 플레이어를 한 번의 방문으로 출시했습니다.'}},
+  {year:'2025',title:{en:'Bilingual product pass',kr:'이중 언어 제품 패스'},issuer:{en:'Atelier North',kr:'Atelier North'},detail:{en:'EN/KR toggle with the same layout metrics, so neither language feels like a translation pasted on.',kr:'어느 쪽도 덧붙인 번역처럼 보이지 않도록, 같은 레이아웃 수치로 영어/한국어 전환을 맞췄습니다.'}},
+  {year:'2024',title:{en:'Month-end ledger workshop',kr:'월말 장부 워크숍'},issuer:{en:'Harbor Cooperative',kr:'Harbor Cooperative'},detail:{en:'Sat with operators and rebuilt the transaction vocabulary they still use.',kr:'실무자와 함께 앉아, 그들이 아직 쓰는 거래 어휘를 다시 만들었습니다.'}},
+  {year:'2024',title:{en:'Sejuk Bar launch',kr:'Sejuk Bar 오픈'},issuer:{en:'Sable Studio',kr:'Sable Studio'},detail:{en:'A drink menu that filters by mood and stays readable under café light.',kr:'분위기로 거르고, 카페 조명 아래에서도 읽히는 음료 메뉴.'}},
+  {year:'2023',title:{en:'Grid Club program lead',kr:'Grid Club 프로그램 리드'},issuer:{en:'Grid Club Jakarta',kr:'Grid Club Jakarta'},detail:{en:'A year of critique nights. Six first public pages from the circle.',kr:'일 년의 크리틱 나이트. 모임에서 나온 첫 공개 페이지 여섯 개.'}},
+  {year:'2023',title:{en:'Vow Note, printed and posted',kr:'Vow Note, 인쇄와 게시'},issuer:{en:'Sable Studio',kr:'Sable Studio'},detail:{en:'The same schedule table worked on paper and on the phone.',kr:'같은 일정 표가 종이에서도 휴대폰에서도 작동했습니다.'}}
+];
 
-  // 1. Animasi Mengetik (Typing Effect)
-  let typeTimer = 0;
-  let typeState = { i: 0, n: 0, dir: 1 };
+const t = key => I18N[currentLang][key] ?? I18N.en[key] ?? key;
+const esc = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
+const local = value => value?.[currentLang] ?? value?.en ?? '';
 
-  function restartType() {
-    window.clearTimeout(typeTimer);
-    const el = $(".typed");
-    if (!el) return;
-    const words = (state.lang === "kr" ? el.dataset.wordsKr : el.dataset.wordsEn).split("|");
-    typeState = { i: 0, n: 0, dir: 1, words };
-    tickType();
-  }
+function applyPreferences(){
+  document.documentElement.classList.toggle('light',currentTheme==='light');
+  document.documentElement.lang=currentLang==='kr'?'ko':'en';
+  document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(I18N[currentLang][key]){el.textContent=t(key);if(key==='heroTitle'){const dot=document.createElement('span');dot.className='orange-dot';dot.textContent='.';el.append(dot)}}});
+  document.querySelectorAll('[data-placeholder]').forEach(el=>el.placeholder=t(el.dataset.placeholder));
+  const langBtn=document.getElementById('langToggle');
+  if(langBtn){langBtn.dataset.lang=currentLang;langBtn.setAttribute('aria-label',currentLang==='kr'?'Switch to English':'한국어로 전환');}
+  const cvLang=document.getElementById('cvLangToggle');if(cvLang)cvLang.dataset.lang=currentLang;
+  const themeIcon=document.getElementById('themeIcon');if(themeIcon)themeIcon.textContent=currentTheme==='dark'?'☼':'☾';
+  const themeBtn=document.getElementById('themeToggle');if(themeBtn)themeBtn.title=t(currentTheme==='dark'?'themeToLight':'themeToDark');
+  document.querySelectorAll('[data-lang]').forEach(el=>{if(el.closest('.lang-toggle'))el.closest('.lang-toggle').dataset.lang=currentLang});
+  renderExperience();renderProjects();renderSkills();renderAchievements();renderCv();
+}
+function toggleLanguage(){currentLang=currentLang==='kr'?'en':'kr';writePref(STORAGE.lang,currentLang);applyPreferences()}
+function toggleTheme(){currentTheme=currentTheme==='dark'?'light':'dark';writePref(STORAGE.theme,currentTheme);applyPreferences()}
 
-  function tickType() {
-    const el = $(".typed");
-    if (!el || !typeState.words) return;
-    const word = typeState.words[typeState.i % typeState.words.length];
-    el.textContent = word.slice(0, typeState.n);
+function renderExperience(){
+ const root=document.getElementById('experienceGrid');if(!root)return;
+ const all=[...jobs,...orgs.map(o=>({...o,kind:'org'}))].filter(row=>experienceFilter==='all'||row.kind===experienceFilter);
+ document.querySelectorAll('[data-exp-filter]').forEach(b=>b.classList.toggle('is-on',b.dataset.expFilter===experienceFilter));
+ const count=document.getElementById('experienceCount');if(count)count.textContent=`${all.length} ${t('shown')}`;
+ root.innerHTML=all.map(row=>`<article class="job-card"><header><div class="job-ident"><span class="job-mark">${esc(row.org.slice(0,1))}</span><div><div class="role">${esc(local(row.role))}</div><h3>${esc(row.org)}</h3></div></div><div class="period">${esc(row.start)} — ${esc(local(row.end))}<br>${esc(row.place)}</div></header><p class="muted">${esc(local(row.focus))}</p><ul>${row.points[currentLang].map(p=>`<li>${esc(p)}</li>`).join('')}</ul></article>`).join('');
+ const comm=document.getElementById('communityGrid');if(comm)comm.innerHTML=orgs.map(row=>`<article class="community-card"><span class="period">${esc(row.start)} — ${esc(local(row.end))} · ${esc(row.place)}</span><h3>${esc(row.org)}</h3><p>${esc(local(row.role))} · ${esc(local(row.focus))}</p><ul>${row.points[currentLang].map(p=>`<li>${esc(p)}</li>`).join('')}</ul></article>`).join('');
+}
+function projectDetailsMarkup(p){return `<div class="details-panel"><strong>${esc(t('role'))}:</strong> ${esc(local(p.role))}<br><strong>${esc(t('highlights'))}</strong><ul>${p.points[currentLang].map(point=>`<li>${esc(point)}</li>`).join('')}</ul><p><strong>${esc(t('liveUrl'))}:</strong> ${esc(p.url)}</p></div>`}
+function renderProjects(){
+ const cards=document.getElementById('projectCards');if(!cards)return;
+ cards.innerHTML=projects.map(p=>`<article class="project-card"><div class="poster poster-${esc(p.slug)}"></div><div class="project-body"><div class="project-tags">${p.stack.slice(0,3).map(s=>`<span class="tag-sm">${esc(s)}</span>`).join('')}</div><h3>${esc(p.name)}</h3><p>${esc(local(p.summary))}</p><div class="project-actions"><button type="button" data-project-detail="${esc(p.slug)}">${esc(t('details'))}</button><button type="button" class="visit-btn" data-project-detail="${esc(p.slug)}">${esc(t('visit'))}</button></div></div></article>`).join('');
+ const q=(document.getElementById('projectSearch')?.value||'').trim().toLowerCase();
+ const rows=projects.filter(p=>(projectKind==='all'||p.kind===projectKind)&&`${p.name} ${p.stack.join(' ')} ${local(p.summary)} ${p.kind}`.toLowerCase().includes(q)).sort((a,b)=>projectSort==='name'?a.name.localeCompare(b.name):b.year-a.year);
+ document.querySelectorAll('[data-kind]').forEach(b=>b.classList.toggle('is-on',b.dataset.kind===projectKind));
+ const count=document.getElementById('projectCount');if(count)count.textContent=`${rows.length} ${t('shown')}`;
+ const body=document.getElementById('projectRows');if(body)body.innerHTML=rows.map(p=>`<tr><td><button class="name-btn" type="button" data-project-detail="${esc(p.slug)}">${esc(p.name)}</button><div class="muted">${esc(p.url)}</div></td><td>${esc(t('kind'+p.kind[0].toUpperCase()+p.kind.slice(1)))}</td><td>${p.year}</td><td class="stack-text">${p.stack.map(esc).join(' · ')}</td><td><span class="status-dot"></span>${esc(t('status'+p.status[0].toUpperCase()+p.status.slice(1)))}</td><td><button class="name-btn" type="button" data-project-detail="${esc(p.slug)}">${esc(t('details'))} ↗</button></td></tr>${openProject===p.slug?`<tr><td colspan="6">${projectDetailsMarkup(p)}</td></tr>`:''}`).join('');
+ const mobile=document.getElementById('mobileProjectRows');if(mobile)mobile.innerHTML=rows.map(p=>`<article class="mobile-project ${openProject===p.slug?'is-open':''}" data-mobile-project="${esc(p.slug)}"><header><div><h3>${esc(p.name)}</h3><p>${esc(p.url)}</p></div><span class="tag-sm">${esc(t('status'+p.status[0].toUpperCase()+p.status.slice(1)))}</span></header><p>${p.year} · ${esc(t('kind'+p.kind[0].toUpperCase()+p.kind.slice(1)))}</p><button class="btn-ghost" type="button" data-project-detail="${esc(p.slug)}">${esc(t('details'))}</button>${openProject===p.slug?projectDetailsMarkup(p):''}</article>`).join('');
+}
+function renderSkills(){
+ const grid=document.getElementById('skillGrid');if(!grid)return;
+ document.querySelectorAll('[data-group]').forEach(b=>b.classList.toggle('is-on',b.dataset.group===skillGroup));
+ const rows=skills.filter(s=>s.group===skillGroup);const levelKey={advanced:'lvlAdv',intermediate:'lvlInt',basic:'lvlBas'};
+ grid.innerHTML=rows.map(s=>`<article class="skill-card"><h3>${esc(s.name)}</h3><p>${esc(local(s.domain))} · ${esc(t(levelKey[s.level]))}</p><div class="meter" data-level="${s.level}"><span></span></div></article>`).join('');
+ const tbody=document.getElementById('skillRows');if(tbody)tbody.innerHTML=rows.map(s=>`<tr><td><strong>${esc(s.name)}</strong></td><td>${esc(local(s.domain))}</td><td>${esc(t(levelKey[s.level]))}</td><td>${esc(local(s.note))}</td></tr>`).join('');
+}
+function renderAchievements(){const root=document.getElementById('achievementGrid');if(!root)return;root.innerHTML=achievements.map((a,i)=>`<button class="achievement" type="button" data-achievement="${i}"><span>${esc(a.year)}</span><b>${esc(local(a.title))}</b><small>${esc(local(a.issuer))}</small></button>`).join('')}
+function showModal(title,tag,issuer,detail){const modal=document.getElementById('detailModal');if(!modal)return;document.getElementById('modalTitle').textContent=title;document.getElementById('modalTag').textContent=tag;document.getElementById('modalIssuer').textContent=issuer;document.getElementById('modalDetail').textContent=detail;modal.classList.add('is-open');modal.setAttribute('aria-hidden','false');document.body.style.overflow='hidden'}
+function closeModal(){const modal=document.getElementById('detailModal');if(!modal)return;modal.classList.remove('is-open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+function renderCv(){const exp=document.getElementById('cvExperience');if(!exp)return;exp.innerHTML=jobs.map(j=>`<article class="cv-job"><h3>${esc(local(j.role))} — ${esc(j.org)}</h3><p>${esc(local(j.focus))} · ${esc(j.start)} — ${esc(local(j.end))} · ${esc(j.place)}</p><ul>${j.points[currentLang].map(p=>`<li>${esc(p)}</li>`).join('')}</ul></article>`).join('');const table=document.getElementById('cvProjects');if(table)table.innerHTML=projects.map(p=>`<tr><td>${esc(p.name)}</td><td>${p.year}</td><td>${p.stack.map(esc).join(', ')}</td></tr>`).join('');const top=skills.filter(s=>s.level==='advanced').map(s=>s.name);const skillsEl=document.getElementById('cvSkills');if(skillsEl)skillsEl.textContent=top.join(' · ')}
 
-    if (typeState.dir > 0 && typeState.n >= word.length) {
-      typeState.dir = -1;
-      typeTimer = window.setTimeout(tickType, 1100);
-      return;
-    }
-    if (typeState.dir < 0 && typeState.n <= 0) {
-      typeState.dir = 1;
-      typeState.i += 1;
-      typeTimer = window.setTimeout(tickType, 280);
-      return;
-    }
-    typeState.n += typeState.dir;
-    typeTimer = window.setTimeout(tickType, typeState.dir > 0 ? 78 : 36);
-  }
+function bindEvents(){
+ document.getElementById('langToggle')?.addEventListener('click',toggleLanguage);document.getElementById('cvLangToggle')?.addEventListener('click',toggleLanguage);document.getElementById('themeToggle')?.addEventListener('click',toggleTheme);
+ const menu=document.getElementById('menuToggle'),drawer=document.getElementById('mobileDrawer');menu?.addEventListener('click',()=>{const open=drawer.classList.toggle('open');menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',t(open?'menuClose':'menuOpen'))});drawer?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{drawer.classList.remove('open');menu?.setAttribute('aria-expanded','false')}));
+ document.querySelectorAll('[data-exp-filter]').forEach(b=>b.addEventListener('click',()=>{experienceFilter=b.dataset.expFilter;renderExperience()}));
+ document.querySelectorAll('[data-kind]').forEach(b=>b.addEventListener('click',()=>{projectKind=b.dataset.kind;renderProjects()}));
+ document.getElementById('projectSearch')?.addEventListener('input',renderProjects);document.getElementById('projectSort')?.addEventListener('change',e=>{projectSort=e.target.value;renderProjects()});
+ document.querySelectorAll('[data-group]').forEach(b=>b.addEventListener('click',()=>{skillGroup=b.dataset.group;renderSkills()}));
+ document.addEventListener('click',e=>{
+   const pbtn=e.target.closest('[data-project-detail]');if(pbtn){const p=projects.find(x=>x.slug===pbtn.dataset.projectDetail);if(p){showModal(p.name,`${p.year} · ${t('kind'+p.kind[0].toUpperCase()+p.kind.slice(1))}`,`${t('role')}: ${local(p.role)} · ${p.stack.join(' / ')}`,`${local(p.summary)}\n\n${t('highlights')}:\n• ${p.points[currentLang].join('\n• ')}\n\n${t('liveUrl')}: ${p.url}`)}return;}
+   const ach=e.target.closest('[data-achievement]');if(ach){const a=achievements[Number(ach.dataset.achievement)];if(a)showModal(local(a.title),a.year,local(a.issuer),local(a.detail));return;}
+   if(e.target.closest('[data-close-modal]'))closeModal();
+ });
+ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+ document.getElementById('copyEmail')?.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(EMAIL);toast(t('copied'))}catch{toast(EMAIL)}});
+ document.getElementById('contactForm')?.addEventListener('submit',e=>{e.preventDefault();const form=e.currentTarget;const name=form.elements.name.value.trim(),email=form.elements.email.value.trim(),message=form.elements.message.value.trim();if(name.length<2||!email.includes('@')||message.length<8){document.getElementById('formNote').textContent=t('invalid');return;}const subject=encodeURIComponent(`Portfolio · ${name}`),body=encodeURIComponent(`${message}\n\n— ${name}\n${email}`);document.getElementById('formNote').textContent=t('formOk');window.location.href=`mailto:${EMAIL}?subject=${subject}&body=${body}`;});
+}
+let toastTimer;function toast(message){const el=document.getElementById('toast');if(!el)return;el.textContent=message;el.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove('show'),1700)}
+function animateCounts(){const nodes=[...document.querySelectorAll('[data-count]')];if(!nodes.length)return;const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){const el=entry.target,target=Number(el.dataset.count);let value=0;const step=Math.max(1,Math.ceil(target/22));const timer=setInterval(()=>{value=Math.min(target,value+step);el.textContent=value;if(value>=target)clearInterval(timer)},45);observer.unobserve(el)}})},{threshold:.4});nodes.forEach(n=>observer.observe(n))}
+function setupNavSpy(){const sections=[...document.querySelectorAll('main section[id]')];const links=[...document.querySelectorAll('.nav-link')];if(!('IntersectionObserver'in window))return;const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting){links.forEach(link=>link.classList.toggle('active',link.getAttribute('href')===`#${entry.target.id}`))}})},{rootMargin:'-35% 0px -55% 0px'});sections.forEach(s=>observer.observe(s))}
+function setupTypewriter(){const el=document.getElementById('typedRole');if(!el)return;let i=0;const words=()=>currentLang==='kr'?['프로덕트 엔지니어','인터페이스 디자이너','시스템 빌더']:['Product Engineer','Interface Designer','Systems Builder'];el.textContent=words()[0];setInterval(()=>{const options=words();i=(i+1)%options.length;el.textContent=options[i]},2800)}
 
-  // 2. Animasi Muncul saat Scroll (Scroll Reveal)
-  function initReveal() {
-    const nodes = $$(".reveal");
-    if (!nodes.length) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      nodes.forEach((n) => n.classList.add("is-in"));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting) {
-            en.target.classList.add("is-in");
-            io.unobserve(en.target);
-          }
-        });
-      },
-      { threshold: 0.18 }
-    );
-    nodes.forEach((n) => io.observe(n));
-  }
-
-  // 3. Animasi Penghitung Angka (Stats Counter)
-  function initCount() {
-    const nodes = $$("[data-count]");
-    if (!nodes.length) return;
-    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const run = (el) => {
-      const to = Number(el.dataset.count);
-      if (reduce) {
-        el.textContent = String(to);
-        return;
-      }
-      const start = performance.now();
-      const step = (now) => {
-        const p = Math.min(1, (now - start) / 900);
-        el.textContent = String(Math.round(to * (1 - Math.pow(1 - p, 3))));
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((en) => {
-        if (en.isIntersecting) {
-          run(en.target);
-          io.unobserve(en.target);
-        }
-      });
-    });
-    nodes.forEach((n) => io.observe(n));
-  }
-
-  // 4. Animasi 3D Tilt pada Foto About
-  function initTilt() {
-    const el = $(".about-photo");
-    if (!el) return;
-    el.addEventListener("mousemove", (e) => {
-      const r = el.getBoundingClientRect();
-      const x = (e.clientX - r.left) / r.width - 0.5;
-      const y = (e.clientY - r.top) / r.height - 0.5;
-      el.style.transform = `rotateX(${(-y * 7).toFixed(2)}deg) rotateY(${(x * 8).toFixed(2)}deg)`;
-    });
-    el.addEventListener("mouseleave", () => {
-      el.style.transform = "";
-    });
-  }
-
-  // Event Listeners untuk Tombol Tema & Bahasa
-  function bindChrome() {
-    $$("[data-theme-toggle]").forEach((btn) => {
-      btn.addEventListener("click", () => setTheme(state.theme === "dark" ? "light" : "dark"));
-    });
-    $$(".lang").forEach((btn) => {
-      btn.addEventListener("click", () => setLang(state.lang === "en" ? "kr" : "en"));
-    });
-  }
-
-  applyChrome();
-  bindChrome();
-  initReveal();
-  initCount();
-  initTilt();
-  restartType();
-})();
+bindEvents();applyPreferences();animateCounts();setupNavSpy();setupTypewriter();
