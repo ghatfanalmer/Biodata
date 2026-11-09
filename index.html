@@ -1,34 +1,164 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#07080c">
-  <meta name="description" content="Vander Morder — Product engineer building quiet, precise products.">
-  <meta property="og:title" content="Vander Morder — Portfolio">
-  <meta property="og:description" content="Product websites, operational tools, and systems."
-  >
-  <meta property="og:image" content="assets/og.jpg">
-  <title>Vander Morder — Portfolio</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script src="site.js" defer></script>
-</head>
-<body>
-      <div class="nav-controls">
-        <button class="icon-btn" id="themeToggle" type="button" aria-label="Switch color theme" title="Switch color theme"><span id="themeIcon">☼</span></button>
-        <button class="lang-toggle" id="langToggle" type="button" aria-label="Switch language"><span class="lang-knob"></span><span data-lang="kr">KR</span><span data-lang="en">EN</span></button>
-        <button class="menu-btn" id="menuToggle" type="button" aria-label="Open menu" aria-expanded="false"><span></span><span></span></button>
-      </div>
-  </header>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vander Morder - 안녕, 세상아.</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for Korean (Noto Sans KR) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: #0b0c0e;
+            /* Pola Latar Kotak (Grid Pattern) */
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
 
-  <main id="main">
-    <section class="hero" id="home">
-      <div class="hero-copy wrap">
-        <div class="status-pill"><i></i><span data-i18n="statusAvailable">새 프로젝트를 받고 있습니다</span><span>—</span><b id="typedRole">프로덕트 엔지니어</b></div>
-        <h1 class="hero-title" data-i18n="heroTitle">안녕, 세상아<span class="orange-dot">.</span></h1>
-        <p class="hero-name"><span data-i18n="iPrefix">저는</span> <strong>Vander Morder.</strong></p>
-        <p class="craft" data-i18n="craftLine">조용하고 정확한 제품을 만듭니다.</p>
-        <p class="domain">ghatfan.my.id</p>
-        <p class="hero-sub" data-i18n="heroSub">스트리밍 카탈로그, 운영 도구, 제품 웹을 하나의 결로 설계합니다. 노트북에서도 휴대폰에서도 같은 호흡입니다.</p>
-      </div>
+        /* Continuous gentle wave/bounce greeting animation */
+        @keyframes waveGreeting {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            20% {
+                transform: translateY(-8px) rotate(-2deg);
+            }
+            40% {
+                transform: translateY(0) rotate(2deg);
+            }
+            60% {
+                transform: translateY(-4px) rotate(-1deg);
+            }
+            80% {
+                transform: translateY(0) rotate(0deg);
+            }
+        }
+
+        /* Subtle glow animation for the orange dot */
+        @keyframes dotPulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.7;
+                transform: scale(1.15);
+            }
+        }
+
+        .animate-greeting {
+            display: inline-block;
+            animation: waveGreeting 3.5s ease-in-out infinite;
+            transform-origin: bottom center;
+        }
+
+        .dot-accent {
+            color: #ff8c32;
+            display: inline-block;
+            animation: dotPulse 3.5s ease-in-out infinite;
+        }
+
+        /* Transition smooth untuk pergantian teks */
+        .text-fade {
+            transition: opacity 0.25s ease, transform 0.25s ease;
+        }
+        .text-fade.hidden-text {
+            opacity: 0;
+            transform: translateY(-6px) scale(0.98);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center text-white px-4 select-none overflow-hidden relative">
+
+    <!-- Language Toggle Switch (Simetris Semua Sisi 4px) -->
+    <div class="absolute top-6 right-6 z-20">
+        <button id="langToggle" aria-label="Toggle Language" class="relative grid grid-cols-2 bg-[#181a20]/90 backdrop-blur-md border border-white/10 rounded-full w-[96px] h-[40px] items-center shadow-lg focus:outline-none overflow-hidden cursor-pointer">
+            <!-- Sliding Indicator Pill (Jarak 4px seragam dari atas, bawah, kiri) -->
+            <div id="toggleIndicator" class="absolute top-1 bottom-1 left-1 w-[44px] bg-gradient-to-r from-orange-500 to-amber-500 rounded-full shadow-md transition-transform duration-300 ease-out"></div>
+            
+            <!-- Labels -->
+            <span id="labelKR" class="relative z-10 flex items-center justify-center text-xs font-bold tracking-wider text-white transition-colors duration-300 pointer-events-none">KR</span>
+            <span id="labelEN" class="relative z-10 flex items-center justify-center text-xs font-bold tracking-wider text-gray-400 transition-colors duration-300 pointer-events-none">EN</span>
+        </button>
+    </div>
+
+    <main class="text-center space-y-6 md:space-y-8 z-10">
+        <!-- Main Text with Waving Animation -->
+        <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-tight">
+            <span id="mainHeading" class="animate-greeting text-fade">안녕, 세상아</span><span class="dot-accent">.</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p id="subHeading" class="text-lg sm:text-xl md:text-2xl font-normal tracking-wide text-fade">
+            <span class="text-[#8b9bb4]">저는</span>
+            <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>
+        </p>
+
+        <!-- Domain Footer -->
+        <div class="pt-6">
+            <p class="text-xs sm:text-sm text-[#6c7a89] tracking-widest font-mono">
+                ghatfan.my.id
+            </p>
+        </div>
+    </main>
+
+    <!-- JavaScript Toggle Logic -->
+    <script>
+        const langToggle = document.getElementById('langToggle');
+        const indicator = document.getElementById('toggleIndicator');
+        const labelKR = document.getElementById('labelKR');
+        const labelEN = document.getElementById('labelEN');
+        
+        const mainHeading = document.getElementById('mainHeading');
+        const subHeading = document.getElementById('subHeading');
+
+        let currentLang = 'KR';
+
+        const content = {
+            KR: {
+                main: '안녕, 세상아',
+                sub: '<span class="text-[#8b9bb4]">저는</span> <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>'
+            },
+            EN: {
+                main: 'Hello, World',
+                sub: '<span class="text-[#8b9bb4]">I am</span> <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>'
+            }
+        };
+
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'KR' ? 'EN' : 'KR';
+
+            // Geser presisi 44px
+            if (currentLang === 'EN') {
+                indicator.style.transform = 'translateX(44px)';
+                labelEN.classList.replace('text-gray-400', 'text-white');
+                labelKR.classList.replace('text-white', 'text-gray-400');
+            } else {
+                indicator.style.transform = 'translateX(0px)';
+                labelKR.classList.replace('text-gray-400', 'text-white');
+                labelEN.classList.replace('text-white', 'text-gray-400');
+            }
+
+            // Animate Text Transition
+            mainHeading.classList.add('hidden-text');
+            subHeading.classList.add('hidden-text');
+
+            setTimeout(() => {
+                mainHeading.textContent = content[currentLang].main;
+                subHeading.innerHTML = content[currentLang].sub;
+
+                mainHeading.classList.remove('hidden-text');
+                subHeading.classList.remove('hidden-text');
+            }, 250);
+        });
+    </script>
+
+</body>
+</html>
