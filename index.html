@@ -6,20 +6,72 @@
     <title>Vander Morder - 안녕, 세상아.</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts for Korean (Noto Sans KR) -->
+    <!-- Google Fonts: Noto Sans KR & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --accent-orange: #ff8c32;
+            --accent-amber: #f59e0b;
+            --bg-dark: #07080a;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-            background-color: #0b0c0e;
-            /* Pola Latar Kotak (Grid Pattern) */
-            background-image: 
-                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-color: var(--bg-dark);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .font-mono-code {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Animated Grid Background */
+        .bg-grid-animated {
             background-size: 40px 40px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+            animation: gridMove 25s linear infinite;
+            mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 40%, transparent 100%);
+            -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, #000 40%, transparent 100%);
+        }
+
+        @keyframes gridMove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 40px 40px;
+            }
+        }
+
+        /* Floating Ambient Orbs */
+        @keyframes floatOrb1 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -30px) scale(1.08); }
+            66% { transform: translate(-25px, 25px) scale(0.95); }
+        }
+
+        @keyframes floatOrb2 {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-35px, 35px) scale(1.05); }
+            66% { transform: translate(30px, -20px) scale(0.92); }
+        }
+
+        .orb-1 {
+            animation: floatOrb1 16s ease-in-out infinite;
+        }
+
+        .orb-2 {
+            animation: floatOrb2 20s ease-in-out infinite;
         }
 
         /* Continuous gentle wave/bounce greeting animation */
@@ -27,17 +79,14 @@
             0%, 100% {
                 transform: translateY(0) rotate(0deg);
             }
-            20% {
-                transform: translateY(-8px) rotate(-2deg);
+            25% {
+                transform: translateY(-7px) rotate(-1.5deg);
             }
-            40% {
-                transform: translateY(0) rotate(2deg);
+            50% {
+                transform: translateY(0) rotate(1.5deg);
             }
-            60% {
-                transform: translateY(-4px) rotate(-1deg);
-            }
-            80% {
-                transform: translateY(0) rotate(0deg);
+            75% {
+                transform: translateY(-4px) rotate(-0.8deg);
             }
         }
 
@@ -46,94 +95,314 @@
             0%, 100% {
                 opacity: 1;
                 transform: scale(1);
+                text-shadow: 0 0 18px rgba(255, 140, 50, 0.85);
             }
             50% {
                 opacity: 0.7;
-                transform: scale(1.15);
+                transform: scale(1.18);
+                text-shadow: 0 0 28px rgba(255, 140, 50, 1);
             }
         }
 
         .animate-greeting {
             display: inline-block;
-            animation: waveGreeting 3.5s ease-in-out infinite;
+            animation: waveGreeting 4s ease-in-out infinite;
             transform-origin: bottom center;
         }
 
         .dot-accent {
-            color: #ff8c32;
+            color: var(--accent-orange);
             display: inline-block;
             animation: dotPulse 3.5s ease-in-out infinite;
         }
 
-        /* Transition smooth untuk pergantian teks */
+        /* Smooth Blur & Fade Transition for Language Switch */
         .text-fade {
-            transition: opacity 0.25s ease, transform 0.25s ease;
+            transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+                        filter 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+
         .text-fade.hidden-text {
             opacity: 0;
-            transform: translateY(-6px) scale(0.98);
+            transform: translateY(-6px) scale(0.985);
+            filter: blur(4px);
+        }
+
+        /* Staggered Entrance Animations on Page Load */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(22px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .reveal-1 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards; opacity: 0; }
+        .reveal-2 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.22s forwards; opacity: 0; }
+        .reveal-3 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.34s forwards; opacity: 0; }
+        .reveal-4 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.46s forwards; opacity: 0; }
+        .reveal-5 { animation: fadeInUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.58s forwards; opacity: 0; }
+
+        /* Notice Card Glassmorphism & Shimmer Effect */
+        .notice-card {
+            background: linear-gradient(145deg, rgba(24, 26, 33, 0.78) 0%, rgba(15, 17, 22, 0.88) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 
+                        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        .notice-card:hover {
+            transform: translateY(-3px);
+            border-color: rgba(255, 140, 50, 0.35);
+            box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 
+                        0 0 25px rgba(255, 140, 50, 0.08),
+                        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+        }
+
+        /* Light sweep across card */
+        .notice-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(255, 140, 50, 0.05),
+                rgba(255, 255, 255, 0.06),
+                transparent
+            );
+            transform: skewX(-25deg);
+            animation: cardShimmer 8s infinite;
+            pointer-events: none;
+        }
+
+        @keyframes cardShimmer {
+            0% { left: -150%; }
+            35%, 100% { left: 150%; }
+        }
+
+        /* Mouse Interactive Spotlight */
+        #spotlight {
+            background: radial-gradient(600px circle at var(--x, 50%) var(--y, 50%), rgba(255, 140, 50, 0.055), transparent 40%);
         }
     </style>
 </head>
-<body class="min-h-screen flex items-center justify-center text-white px-4 select-none overflow-hidden relative">
+<body class="min-h-screen flex flex-col justify-between items-center text-white px-4 py-6 select-none relative">
 
-    <!-- Language Toggle Switch (Simetris Semua Sisi 4px) -->
-    <div class="absolute top-6 right-6 z-20">
-        <button id="langToggle" aria-label="Toggle Language" class="relative grid grid-cols-2 bg-[#181a20]/90 backdrop-blur-md border border-white/10 rounded-full w-[96px] h-[40px] items-center shadow-lg focus:outline-none overflow-hidden cursor-pointer">
-            <!-- Sliding Indicator Pill (Jarak 4px seragam dari atas, bawah, kiri) -->
-            <div id="toggleIndicator" class="absolute top-1 bottom-1 left-1 w-[44px] bg-gradient-to-r from-orange-500 to-amber-500 rounded-full shadow-md transition-transform duration-300 ease-out"></div>
+    <!-- 1. BACKGROUND LAYERS -->
+    <!-- Interactive Mouse Spotlight -->
+    <div id="spotlight" class="fixed inset-0 pointer-events-none z-0 transition-opacity duration-500"></div>
+    
+    <!-- Moving Grid Overlay -->
+    <div class="fixed inset-0 bg-grid-animated pointer-events-none z-0"></div>
+
+    <!-- Floating Ambient Glowing Orbs -->
+    <div class="fixed top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[320px] h-[320px] md:w-[450px] md:h-[450px] bg-orange-500/10 rounded-full blur-[120px] pointer-events-none z-0 orb-1"></div>
+    <div class="fixed bottom-1/4 right-1/4 translate-x-1/3 translate-y-1/3 w-[280px] h-[280px] md:w-[400px] md:h-[400px] bg-blue-500/10 rounded-full blur-[120px] pointer-events-none z-0 orb-2"></div>
+
+    <!-- Subtle Floating Star Particles Canvas -->
+    <canvas id="particleCanvas" class="fixed inset-0 pointer-events-none z-0 opacity-60"></canvas>
+
+    <!-- 2. TOP NAVIGATION BAR (Presisi Tinggi) -->
+    <header class="w-full max-w-5xl flex items-center justify-between z-20 pt-1 px-2">
+        <!-- Live Verified Status Pill -->
+        <div class="flex items-center gap-2.5 bg-[#14161c]/85 backdrop-blur-md border border-white/10 rounded-full px-3.5 h-[40px] shadow-lg">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span id="statusBadgeText" class="text-[11px] sm:text-xs font-medium text-gray-300 tracking-wider font-mono-code text-fade">
+                OFFICIAL IDENTITY
+            </span>
+        </div>
+
+        <!-- Language Toggle Switch (Simetris Semua Sisi 4px: 96px x 40px, Pill 44px x 32px) -->
+        <button id="langToggle" aria-label="Toggle Language" class="relative grid grid-cols-2 bg-[#14161c]/90 backdrop-blur-md border border-white/10 hover:border-white/20 rounded-full w-[96px] h-[40px] items-center shadow-lg focus:outline-none overflow-hidden cursor-pointer transition-colors">
+            <!-- Sliding Indicator Pill (Jarak 4px presisi dari atas, bawah, kiri) -->
+            <div id="toggleIndicator" class="absolute top-[3px] bottom-[3px] left-[3px] w-[44px] bg-gradient-to-r from-orange-500 to-amber-500 rounded-full shadow-md transition-transform duration-300 ease-out"></div>
             
             <!-- Labels -->
             <span id="labelKR" class="relative z-10 flex items-center justify-center text-xs font-bold tracking-wider text-white transition-colors duration-300 pointer-events-none">KR</span>
             <span id="labelEN" class="relative z-10 flex items-center justify-center text-xs font-bold tracking-wider text-gray-400 transition-colors duration-300 pointer-events-none">EN</span>
         </button>
-    </div>
+    </header>
 
-    <main class="text-center space-y-6 md:space-y-8 z-10">
-        <!-- Main Text with Waving Animation -->
-        <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-tight">
-            <span id="mainHeading" class="animate-greeting text-fade">안녕, 세상아</span><span class="dot-accent">.</span>
-        </h1>
+    <!-- 3. MAIN CONTENT AREA -->
+    <main class="w-full max-w-2xl my-auto py-8 flex flex-col items-center text-center z-10 space-y-6 sm:space-y-8">
+        
+        <!-- Decorative Top Tag -->
+        <div class="reveal-1 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-orange-500/10 border border-orange-500/20 text-orange-400 text-xs font-mono-code tracking-widest uppercase">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path>
+            </svg>
+            <span id="welcomeTag" class="text-fade">PERSONAL PORTAL</span>
+        </div>
 
-        <!-- Subheading -->
-        <p id="subHeading" class="text-lg sm:text-xl md:text-2xl font-normal tracking-wide text-fade">
-            <span class="text-[#8b9bb4]">저는</span>
-            <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>
-        </p>
+        <!-- Main Heading with Waving Animation -->
+        <div class="reveal-2 space-y-3 sm:space-y-4">
+            <h1 class="text-5xl sm:text-7xl md:text-8xl font-black tracking-tight leading-none">
+                <span id="mainHeading" class="animate-greeting text-fade bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-300">안녕, 세상아</span><span class="dot-accent">.</span>
+            </h1>
 
-        <!-- Domain Footer -->
-        <div class="pt-6">
-            <p class="text-xs sm:text-sm text-[#6c7a89] tracking-widest font-mono">
-                ghatfan.my.id
+            <!-- Subheading -->
+            <p id="subHeading" class="text-lg sm:text-xl md:text-2xl font-normal tracking-wide text-fade pt-1">
+                <span class="text-[#8b9bb4]">저는</span>
+                <span class="text-white font-semibold mx-1.5 relative inline-block">
+                    Vander Morder
+                    <span class="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-orange-500/80 via-amber-400/80 to-transparent rounded-full"></span>
+                </span><span class="text-[#8b9bb4]">입니다.</span>
             </p>
         </div>
+
+        <!-- Impersonation Warning / Description Card -->
+        <div class="reveal-3 w-full pt-2">
+            <div class="notice-card rounded-2xl p-6 sm:p-7 text-left">
+                <!-- Subtle Top Accent Line -->
+                <div class="absolute top-0 left-6 right-6 h-[1px] bg-gradient-to-r from-transparent via-orange-500/50 to-transparent"></div>
+
+                <!-- Card Header -->
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="flex items-center justify-center w-9 h-9 rounded-xl bg-orange-500/15 border border-orange-500/30 text-orange-400 shrink-0 shadow-inner">
+                        <svg class="w-5 h-5 animate-pulse" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 id="noticeTitle" class="text-xs sm:text-sm font-bold tracking-wider uppercase text-orange-400 font-mono-code text-fade">
+                            사칭 주의 안내 • SECURITY NOTICE
+                        </h2>
+                        <p id="noticeSubtitle" class="text-[11px] text-gray-400 text-fade">
+                            Official Verification & Impersonation Alert
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card Body Description Text -->
+                <div class="space-y-3.5 text-sm sm:text-[15px] leading-relaxed text-gray-200/90 font-normal border-l-2 border-orange-500/40 pl-4 py-0.5">
+                    <p id="descParagraph1" class="text-fade break-keep">
+                        현재 저를 사칭하는 사례가 다수 발생하고 있습니다. 이와 관련된 문제를 겪으시거나 저를 사칭하는 계정을 발견하신 경우, 즉시 연락해 주시기 바랍니다.
+                    </p>
+                    <p id="descParagraph2" class="text-fade text-white font-medium pt-0.5">
+                        관심과 협조에 감사드립니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Domain Pill Badge -->
+        <div class="reveal-4 pt-2">
+            <a href="https://ghatfan.my.id" class="group inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#12141a]/90 border border-white/10 hover:border-orange-500/40 transition-all duration-300 shadow-md">
+                <span class="w-1.5 h-1.5 rounded-full bg-orange-400 group-hover:scale-125 transition-transform"></span>
+                <span class="text-xs sm:text-sm text-[#8b9bb4] group-hover:text-white tracking-widest font-mono-code transition-colors">
+                    ghatfan.my.id
+                </span>
+                <svg class="w-3.5 h-3.5 text-gray-500 group-hover:text-orange-400 group-hover:translate-x-0.5 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+                </svg>
+            </a>
+        </div>
+
     </main>
 
-    <!-- JavaScript Toggle Logic -->
+    <!-- 4. FOOTER & CREDITS (Presisi & Bersih) -->
+    <footer class="reveal-5 w-full max-w-5xl z-10 pb-2 px-2">
+        <div class="w-full h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent mb-4"></div>
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] sm:text-xs text-[#6c7a89] font-mono-code">
+            <p id="creditLeft" class="text-fade tracking-wider">
+                © <span id="currentYear">2026</span> <span class="text-gray-300 font-medium">Vander Morder</span>. All rights reserved.
+            </p>
+            <p id="creditRight" class="text-fade tracking-wider flex items-center gap-1.5">
+                <span>Crafted with precision</span>
+                <span class="text-orange-400">•</span>
+                <span class="text-gray-400">ghatfan.my.id</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 5. JAVASCRIPT LOGIC (Language Switch, Particles & Spotlight) -->
     <script>
+        // Set Dynamic Year
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+        // Elements for Language Toggle
         const langToggle = document.getElementById('langToggle');
         const indicator = document.getElementById('toggleIndicator');
         const labelKR = document.getElementById('labelKR');
         const labelEN = document.getElementById('labelEN');
         
+        // Text Elements to Animate
+        const statusBadgeText = document.getElementById('statusBadgeText');
+        const welcomeTag = document.getElementById('welcomeTag');
         const mainHeading = document.getElementById('mainHeading');
         const subHeading = document.getElementById('subHeading');
+        const noticeTitle = document.getElementById('noticeTitle');
+        const noticeSubtitle = document.getElementById('noticeSubtitle');
+        const descParagraph1 = document.getElementById('descParagraph1');
+        const descParagraph2 = document.getElementById('descParagraph2');
+        const creditRight = document.getElementById('creditRight');
+
+        const animatedTextElements = [
+            statusBadgeText,
+            welcomeTag,
+            mainHeading,
+            subHeading,
+            noticeTitle,
+            noticeSubtitle,
+            descParagraph1,
+            descParagraph2,
+            creditRight
+        ];
 
         let currentLang = 'KR';
 
         const content = {
             KR: {
+                pageTitle: 'Vander Morder - 안녕, 세상아.',
+                statusBadge: '공식 인증 프로필',
+                welcomeTag: 'PERSONAL PORTAL',
                 main: '안녕, 세상아',
-                sub: '<span class="text-[#8b9bb4]">저는</span> <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>'
+                sub: '<span class="text-[#8b9bb4]">저는</span> <span class="text-white font-semibold mx-1.5 relative inline-block">Vander Morder<span class="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-orange-500/80 via-amber-400/80 to-transparent rounded-full"></span></span><span class="text-[#8b9bb4]">입니다.</span>',
+                noticeTitle: '사칭 주의 안내 • SECURITY NOTICE',
+                noticeSub: '공식 계정 확인 및 사칭 피해 예방 안내',
+                desc1: '현재 저를 사칭하는 사례가 다수 발생하고 있습니다. 이와 관련된 문제를 겪으시거나 저를 사칭하는 계정을 발견하신 경우, 즉시 연락해 주시기 바랍니다.',
+                desc2: '관심과 협조에 감사드립니다.',
+                creditRight: '<span>정교하게 제작됨</span><span class="text-orange-400">•</span><span class="text-gray-400">ghatfan.my.id</span>'
             },
             EN: {
+                pageTitle: 'Vander Morder - Hello, World.',
+                statusBadge: 'OFFICIAL IDENTITY',
+                welcomeTag: 'PERSONAL PORTAL',
                 main: 'Hello, World',
-                sub: '<span class="text-[#8b9bb4]">I am</span> <span class="text-white font-semibold mx-1">Vander Morder</span><span class="text-[#8b9bb4]">.</span>'
+                sub: '<span class="text-[#8b9bb4]">I am</span> <span class="text-white font-semibold mx-1.5 relative inline-block">Vander Morder<span class="absolute -bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-orange-500/80 via-amber-400/80 to-transparent rounded-full"></span></span><span class="text-[#8b9bb4]">.</span>',
+                noticeTitle: 'SECURITY NOTICE • IMPERSONATION ALERT',
+                noticeSub: 'Official Verification & Impersonation Notice',
+                desc1: 'There have been multiple instances of individuals impersonating me. Should you encounter any related issues or come across an account falsely claiming to be me, please contact me immediately.',
+                desc2: 'Thank you for your attention and cooperation.',
+                creditRight: '<span>Crafted with precision</span><span class="text-orange-400">•</span><span class="text-gray-400">ghatfan.my.id</span>'
             }
         };
 
+        // Initialize KR Badge on Load
+        statusBadgeText.textContent = content.KR.statusBadge;
+        noticeSubtitle.textContent = content.KR.noticeSub;
+        creditRight.innerHTML = content.KR.creditRight;
+
         langToggle.addEventListener('click', () => {
             currentLang = currentLang === 'KR' ? 'EN' : 'KR';
+            document.documentElement.lang = currentLang === 'KR' ? 'ko' : 'en';
+            document.title = content[currentLang].pageTitle;
 
             // Geser presisi 44px
             if (currentLang === 'EN') {
@@ -146,18 +415,97 @@
                 labelEN.classList.replace('text-white', 'text-gray-400');
             }
 
-            // Animate Text Transition
-            mainHeading.classList.add('hidden-text');
-            subHeading.classList.add('hidden-text');
+            // Fade Out All Text Elements
+            animatedTextElements.forEach(el => el.classList.add('hidden-text'));
 
             setTimeout(() => {
+                statusBadgeText.textContent = content[currentLang].statusBadge;
+                welcomeTag.textContent = content[currentLang].welcomeTag;
                 mainHeading.textContent = content[currentLang].main;
                 subHeading.innerHTML = content[currentLang].sub;
+                noticeTitle.textContent = content[currentLang].noticeTitle;
+                noticeSubtitle.textContent = content[currentLang].noticeSub;
+                descParagraph1.textContent = content[currentLang].desc1;
+                descParagraph2.textContent = content[currentLang].desc2;
+                creditRight.innerHTML = content[currentLang].creditRight;
 
-                mainHeading.classList.remove('hidden-text');
-                subHeading.classList.remove('hidden-text');
-            }, 250);
+                // Fade In All Text Elements
+                animatedTextElements.forEach(el => el.classList.remove('hidden-text'));
+            }, 260);
         });
+
+        // Interactive Spotlight Effect Following Cursor
+        const spotlight = document.getElementById('spotlight');
+        window.addEventListener('mousemove', (e) => {
+            spotlight.style.setProperty('--x', `${e.clientX}px`);
+            spotlight.style.setProperty('--y', `${e.clientY}px`);
+        });
+
+        // Subtle Floating Background Particles (Canvas)
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.8 + 0.5;
+                this.speedY = -(Math.random() * 0.25 + 0.08);
+                this.speedX = (Math.random() - 0.5) * 0.2;
+                this.alpha = Math.random() * 0.55 + 0.15;
+                this.isAccent = Math.random() > 0.78;
+            }
+            update() {
+                this.y += this.speedY;
+                this.x += this.speedX;
+
+                if (this.y < -10 || this.x < -10 || this.x > canvas.width + 10) {
+                    this.reset();
+                    this.y = canvas.height + 10;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                if (this.isAccent) {
+                    ctx.fillStyle = `rgba(255, 140, 50, ${this.alpha})`;
+                } else {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha * 0.6})`;
+                }
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            const count = window.innerWidth < 768 ? 28 : 55;
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        initParticles();
+        animateParticles();
     </script>
 
 </body>
