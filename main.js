@@ -361,8 +361,9 @@
     const toast = document.getElementById("toast");
     const copyBtn = document.getElementById("copy-email");
     let toastTimeout
-    = null;
+     = null;
     let copyResetTimeout = null;
+
     function showToast(msg) {
         if (!toast) return;
         window.clearTimeout(toastTimeout);
