@@ -2,1728 +2,157 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
     <title>Ghatfan Almer — Portofolio</title>
-
     <meta
         name="description"
         content="Portofolio Ghatfan Almer — eksplorasi teknologi, OSINT, pengembangan web, dan keamanan digital."
     >
-
-    <meta name="theme-color" content="#090b0e">
+    <meta name="theme-color" content="#050505">
     <meta name="color-scheme" content="dark">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
     <link
-        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
         rel="stylesheet"
     >
 
-    <style>
-        /* =====================================================
-           01. DESIGN TOKENS & RESET
-        ===================================================== */
-
-        :root {
-            color-scheme: dark;
-
-            --bg: #090b0e;
-            --surface: #101318;
-            --surface-raised: #15191f;
-
-            --text: #f1f0e9;
-            --muted: #a2a8b1;
-            --subtle: #777f8b;
-
-            --accent: #ff9b59;
-            --accent-soft: rgba(255, 155, 89, .09);
-            --green: #83dba8;
-
-            --line: rgba(255, 255, 255, .10);
-            --radius: 24px;
-            --container: 1160px;
-
-            --font-body: "DM Sans", system-ui, sans-serif;
-            --font-display: "Space Grotesk", system-ui, sans-serif;
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 28px;
-        }
-
-        body {
-            margin: 0;
-            background: var(--bg);
-            color: var(--text);
-            font-family: var(--font-body);
-            line-height: 1.65;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        body::before {
-            content: "";
-            position: absolute;
-            inset: 0 0 auto;
-            height: 760px;
-            z-index: -1;
-            pointer-events: none;
-            background:
-                radial-gradient(
-                    ellipse at 84% 25%,
-                    rgba(255, 155, 89, .065),
-                    transparent 55%
-                );
-        }
-
-        ::selection {
-            color: var(--text);
-            background: rgba(255, 155, 89, .28);
-        }
-
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
-
-        button {
-            color: inherit;
-            font: inherit;
-        }
-
-        a,
-        button {
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        button {
-            cursor: pointer;
-        }
-
-        button:disabled {
-            cursor: default;
-            opacity: .5;
-        }
-
-        :where(a, button, summary):focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 5px;
-        }
-
-        h1,
-        h2,
-        h3,
-        p {
-            margin: 0;
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-family: var(--font-display);
-        }
-
-        img,
-        svg,
-        iframe {
-            display: block;
-        }
-
-        img {
-            max-width: 100%;
-        }
-
-        svg {
-            flex-shrink: 0;
-        }
-
-        [hidden] {
-            display: none !important;
-        }
-
-        .container {
-            width: min(var(--container), calc(100% - 48px));
-            margin-inline: auto;
-        }
-
-        .icon {
-            width: 22px;
-            height: 22px;
-            fill: none;
-            stroke: currentColor;
-            stroke-width: 1.65;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
-
-        .icon-sm {
-            width: 18px;
-            height: 18px;
-        }
-
-        .brand-icon {
-            width: 26px;
-            height: 26px;
-            stroke: none;
-        }
-
-        .eyebrow {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--accent);
-            font-family: var(--font-display);
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: .17em;
-            text-transform: uppercase;
-        }
-
-        .eyebrow::before {
-            content: "";
-            width: 24px;
-            height: 1px;
-            flex-shrink: 0;
-            background: currentColor;
-        }
-
-        .section-title {
-            margin-top: 20px;
-            font-size: clamp(32px, 4.7vw, 58px);
-            font-weight: 500;
-            line-height: 1.12;
-            letter-spacing: -.055em;
-            text-wrap: balance;
-        }
-
-        .muted {
-            color: var(--muted);
-        }
-
-        .accent {
-            color: var(--accent);
-        }
-
-        .section {
-            padding-block: 100px;
-            border-top: 1px solid var(--line);
-        }
-
-        .section-intro {
-            max-width: 610px;
-            margin-top: 22px;
-            color: var(--muted);
-            font-size: 15px;
-            line-height: 1.9;
-        }
-
-        .skip-link {
-            position: fixed;
-            top: 16px;
-            left: 16px;
-            z-index: 100;
-            padding: 12px 18px;
-            border-radius: 12px;
-            color: var(--bg);
-            background: var(--accent);
-            transform: translateY(-180%);
-        }
-
-        .skip-link:focus {
-            transform: translateY(0);
-        }
-
-        /* =====================================================
-           02. HEADER — NORMAL FLOW, NOT STICKY
-        ===================================================== */
-
-        .site-header {
-            padding-block: 28px;
-        }
-
-        .header-inner {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-        }
-
-        .identity {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-        }
-
-        .identity-mark {
-            display: grid;
-            place-items: center;
-            width: 36px;
-            height: 36px;
-            border: 1px solid var(--line);
-            border-radius: 50%;
-            color: var(--accent);
-        }
-
-        .identity-text {
-            font-family: var(--font-display);
-            font-size: 11px;
-            font-weight: 500;
-            letter-spacing: .12em;
-        }
-
-        .identity-text small {
-            display: block;
-            margin-top: 2px;
-            color: var(--subtle);
-            font-size: 9px;
-            font-weight: 400;
-            letter-spacing: .16em;
-        }
-
-        .language-switch {
-            display: flex;
-            gap: 4px;
-            padding: 4px;
-            border: 1px solid var(--line);
-            border-radius: 999px;
-            background: var(--surface);
-        }
-
-        .language-switch button {
-            min-width: 44px;
-            min-height: 38px;
-            padding: 7px 12px;
-            border: 0;
-            border-radius: 999px;
-            background: transparent;
-            color: var(--muted);
-            font-family: var(--font-display);
-            font-size: 12px;
-            transition:
-                color .2s ease,
-                background .2s ease;
-        }
-
-        .language-switch button[aria-pressed="true"] {
-            color: var(--bg);
-            background: var(--text);
-        }
-
-        /* =====================================================
-           03. HERO & BUTTONS
-        ===================================================== */
-
-        .hero {
-            display: grid;
-            grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
-            align-items: center;
-            gap: 44px;
-            min-height: min(780px, 88svh);
-            padding-block: 70px 100px;
-        }
-
-        .availability {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            color: var(--muted);
-            font-size: 11px;
-            letter-spacing: .04em;
-        }
-
-        .availability-dot {
-            position: relative;
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--green);
-        }
-
-        .availability-dot::after {
-            content: "";
-            position: absolute;
-            inset: -5px;
-            border: 1px solid rgba(131, 219, 168, .3);
-            border-radius: 50%;
-        }
-
-        .hero-greeting {
-            margin-top: 36px;
-            color: var(--muted);
-            font-size: 15px;
-        }
-
-        .hero h1 {
-            margin-top: 10px;
-            font-size: clamp(64px, 8.3vw, 108px);
-            font-weight: 500;
-            line-height: .98;
-            letter-spacing: -.075em;
-        }
-
-        .hero h1 span {
-            display: block;
-        }
-
-        .hero h1 .last-name {
-            color: #aeb3bc;
-        }
-
-        .hero h1 .last-name::after {
-            content: ".";
-            color: var(--accent);
-        }
-
-        .hero-tagline {
-            margin-top: 28px;
-            font-family: var(--font-display);
-            font-size: clamp(17px, 2vw, 22px);
-            line-height: 1.5;
-            letter-spacing: -.035em;
-        }
-
-        .hero-description {
-            max-width: 500px;
-            margin-top: 18px;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.95;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 32px;
-        }
-
-        .button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            min-height: 49px;
-            padding: 13px 20px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            font-size: 12px;
-            font-weight: 600;
-            transition:
-                background .2s ease,
-                border-color .2s ease,
-                transform .2s ease;
-        }
-
-        .button-primary {
-            color: #17110c;
-            background: var(--accent);
-            border-color: var(--accent);
-        }
-
-        .button-secondary {
-            color: var(--text);
-            background: transparent;
-        }
-
-        .hero-footer {
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 10px 15px;
-            margin-top: 40px;
-            color: var(--subtle);
-            font-family: var(--font-display);
-            font-size: 10px;
-            letter-spacing: .08em;
-        }
-
-        .hero-footer i {
-            width: 3px;
-            height: 3px;
-            border-radius: 50%;
-            background: var(--accent);
-        }
-
-        /* =====================================================
-           04. DIGITAL ORBIT VISUAL
-           No canvas, mouse tracker, or large animated blur.
-        ===================================================== */
-
-        .orbit-visual {
-            position: relative;
-            display: grid;
-            place-items: center;
-            width: 100%;
-            max-width: 430px;
-            aspect-ratio: 1;
-            justify-self: end;
-            isolation: isolate;
-        }
-
-        .orbit-visual::before {
-            content: "";
-            position: absolute;
-            inset: 2%;
-            z-index: -1;
-            border-radius: 50%;
-            background:
-                radial-gradient(
-                    circle,
-                    rgba(255, 155, 89, .06),
-                    transparent 67%
-                );
-        }
-
-        .orbit-ring {
-            position: absolute;
-            border: 1px solid var(--line);
-            border-radius: 50%;
-        }
-
-        .ring-one {
-            inset: 9%;
-            animation: orbit-spin 34s linear infinite;
-        }
-
-        .ring-two {
-            inset: 22%;
-            border-style: dashed;
-            border-color: rgba(255, 255, 255, .10);
-            animation: orbit-spin 48s linear infinite reverse;
-        }
-
-        .ring-three {
-            inset: 0;
-            border-color: rgba(255, 255, 255, .045);
-        }
-
-        .orbit-node {
-            position: absolute;
-            top: 50%;
-            left: -5px;
-            width: 10px;
-            height: 10px;
-            border: 3px solid var(--bg);
-            border-radius: 50%;
-            background: var(--accent);
-        }
-
-        .ring-two .orbit-node {
-            top: 0;
-            left: 50%;
-            width: 8px;
-            height: 8px;
-            background: var(--green);
-        }
-
-        .orbit-core {
-            position: relative;
-            display: grid;
-            place-items: center;
-            width: 108px;
-            height: 108px;
-            border: 1px solid rgba(255, 155, 89, .23);
-            border-radius: 28px;
-            background: #121417;
-            color: var(--accent);
-            transform: rotate(-8deg);
-        }
-
-        .orbit-core .icon {
-            width: 38px;
-            height: 38px;
-            transform: rotate(8deg);
-            stroke-width: 1.2;
-        }
-
-        .orbit-label {
-            position: absolute;
-            display: flex;
-            align-items: center;
-            gap: 9px;
-            padding: 10px 13px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: var(--surface);
-            color: #c4c8cf;
-            font-family: var(--font-display);
-            font-size: 10px;
-            letter-spacing: .02em;
-        }
-
-        .orbit-label .icon {
-            width: 15px;
-            height: 15px;
-            color: var(--accent);
-        }
-
-        .label-code {
-            top: 12%;
-            right: 0;
-        }
-
-        .label-research {
-            bottom: 22%;
-            left: 0;
-        }
-
-        .orbit-caption {
-            position: absolute;
-            bottom: -8px;
-            color: var(--subtle);
-            font-family: var(--font-display);
-            font-size: 9px;
-            letter-spacing: .18em;
-        }
-
-        @keyframes orbit-spin {
-            to { transform: rotate(360deg); }
-        }
-
-        /* =====================================================
-           05. ABOUT & WORKFLOW
-        ===================================================== */
-
-        .about-grid {
-            display: grid;
-            grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-            gap: 80px;
-        }
-
-        .about-copy {
-            display: grid;
-            gap: 20px;
-            color: var(--muted);
-            font-size: 15px;
-            line-height: 1.95;
-        }
-
-        .about-copy strong {
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .tag {
-            display: inline-flex;
-            align-items: center;
-            min-height: 27px;
-            padding: 4px 9px;
-            border: 1px solid var(--line);
-            border-radius: 6px;
-            color: var(--muted);
-            font-size: 10px;
-            line-height: 1.5;
-        }
-
-        .about-copy .tags {
-            margin-top: 5px;
-        }
-
-        .workflow {
-            position: relative;
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 32px;
-            margin-top: 65px;
-            padding-top: 34px;
-            border-top: 1px solid var(--line);
-            overflow: hidden;
-        }
-
-        .workflow::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                var(--accent),
-                transparent
-            );
-            animation: travel-line 8s ease-in-out infinite;
-        }
-
-        .workflow-number {
-            color: var(--accent);
-            font-family: var(--font-display);
-            font-size: 11px;
-        }
-
-        .workflow h3 {
-            margin-top: 13px;
-            font-size: 18px;
-            font-weight: 500;
-            letter-spacing: -.03em;
-        }
-
-        .workflow p {
-            max-width: 280px;
-            margin-top: 10px;
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.85;
-        }
-
-        @keyframes travel-line {
-            from { left: -80px; }
-            to { left: 100%; }
-        }
-
-        /* =====================================================
-           06. SKILLS
-        ===================================================== */
-
-        .section-heading {
-            display: flex;
-            justify-content: space-between;
-            align-items: end;
-            gap: 30px;
-            margin-bottom: 38px;
-        }
-
-        .section-count {
-            flex-shrink: 0;
-            padding-bottom: 7px;
-            color: var(--subtle);
-            font-family: var(--font-display);
-            font-size: 11px;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 14px;
-        }
-
-        .skill-card {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            padding: 27px;
-            border: 1px solid var(--line);
-            border-radius: 18px;
-            background: var(--surface);
-            transition:
-                transform .25s ease,
-                border-color .25s ease,
-                background .25s ease;
-        }
-
-        .skill-card-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .skill-icon {
-            display: grid;
-            place-items: center;
-            width: 48px;
-            height: 48px;
-            border: 1px solid rgba(255, 155, 89, .13);
-            border-radius: 14px;
-            background: var(--accent-soft);
-            color: var(--accent);
-        }
-
-        .skill-icon.brand {
-            background: rgba(255, 255, 255, .025);
-            border-color: var(--line);
-        }
-
-        .skill-index {
-            color: var(--subtle);
-            font-family: var(--font-display);
-            font-size: 10px;
-        }
-
-        .skill-card h3 {
-            margin-top: 26px;
-            font-size: 19px;
-            font-weight: 500;
-            letter-spacing: -.04em;
-        }
-
-        .skill-card p {
-            margin-top: 13px;
-            margin-bottom: 24px;
-            color: var(--muted);
-            font-size: 12px;
-            line-height: 1.9;
-        }
-
-        .skill-card .tags {
-            margin-top: auto;
-        }
-
-        .learning-card {
-            justify-content: center;
-            border-style: dashed;
-            background: transparent;
-        }
-
-        .learning-card .skill-icon {
-            border-radius: 50%;
-        }
-
-        /* =====================================================
-           07. CONTACT
-        ===================================================== */
-
-        .contact-panel {
-            position: relative;
-            padding: clamp(25px, 5vw, 62px);
-            border: 1px solid var(--line);
-            border-radius: var(--radius);
-            background:
-                radial-gradient(
-                    ellipse at 100% 0,
-                    rgba(255, 155, 89, .075),
-                    transparent 50%
-                ),
-                var(--surface);
-        }
-
-        .contact-top {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 24px;
-        }
-
-        .contact-heading {
-            max-width: 760px;
-            margin-top: 32px;
-            font-size: clamp(38px, 6.8vw, 80px);
-            font-weight: 500;
-            line-height: 1.08;
-            letter-spacing: -.065em;
-            text-wrap: balance;
-        }
-
-        .contact-heading span {
-            color: var(--accent);
-        }
-
-        .contact-description {
-            max-width: 500px;
-            margin-top: 22px;
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.9;
-        }
-
-        .contact-email-row {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 14px;
-            margin-top: 34px;
-        }
-
-        .email-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            min-width: 0;
-            padding-bottom: 8px;
-            border-bottom: 1px solid rgba(255, 155, 89, .45);
-            font-family: var(--font-display);
-            font-size: clamp(14px, 2.6vw, 26px);
-            letter-spacing: -.025em;
-        }
-
-        .email-link span {
-            overflow-wrap: anywhere;
-        }
-
-        .email-link .icon {
-            color: var(--accent);
-        }
-
-        .icon-button {
-            display: grid;
-            place-items: center;
-            width: 44px;
-            height: 44px;
-            flex-shrink: 0;
-            padding: 0;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: transparent;
-            color: var(--muted);
-            transition:
-                color .2s ease,
-                border-color .2s ease,
-                background .2s ease;
-        }
-
-        .social-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 12px;
-            margin-top: 46px;
-        }
-
-        .social-card {
-            display: flex;
-            align-items: center;
-            gap: 13px;
-            min-width: 0;
-            min-height: 91px;
-            padding: 18px;
-            border: 1px solid var(--line);
-            border-radius: 14px;
-            background: rgba(255, 255, 255, .015);
-            transition:
-                transform .2s ease,
-                border-color .2s ease,
-                background .2s ease;
-        }
-
-        .social-logo {
-            display: grid;
-            place-items: center;
-            width: 39px;
-            height: 39px;
-            flex-shrink: 0;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-        }
-
-        .social-logo.instagram {
-            color: #eda1cb;
-            background: rgba(224, 96, 161, .07);
-        }
-
-        .social-logo.whatsapp {
-            color: #83dba8;
-            background: rgba(131, 219, 168, .06);
-        }
-
-        .social-logo.telegram {
-            color: #8fcaf1;
-            background: rgba(143, 202, 241, .06);
-        }
-
-        .social-text {
-            min-width: 0;
-        }
-
-        .social-text strong {
-            display: block;
-            font-size: 12px;
-            font-weight: 500;
-        }
-
-        .social-text small {
-            display: block;
-            margin-top: 3px;
-            color: var(--muted);
-            font-size: 10px;
-            overflow-wrap: anywhere;
-        }
-
-        .social-arrow {
-            width: 16px;
-            height: 16px;
-            margin-left: auto;
-            color: var(--subtle);
-        }
-
-        /* =====================================================
-           08. FOOTER
-        ===================================================== */
-
-        .site-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            padding-block: 28px 125px;
-            color: var(--subtle);
-            font-size: 11px;
-        }
-
-        .back-top {
-            display: inline-flex;
-            align-items: center;
-            gap: 9px;
-            min-height: 44px;
-        }
-
-        /* =====================================================
-           09. MUSIC WIDGET
-        ===================================================== */
-
-        .music-widget {
-            position: fixed;
-            right: max(18px, env(safe-area-inset-right));
-            bottom: max(18px, env(safe-area-inset-bottom));
-            z-index: 40;
-        }
-
-        .music-trigger {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            min-height: 58px;
-            padding: 10px 15px 10px 11px;
-            border: 1px solid rgba(131, 219, 168, .22);
-            border-radius: 18px;
-            background: #141b18;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, .23);
-            text-align: left;
-        }
-
-        .music-trigger-icon {
-            display: grid;
-            place-items: center;
-            width: 35px;
-            height: 35px;
-            border-radius: 11px;
-            background: rgba(131, 219, 168, .1);
-            color: var(--green);
-        }
-
-        .music-trigger-copy strong {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 12px;
-            font-weight: 500;
-            line-height: 1.4;
-        }
-
-        .music-trigger-copy small {
-            display: block;
-            margin-top: 2px;
-            color: #9eafa4;
-            font-size: 9px;
-            line-height: 1.4;
-        }
-
-        .equalizer {
-            display: flex;
-            align-items: center;
-            gap: 3px;
-            height: 20px;
-            margin-left: 9px;
-            color: var(--green);
-        }
-
-        .equalizer span {
-            width: 3px;
-            height: 14px;
-            border-radius: 2px;
-            background: currentColor;
-            transform: scaleY(.25);
-            animation: equalize .85s ease-in-out infinite alternate;
-            animation-play-state: paused;
-        }
-
-        .equalizer span:nth-child(2) {
-            animation-delay: -.35s;
-        }
-
-        .equalizer span:nth-child(3) {
-            animation-delay: -.6s;
-        }
-
-        .equalizer span:nth-child(4) {
-            animation-delay: -.15s;
-        }
-
-        .music-widget.is-playing .equalizer span {
-            animation-play-state: running;
-        }
-
-        .music-panel {
-            position: absolute;
-            right: 0;
-            bottom: calc(100% + 12px);
-            width: min(360px, calc(100vw - 36px));
-            max-height: calc(100svh - 110px);
-            padding: 17px;
-            overflow-y: auto;
-            overscroll-behavior: contain;
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            background: #14191a;
-            box-shadow: 0 20px 70px rgba(0, 0, 0, .4);
-        }
-
-        .music-panel:not([hidden]) {
-            animation: panel-enter .22s ease both;
-        }
-
-        .music-panel-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .spotify-label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--green);
-            font-size: 11px;
-        }
-
-        .spotify-label .brand-icon {
-            width: 19px;
-            height: 19px;
-        }
-
-        .music-close {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-        }
-
-        .music-title {
-            margin-top: 14px;
-            font-family: var(--font-display);
-            font-size: 24px;
-            font-weight: 500;
-            letter-spacing: -.04em;
-        }
-
-        .music-artist {
-            margin-top: 2px;
-            color: var(--muted);
-            font-size: 12px;
-        }
-
-        .spotify-frame {
-            min-height: 152px;
-            margin-top: 18px;
-            overflow: hidden;
-            border-radius: 12px;
-            background: #0d1110;
-        }
-
-        .spotify-frame iframe {
-            width: 100%;
-            height: 152px;
-            border: 0;
-        }
-
-        .music-loading {
-            display: grid;
-            place-items: center;
-            min-height: 152px;
-            padding: 16px;
-            color: var(--muted);
-            font-size: 12px;
-            text-align: center;
-        }
-
-        .music-status {
-            margin-top: 12px;
-            color: var(--muted);
-            font-size: 10px;
-            line-height: 1.7;
-        }
-
-        .spotify-external {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            min-height: 40px;
-            margin-top: 5px;
-            color: var(--green);
-            font-size: 10px;
-        }
-
-        @keyframes equalize {
-            from { transform: scaleY(.25); }
-            to { transform: scaleY(1); }
-        }
-
-        @keyframes panel-enter {
-            from {
-                opacity: 0;
-                transform: translateY(8px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* =====================================================
-           10. TOAST & REVEAL
-        ===================================================== */
-
-        .toast {
-            position: fixed;
-            left: 50%;
-            bottom: 100px;
-            z-index: 60;
-            width: max-content;
-            max-width: calc(100vw - 40px);
-            padding: 12px 18px;
-            border: 1px solid var(--line);
-            border-radius: 12px;
-            background: #222924;
-            color: var(--text);
-            font-size: 12px;
-            text-align: center;
-            transform: translateX(-50%);
-        }
-
-        /* Visible by default, including when JavaScript is unavailable. */
-        .reveal {
-            opacity: 1;
-            transform: none;
-        }
-
-        .reveal.pending {
-            opacity: 0;
-            transform: translateY(18px);
-        }
-
-        .reveal.revealed {
-            opacity: 1;
-            transform: none;
-            transition:
-                opacity .65s ease,
-                transform .65s cubic-bezier(.2, .7, .2, 1);
-            transition-delay: var(--delay, 0ms);
-        }
-
-        /*
-         * Only decorative animations are paused offscreen.
-         * Music equalizer is controlled separately by playback events.
-         */
-        .motion-zone:not(.in-view) .ambient,
-        .motion-zone:not(.in-view).ambient::before {
-            animation-play-state: paused;
-        }
-
-        .page-hidden *,
-        .page-hidden *::before,
-        .page-hidden *::after {
-            animation-play-state: paused !important;
-        }
-
-        /* =====================================================
-           11. POINTER-ONLY HOVER
-        ===================================================== */
-
-        @media (hover: hover) and (pointer: fine) {
-            .button:hover {
-                transform: translateY(-2px);
-            }
-
-            .button-primary:hover {
-                background: #ffb17e;
-                border-color: #ffb17e;
-            }
-
-            .button-secondary:hover,
-            .icon-button:hover {
-                color: var(--text);
-                border-color: rgba(255, 155, 89, .4);
-                background: var(--accent-soft);
-            }
-
-            .skill-card:hover {
-                transform: translateY(-4px);
-                border-color: rgba(255, 155, 89, .3);
-                background: var(--surface-raised);
-            }
-
-            .social-card:hover {
-                transform: translateY(-3px);
-                border-color: rgba(255, 155, 89, .3);
-                background: rgba(255, 255, 255, .035);
-            }
-
-            .email-link:hover,
-            .back-top:hover {
-                color: var(--accent);
-            }
-        }
-
-        /* =====================================================
-           12. RESPONSIVE
-        ===================================================== */
-
-        @media (min-width: 1500px) {
-            .hero {
-                min-height: 780px;
-            }
-        }
-
-        @media (max-width: 960px) {
-            .hero {
-                gap: 25px;
-                min-height: auto;
-                padding-block: 65px 85px;
-            }
-
-            .hero h1 {
-                font-size: clamp(62px, 9vw, 86px);
-            }
-
-            .about-grid {
-                gap: 42px;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .social-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .social-card {
-                min-height: 78px;
-            }
-
-            .social-text small {
-                font-size: 11px;
-            }
-        }
-
-        @media (max-width: 680px) {
-            .container {
-                width: calc(100% - 36px);
-            }
-
-            .site-header {
-                padding-block: 18px;
-            }
-
-            .identity-text {
-                font-size: 10px;
-            }
-
-            .identity-text small {
-                font-size: 8px;
-            }
-
-            .identity-mark {
-                width: 32px;
-                height: 32px;
-            }
-
-            .language-switch button {
-                min-width: 40px;
-                min-height: 36px;
-                padding-inline: 10px;
-            }
-
-            .hero {
-                grid-template-columns: 1fr;
-                gap: 38px;
-                padding-block: 52px 66px;
-            }
-
-            .hero h1 {
-                font-size: clamp(65px, 17vw, 96px);
-            }
-
-            .hero-greeting {
-                margin-top: 28px;
-            }
-
-            .hero-description {
-                max-width: 520px;
-                font-size: 13px;
-            }
-
-            .hero-actions {
-                gap: 10px;
-                margin-top: 27px;
-            }
-
-            .button {
-                padding-inline: 16px;
-                font-size: 11px;
-            }
-
-            .hero-footer {
-                gap: 9px;
-                margin-top: 29px;
-                font-size: 9px;
-            }
-
-            .orbit-visual {
-                width: min(285px, 83%);
-                justify-self: center;
-                margin-block: 6px 18px;
-            }
-
-            .orbit-core {
-                width: 82px;
-                height: 82px;
-                border-radius: 23px;
-            }
-
-            .orbit-core .icon {
-                width: 30px;
-                height: 30px;
-            }
-
-            .orbit-label {
-                gap: 7px;
-                padding: 8px 10px;
-                font-size: 9px;
-            }
-
-            .orbit-caption {
-                bottom: -17px;
-                font-size: 8px;
-            }
-
-            .section {
-                padding-block: 66px;
-            }
-
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 28px;
-            }
-
-            .about-copy {
-                font-size: 13px;
-            }
-
-            .workflow {
-                grid-template-columns: 1fr;
-                gap: 25px;
-                margin-top: 38px;
-                padding-top: 27px;
-            }
-
-            .workflow-item {
-                display: grid;
-                grid-template-columns: 24px 1fr;
-                gap: 5px 12px;
-            }
-
-            .workflow-number {
-                grid-row: span 2;
-                padding-top: 3px;
-            }
-
-            .workflow h3 {
-                margin-top: 0;
-                font-size: 17px;
-            }
-
-            .workflow p {
-                max-width: none;
-                margin-top: 0;
-            }
-
-            .section-heading {
-                align-items: start;
-                gap: 12px;
-                margin-bottom: 28px;
-            }
-
-            .section-count {
-                padding-top: 4px;
-            }
-
-            .skills-grid {
-                gap: 12px;
-            }
-
-            .skill-card {
-                padding: 23px;
-            }
-
-            .contact-top {
-                align-items: start;
-            }
-
-            .contact-top .availability {
-                max-width: 130px;
-                font-size: 9px;
-                line-height: 1.6;
-            }
-
-            .contact-top .eyebrow {
-                font-size: 9px;
-                letter-spacing: .12em;
-            }
-
-            .contact-top .eyebrow::before {
-                width: 14px;
-            }
-
-            .contact-heading {
-                margin-top: 28px;
-            }
-
-            .contact-description {
-                font-size: 13px;
-            }
-
-            .contact-email-row {
-                margin-top: 25px;
-            }
-
-            .social-grid {
-                margin-top: 30px;
-            }
-
-            .site-footer {
-                align-items: start;
-                padding-top: 4px;
-                font-size: 10px;
-            }
-
-            .back-top {
-                min-height: auto;
-                white-space: nowrap;
-            }
-
-            .music-widget {
-                right: max(14px, env(safe-area-inset-right));
-                bottom: max(14px, env(safe-area-inset-bottom));
-            }
-
-            .music-trigger {
-                min-height: 54px;
-                gap: 10px;
-                padding: 8px 12px 8px 9px;
-                border-radius: 16px;
-            }
-
-            .music-trigger-copy strong {
-                font-size: 11px;
-            }
-
-            .music-panel {
-                width: min(350px, calc(100vw - 28px));
-                padding: 14px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .skills-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .skill-card h3 {
-                margin-top: 20px;
-            }
-
-            .skill-card p {
-                margin-bottom: 20px;
-            }
-
-            .section-intro {
-                font-size: 13px;
-            }
-
-            .contact-panel {
-                padding: 24px 20px;
-                border-radius: 20px;
-            }
-
-            .contact-top {
-                flex-direction: column;
-                gap: 14px;
-            }
-
-            .contact-top .availability {
-                max-width: none;
-            }
-
-            .contact-email-row {
-                gap: 10px;
-            }
-
-            .email-link {
-                font-size: 15px;
-            }
-
-            .email-link .icon {
-                width: 18px;
-                height: 18px;
-            }
-
-            .site-footer {
-                flex-direction: column;
-                gap: 13px;
-            }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-
-            *,
-            *::before,
-            *::after {
-                animation: none !important;
-                transition: none !important;
-            }
-
-            .reveal.pending {
-                opacity: 1;
-                transform: none;
-            }
-
-            .equalizer span {
-                transform: scaleY(.45);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <!-- =====================================================
-         SVG SPRITE — NO EXTERNAL ICON LIBRARY
+         CUSTOM STYLISH MONOCHROME WHITE & SOLAR VECTOR SPRITE
     ===================================================== -->
-
     <svg
         xmlns="http://www.w3.org/2000/svg"
         width="0"
         height="0"
         aria-hidden="true"
-        style="position:absolute;overflow:hidden;pointer-events:none"
+        class="svg-sprite"
     >
         <defs>
-            <symbol id="i-spark" viewBox="0 0 24 24">
-                <path d="m12 3 2.5 6.5L21 12l-6.5 2.5L12 21l-2.5-6.5L3 12l6.5-2.5Z"/>
+            <!-- Brand Crest Emblem -->
+            <symbol id="i-crest" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2L14.8 9.2L22 12L14.8 14.8L12 22L9.2 14.8L2 12L9.2 9.2L12 2Z"/>
+                <circle cx="12" cy="12" r="2.2" fill="#050505"/>
             </symbol>
 
-            <symbol id="i-arrow-up-right" viewBox="0 0 24 24">
-                <path d="M7 17 17 7M7 7h10v10"/>
+            <!-- Stylish Diagonal Pointer -->
+            <symbol id="i-pointer-ne" viewBox="0 0 24 24">
+                <path d="M6 18L18 6M9 6H18V15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </symbol>
 
-            <symbol id="i-arrow-down" viewBox="0 0 24 24">
-                <path d="M12 4v16m-6-6 6 6 6-6"/>
+            <!-- Stylish Double Chevron Explore Pointer (Jelajahi Keahlian) -->
+            <symbol id="i-explore-down" viewBox="0 0 24 24">
+                <path d="M12 4V16M7.5 12L12 16.5L16.5 12" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 20H17" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
             </symbol>
 
-            <symbol id="i-arrow-up" viewBox="0 0 24 24">
-                <path d="M12 20V4m-6 6 6-6 6 6"/>
+            <!-- Stylish Upward Pointer -->
+            <symbol id="i-pointer-up" viewBox="0 0 24 24">
+                <path d="M12 19V5M6.5 10.5L12 5L17.5 10.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </symbol>
 
-            <symbol id="i-code" viewBox="0 0 24 24">
-                <path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16"/>
+            <!-- OSINT Radar Reticle -->
+            <symbol id="i-osint" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.75"/>
+                <circle cx="12" cy="12" r="3.5" fill="none" stroke="currentColor" stroke-width="1.75"/>
+                <path d="M12 2V5M12 19V22M2 12H5M19 12H22" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
             </symbol>
 
-            <symbol id="i-search" viewBox="0 0 24 24">
-                <circle cx="10.5" cy="10.5" r="6.5"/>
-                <path d="m16 16 4.5 4.5M8 10.5h5m-2.5-2.5v5"/>
+            <!-- Web Dev Terminal Brackets -->
+            <symbol id="i-webdev" viewBox="0 0 24 24">
+                <path d="M8 7L3 12L8 17M16 7L21 12L16 17M13.5 5L10.5 19" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"/>
             </symbol>
 
-            <symbol id="i-shield" viewBox="0 0 24 24">
-                <path d="m12 3 8 3v6c0 4.5-4 7.5-8 9-4-1.5-8-4.5-8-9V6Z"/>
-                <path d="m8.5 12 2.5 2.5 4.5-5"/>
+            <!-- Cyber Shield -->
+            <symbol id="i-pentest" viewBox="0 0 24 24">
+                <path d="M12 2.75L19.5 5.75V11.5C19.5 16.35 16.3 20.1 12 21.5C7.7 20.1 4.5 16.35 4.5 11.5V5.75L12 2.75Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M9 12.2L11.1 14.3L15.4 9.8" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/>
             </symbol>
 
-            <symbol id="i-globe" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="9"/>
-                <ellipse cx="12" cy="12" rx="4" ry="9"/>
-                <path d="M3 12h18"/>
+            <!-- Orbital Core Grid -->
+            <symbol id="i-nexus" viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                <ellipse cx="12" cy="12" rx="4.2" ry="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+                <path d="M3.4 9.5H20.6M3.4 14.5H20.6" fill="none" stroke="currentColor" stroke-width="1.6"/>
             </symbol>
 
-            <symbol id="i-plus" viewBox="0 0 24 24">
-                <path d="M12 5v14M5 12h14"/>
+            <!-- Stylish Microsoft Suite Icon (Pure White Geometric) -->
+            <symbol id="i-microsoft-white" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="8.2" height="8.2" rx="1.8" fill="currentColor"/>
+                <rect x="12.8" y="3" width="8.2" height="8.2" rx="1.8" fill="currentColor" fill-opacity="0.82"/>
+                <rect x="3" y="12.8" width="8.2" height="8.2" rx="1.8" fill="currentColor" fill-opacity="0.82"/>
+                <rect x="12.8" y="12.8" width="8.2" height="8.2" rx="1.8" fill="currentColor" fill-opacity="0.64"/>
             </symbol>
 
+            <!-- Stylish Google Workspace Logo (Pure White Modern Monogram + Workspace Grid Badge) -->
+            <symbol id="i-workspace-white" viewBox="0 0 24 24">
+                <path
+                    fill="currentColor"
+                    d="M21.35 11.1H12.2v2.95h5.28c-.48 2.24-2.46 3.75-5.28 3.75a5.8 5.8 0 1 1 3.78-10.2l2.18-2.18A8.85 8.85 0 1 0 12.2 20.85c4.95 0 8.55-3.48 8.55-8.48 0-.45-.05-.88-.13-1.27h.73Z"
+                />
+                <circle cx="20.2" cy="5.2" r="1.45" fill="currentColor"/>
+            </symbol>
+
+            <!-- Infinite Plus Spark -->
+            <symbol id="i-spark-plus" viewBox="0 0 24 24">
+                <path d="M12 4V20M4 12H20" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
+                <circle cx="12" cy="12" r="3" fill="#050505" stroke="currentColor" stroke-width="1.7"/>
+            </symbol>
+
+            <!-- Stylish Instagram White Glyph -->
+            <symbol id="i-instagram-white" viewBox="0 0 24 24">
+                <rect x="3" y="3" width="18" height="18" rx="5.2" fill="none" stroke="currentColor" stroke-width="1.85"/>
+                <circle cx="12" cy="12" r="4.1" fill="none" stroke="currentColor" stroke-width="1.85"/>
+                <circle cx="17.4" cy="6.6" r="1.15" fill="currentColor"/>
+            </symbol>
+
+            <!-- Stylish WhatsApp White Glyph -->
+            <symbol id="i-whatsapp-white" viewBox="0 0 24 24">
+                <path d="M12 3.2a8.6 8.6 0 0 0-7.46 12.88L3.3 20.7l4.76-1.22A8.6 8.6 0 1 0 12 3.2Z" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linejoin="round"/>
+                <path d="M9.35 8.6c-.35 0-.85.42-.85 1.18 0 1.92 2.38 4.52 4.56 5.18.68.2 1.38-.15 1.62-.68l.25-.55-1.66-.95-.62.58a6.2 6.2 0 0 1-2.35-2.35l.58-.62-.95-1.66-.58-.13Z" fill="currentColor"/>
+            </symbol>
+
+            <!-- Stylish Telegram White Glyph -->
+            <symbol id="i-telegram-white" viewBox="0 0 24 24">
+                <path d="M20.8 4.4L3.4 11.1c-.8.3-.78 1.44.04 1.7l4.42 1.4 1.7 5.1c.25.74 1.2.92 1.7.32l2.46-2.94 4.42 3.24c.66.48 1.6.1 1.77-.7L22 5.45c.16-.78-.52-1.35-1.2-1.05ZM8.5 13.7l8.9-5.5-6.9 6.8-.3 2.7-1.7-4Z" fill="currentColor"/>
+            </symbol>
+
+            <!-- Copy Icon -->
             <symbol id="i-copy" viewBox="0 0 24 24">
-                <rect x="8" y="8" width="12" height="12" rx="3"/>
-                <path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/>
+                <rect x="8.5" y="8.5" width="11.5" height="11.5" rx="2.6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <path d="M15.5 8.5V6A2 2 0 0 0 13.5 4H6A2 2 0 0 0 4 6V13.5A2 2 0 0 0 6 15.5H8.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+            </symbol>
+
+            <!-- Check Icon -->
+            <symbol id="i-check" viewBox="0 0 24 24">
+                <path d="M5 12.5L9.5 17L19 7.5" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/>
+            </symbol>
+
+            <!-- Play, Stop, Expand & Spotify Icons -->
+            <symbol id="i-play" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M7.5 5.4c0-.85.94-1.36 1.66-.9l10.2 6.6c.66.43.66 1.37 0 1.8l-10.2 6.6c-.72.46-1.66-.05-1.66-.9V5.4Z"/>
+            </symbol>
+
+            <symbol id="i-stop" viewBox="0 0 24 24">
+                <rect x="6.5" y="6.5" width="11" height="11" rx="2.2" fill="currentColor"/>
+            </symbol>
+
+            <symbol id="i-spotify-white" viewBox="0 0 24 24">
+                <path fill="currentColor" d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.58 14.42a.62.62 0 0 1-.86.2c-2.35-1.44-5.31-1.76-8.8-.96a.62.62 0 0 1-.28-1.22c3.82-.87 7.1-.5 9.73 1.12.3.18.4.57.21.86Zm1.22-2.72a.78.78 0 0 1-1.07.26c-2.7-1.66-6.8-2.14-9.99-1.17a.78.78 0 1 1-.45-1.5c3.64-1.1 8.17-.56 11.26 1.34.36.22.48.7.25 1.07Zm.1-2.83C14.68 8.95 9.35 8.77 6.27 9.7a.94.94 0 1 1-.55-1.8c3.54-1.07 9.43-.86 13.15 1.35a.94.94 0 0 1-.97 1.62Z"/>
+            </symbol>
+
+            <symbol id="i-sliders" viewBox="0 0 24 24">
+                <path d="M4 7h10M18 7h2M4 17h4M12 17h8" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                <circle cx="16" cy="7" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                <circle cx="10" cy="17" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/>
             </symbol>
 
             <symbol id="i-close" viewBox="0 0 24 24">
-                <path d="m6 6 12 12M18 6 6 18"/>
-            </symbol>
-
-            <symbol id="i-headphones" viewBox="0 0 24 24">
-                <path d="M4 14v-3a8 8 0 0 1 16 0v3"/>
-                <rect x="3" y="12" width="4" height="8" rx="2"/>
-                <rect x="17" y="12" width="4" height="8" rx="2"/>
-            </symbol>
-
-            <symbol id="i-instagram" viewBox="0 0 24 24">
-                <rect x="3" y="3" width="18" height="18" rx="5"/>
-                <circle cx="12" cy="12" r="4"/>
-                <circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/>
-            </symbol>
-
-            <symbol id="i-whatsapp" viewBox="0 0 24 24">
-                <path d="M20.5 11.7a8.5 8.5 0 0 1-12.6 7.5L3 21l1.6-4.8a8.5 8.5 0 1 1 15.9-4.5Z"/>
-                <path d="M8 7.5c-.6 0-1 1-1 1.7 0 2.8 3.5 6.3 6.3 6.3.7 0 1.7-.4 1.7-1l-2-1.2-.9.8a8.5 8.5 0 0 1-2.8-2.8l.8-.9L9 8Z"/>
-            </symbol>
-
-            <symbol id="i-telegram" viewBox="0 0 24 24">
-                <path d="m21 4-3.5 16-5.2-4-2.8 2v-4.6L18 6.5 7.2 12 3 10.5Z"/>
-            </symbol>
-
-            <symbol id="i-microsoft" viewBox="0 0 24 24">
-                <path fill="#f25022" d="M2 2h9v9H2z"/>
-                <path fill="#7fba00" d="M13 2h9v9h-9z"/>
-                <path fill="#00a4ef" d="M2 13h9v9H2z"/>
-                <path fill="#ffb900" d="M13 13h9v9h-9z"/>
-            </symbol>
-
-            <symbol id="i-google" viewBox="0 0 48 48">
-                <path
-                    fill="#4285f4"
-                    d="M43.61 24.46c0-1.36-.12-2.66-.35-3.92H24.4v7.42h10.77a9.2 9.2 0 0 1-4 6.04v5.02h6.48c3.79-3.49 5.96-8.63 5.96-14.56Z"
-                />
-                <path
-                    fill="#34a853"
-                    d="M24.4 44c5.4 0 9.93-1.79 13.25-4.98L31.17 34c-1.79 1.2-4.08 1.93-6.77 1.93-5.21 0-9.63-3.52-11.21-8.26H6.5v5.18A20 20 0 0 0 24.4 44Z"
-                />
-                <path
-                    fill="#fbbc05"
-                    d="M13.19 27.67A12 12 0 0 1 12.56 24c0-1.27.22-2.51.63-3.67v-5.18H6.5A20 20 0 0 0 4.4 24c0 3.23.77 6.28 2.1 8.85Z"
-                />
-                <path
-                    fill="#ea4335"
-                    d="M24.4 12.07c2.94 0 5.57 1.01 7.65 2.99l5.74-5.74A19.1 19.1 0 0 0 24.4 4 20 20 0 0 0 6.5 15.15l6.69 5.18c1.58-4.74 6-8.26 11.21-8.26Z"
-                />
-            </symbol>
-
-            <symbol id="i-spotify" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="11" fill="currentColor"/>
-                <g
-                    fill="none"
-                    stroke="#14191a"
-                    stroke-linecap="round"
-                    stroke-width="1.5"
-                >
-                    <path d="M6 9c4-1.3 8.2-.9 12 1"/>
-                    <path d="M7 12c3.3-1 6.7-.6 9.8.8"/>
-                    <path d="M8 15c2.5-.7 5-.4 7.4.6"/>
-                </g>
+                <path d="M6.5 6.5L17.5 17.5M17.5 6.5L6.5 17.5" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round"/>
             </symbol>
         </defs>
     </svg>
@@ -1732,514 +161,642 @@
         Lewati ke konten utama
     </a>
 
+    <!-- Ambient Background Grid & Solar Glow -->
+    <div class="ambient-backdrop" aria-hidden="true">
+        <div class="ambient-grid"></div>
+        <div class="ambient-orb orb-top"></div>
+    </div>
+
     <!-- =====================================================
-         HEADER
+         STICKY GLASS HEADER + INTEGRATED SPOTIFY PLAYER BAR
+         (Near "Ghatfan Almer" Brand Identity)
     ===================================================== -->
-
-    <header class="site-header">
-        <div class="container header-inner">
-            <a
-                href="#home"
-                class="identity"
-                data-i18n-aria="homeLabel"
-                aria-label="Ghatfan Almer — beranda"
-            >
-                <span class="identity-mark" aria-hidden="true">
-                    <svg class="icon icon-sm"><use href="#i-spark"/></svg>
-                </span>
-
-                <span class="identity-text">
-                    GHATFAN ALMER
-                    <small data-i18n="portfolioLabel">PORTOFOLIO PERSONAL</small>
-                </span>
-            </a>
-
-            <div
-                class="language-switch"
-                role="group"
-                data-i18n-aria="languageLabel"
-                aria-label="Pilih bahasa"
-            >
-                <button
-                    type="button"
-                    data-language="id"
-                    lang="id"
-                    aria-label="Bahasa Indonesia"
-                    aria-pressed="true"
+    <header class="site-header" id="top">
+        <div class="container header-bar">
+            <div class="brand-music-cluster">
+                <!-- Identity Brand -->
+                <a
+                    href="#home"
+                    class="identity"
+                    data-i18n-aria="homeLabel"
+                    aria-label="Ghatfan Almer — beranda"
                 >
-                    ID
-                </button>
+                    <span class="identity-mark" aria-hidden="true">
+                        <svg class="icon icon-sm"><use href="#i-crest"/></svg>
+                    </span>
+                    <span class="identity-text">
+                        <strong>GHATFAN ALMER</strong>
+                        <small data-i18n="portfolioLabel">PORTOFOLIO PERSONAL</small>
+                    </span>
+                </a>
 
-                <button
-                    type="button"
-                    data-language="en"
-                    lang="en"
-                    aria-label="English"
-                    aria-pressed="false"
+                <!-- Integrated Header Music Bar (Right next to Ghatfan Almer) -->
+                <div
+                    class="header-player"
+                    id="header-player"
+                    role="region"
+                    data-i18n-aria="musicWidgetLabel"
+                    aria-label="Pemutar musik"
                 >
-                    EN
-                </button>
+                    <button
+                        type="button"
+                        id="player-toggle-btn"
+                        class="player-play-btn"
+                        data-i18n-aria="playToggleLabel"
+                        aria-label="Putar atau hentikan lagu Cancer — My Chemical Romance"
+                    >
+                        <svg class="icon icon-xs icon-play" aria-hidden="true">
+                            <use href="#i-play"/>
+                        </svg>
+                        <svg class="icon icon-xs icon-stop" aria-hidden="true">
+                            <use href="#i-stop"/>
+                        </svg>
+                    </button>
+
+                    <button
+                        type="button"
+                        id="player-expand-btn"
+                        class="player-track-meta"
+                        aria-expanded="false"
+                        aria-controls="header-spotify-drawer"
+                    >
+                        <span class="player-badge-row">
+                            <svg class="icon icon-xs spotify-glyph" aria-hidden="true">
+                                <use href="#i-spotify-white"/>
+                            </svg>
+                            <span class="player-song-title">Cancer</span>
+                            <span class="player-divider">•</span>
+                            <span class="player-song-artist">MCR</span>
+                        </span>
+                        <span class="player-progress-track" aria-hidden="true">
+                            <span class="player-progress-fill" id="player-progress-fill"></span>
+                        </span>
+                    </button>
+
+                    <button
+                        type="button"
+                        id="player-drawer-trigger"
+                        class="player-visualizer-btn"
+                        aria-expanded="false"
+                        aria-controls="header-spotify-drawer"
+                        data-i18n-aria="openMusic"
+                        aria-label="Buka panel penuh pemutar Spotify"
+                    >
+                        <span class="solar-eq" aria-hidden="true">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    </button>
+
+                    <!-- Expandable Full-Track Spotify & Audio Controller Deck -->
+                    <section
+                        id="header-spotify-drawer"
+                        class="spotify-drawer"
+                        aria-labelledby="drawer-song-heading"
+                        hidden
+                    >
+                        <div class="drawer-top">
+                            <div class="drawer-brand">
+                                <svg class="icon icon-sm" aria-hidden="true">
+                                    <use href="#i-spotify-white"/>
+                                </svg>
+                                <span>SPOTIFY STREAM DECK</span>
+                            </div>
+                            <button
+                                type="button"
+                                id="drawer-close-btn"
+                                class="icon-btn-sm"
+                                data-i18n-aria="closeMusic"
+                                aria-label="Tutup panel musik"
+                            >
+                                <svg class="icon icon-xs" aria-hidden="true">
+                                    <use href="#i-close"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="drawer-song-row">
+                            <div>
+                                <h2 id="drawer-song-heading" class="drawer-title">Cancer</h2>
+                                <p class="drawer-artist">My Chemical Romance — The Black Parade</p>
+                            </div>
+                            <button
+                                type="button"
+                                id="drawer-master-stop"
+                                class="drawer-action-pill"
+                            >
+                                <span id="drawer-action-label" data-i18n="btnPlayNow">Putar</span>
+                            </button>
+                        </div>
+
+                        <!-- Full-Length Direct Audio Stream (Optional local cancer.mp3 if placed in folder) + Official Spotify Full Track Controller -->
+                        <audio id="local-full-audio" preload="auto" loop>
+                            <source src="cancer.mp3" type="audio/mpeg">
+                        </audio>
+
+                        <div class="spotify-embed-shell" id="spotify-frame">
+                            <div class="spotify-skeleton" data-i18n="musicConnecting">
+                                Menghubungkan ke pemutar Spotify…
+                            </div>
+                        </div>
+
+                        <div class="drawer-footer">
+                            <p class="drawer-status" id="music-status" role="status">
+                                Siap memutar dari awal hingga akhir lagu.
+                            </p>
+                            <a
+                                href="https://open.spotify.com/track/0GgN4MhR5GKn5IcKN0e0rG"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="drawer-spotify-link"
+                                data-i18n-aria="spotifyExternalLabel"
+                            >
+                                <span data-i18n="openSpotify">Buka di Spotify</span>
+                                <svg class="icon icon-xs" aria-hidden="true">
+                                    <use href="#i-pointer-ne"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Right Controls: Quick Nav + Language Switch -->
+            <div class="header-right">
+                <nav class="header-nav" aria-label="Navigasi utama">
+                    <a href="#about" data-i18n="navAbout">Tentang</a>
+                    <a href="#skills" data-i18n="navSkills">Keahlian</a>
+                    <a href="#contact" data-i18n="navContact">Kontak</a>
+                </nav>
+
+                <div
+                    class="language-switch"
+                    role="group"
+                    data-i18n-aria="languageLabel"
+                    aria-label="Pilih bahasa"
+                >
+                    <button
+                        type="button"
+                        data-language="id"
+                        lang="id"
+                        aria-label="Bahasa Indonesia"
+                        aria-pressed="true"
+                    >
+                        ID
+                    </button>
+                    <button
+                        type="button"
+                        data-language="en"
+                        lang="en"
+                        aria-label="English"
+                        aria-pressed="false"
+                    >
+                        EN
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
-    <main id="main-content" class="container">
+    <main id="main-content">
         <!-- =================================================
-             HERO
+             01. HERO SECTION
         ================================================== -->
-
-        <section id="home" class="hero" aria-labelledby="hero-title">
-            <div class="hero-content reveal">
-                <div class="availability">
-                    <span class="availability-dot" aria-hidden="true"></span>
-                    <span data-i18n="availability">
-                        Terbuka untuk koneksi & kolaborasi
-                    </span>
+        <section id="home" class="container hero" aria-labelledby="hero-title">
+            <div class="hero-copy reveal-item">
+                <div class="status-pill">
+                    <span class="pulse-dot" aria-hidden="true"></span>
+                    <span data-i18n="availability">Terbuka untuk koneksi & kolaborasi</span>
                 </div>
 
-                <p class="hero-greeting" data-i18n="greeting">
-                    Halo, saya
-                </p>
+                <p class="hero-greeting" data-i18n="greeting">Halo, saya</p>
 
-                <h1 id="hero-title">
-                    <span>Ghatfan</span>
-                    <span class="last-name">Almer</span>
+                <h1 id="hero-title" class="hero-display">
+                    <span class="first-name">Ghatfan</span>
+                    <span class="last-name">Almer<i class="solar-dot">.</i></span>
                 </h1>
 
                 <p class="hero-tagline">
                     <span data-i18n="taglineOne">Rasa ingin tahu.</span>
-                    <span class="accent" data-i18n="taglineTwo">
-                        Tanpa batas.
-                    </span>
+                    <span class="solar-gradient-text" data-i18n="taglineTwo">Tanpa batas.</span>
                 </p>
 
                 <p class="hero-description" data-i18n="heroDescription">
-                    Saya mengeksplorasi teknologi, membangun pengalaman web,
-                    dan mempelajari keamanan digital. Menghubungkan rasa
-                    penasaran dengan sesuatu yang berguna.
+                    Saya mengeksplorasi teknologi, membangun pengalaman web modern, dan mempelajari keamanan digital. Menghubungkan rasa penasaran dengan solusi yang presisi dan berguna.
                 </p>
 
-                <div class="hero-actions">
-                    <a href="#contact" class="button button-primary">
+                <div class="hero-cta-group">
+                    <a href="#contact" class="btn btn-solar">
                         <span data-i18n="connectButton">Mari terhubung</span>
-                        <svg class="icon icon-sm" aria-hidden="true">
-                            <use href="#i-arrow-up-right"/>
-                        </svg>
+                        <span class="btn-icon-box" aria-hidden="true">
+                            <svg class="icon icon-sm"><use href="#i-pointer-ne"/></svg>
+                        </span>
                     </a>
 
-                    <a href="#skills" class="button button-secondary">
+                    <a href="#skills" class="btn btn-outline-white explore-btn">
                         <span data-i18n="skillsButton">Jelajahi keahlian</span>
-                        <svg class="icon icon-sm" aria-hidden="true">
-                            <use href="#i-arrow-down"/>
-                        </svg>
+                        <span class="explore-arrow-capsule" aria-hidden="true">
+                            <svg class="icon icon-sm"><use href="#i-explore-down"/></svg>
+                        </span>
                     </a>
                 </div>
 
-                <div class="hero-footer" aria-label="OSINT, Web Development, Cybersecurity">
-                    <span>OSINT</span>
-                    <i aria-hidden="true"></i>
-                    <span>WEB DEVELOPMENT</span>
-                    <i aria-hidden="true"></i>
-                    <span>CYBERSECURITY</span>
+                <div class="hero-metrics">
+                    <div class="metric-chip">
+                        <span class="metric-code">01</span>
+                        <span>OSINT</span>
+                    </div>
+                    <div class="metric-chip">
+                        <span class="metric-code">02</span>
+                        <span>WEB DEV</span>
+                    </div>
+                    <div class="metric-chip">
+                        <span class="metric-code">03</span>
+                        <span>CYBERSECURITY</span>
+                    </div>
                 </div>
             </div>
 
-            <div
-                class="orbit-visual motion-zone reveal"
-                aria-hidden="true"
-                style="--delay:100ms"
-            >
-                <div class="orbit-ring ring-three"></div>
+            <!-- Kinetic Solar Radar Orbit Visual (GPU-Accelerated) -->
+            <div class="hero-visual motion-zone reveal-item" aria-hidden="true" style="--stagger: 120ms">
+                <div class="radar-stage">
+                    <div class="radar-sweep ambient-anim"></div>
+                    <div class="orbit-ring ring-outer"></div>
 
-                <div class="orbit-ring ring-one ambient">
-                    <span class="orbit-node"></span>
+                    <div class="orbit-ring ring-mid ambient-anim">
+                        <span class="orbit-satellite sat-solar"></span>
+                    </div>
+
+                    <div class="orbit-ring ring-inner ambient-anim">
+                        <span class="orbit-satellite sat-white"></span>
+                    </div>
+
+                    <div class="radar-core">
+                        <div class="core-frame">
+                            <svg class="icon core-svg"><use href="#i-nexus"/></svg>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-card card-top-right ambient-float">
+                        <span class="telemetry-icon">
+                            <svg class="icon icon-xs"><use href="#i-webdev"/></svg>
+                        </span>
+                        <div>
+                            <strong>build. learn. repeat.</strong>
+                            <small>FRONTEND & ARCHITECTURE</small>
+                        </div>
+                    </div>
+
+                    <div class="telemetry-card card-bottom-left ambient-float-delayed">
+                        <span class="telemetry-icon">
+                            <svg class="icon icon-xs"><use href="#i-osint"/></svg>
+                        </span>
+                        <div>
+                            <strong>always exploring</strong>
+                            <small>OSINT & SECURITY</small>
+                        </div>
+                    </div>
+
+                    <div class="radar-caption">CURIOSITY IS THE COMPASS</div>
                 </div>
-
-                <div class="orbit-ring ring-two ambient">
-                    <span class="orbit-node"></span>
-                </div>
-
-                <div class="orbit-core">
-                    <svg class="icon"><use href="#i-globe"/></svg>
-                </div>
-
-                <div class="orbit-label label-code">
-                    <svg class="icon"><use href="#i-code"/></svg>
-                    <span>build. learn. repeat.</span>
-                </div>
-
-                <div class="orbit-label label-research">
-                    <svg class="icon"><use href="#i-search"/></svg>
-                    <span>always exploring</span>
-                </div>
-
-                <span class="orbit-caption">CURIOSITY IS THE COMPASS</span>
             </div>
         </section>
 
         <!-- =================================================
-             ABOUT
+             KINETIC MARQUEE RIBBON (GPU SMOOTH)
         ================================================== -->
+        <div class="kinetic-ribbon motion-zone" aria-hidden="true">
+            <div class="ribbon-track ambient-anim">
+                <div class="ribbon-group">
+                    <span>OPEN SOURCE INTELLIGENCE</span><i></i>
+                    <span>RESPONSIVE WEB INTERFACE</span><i></i>
+                    <span>AUTHORIZED PENETRATION TESTING</span><i></i>
+                    <span>DIGITAL ETHICS & RESEARCH</span><i></i>
+                    <span>STRUCTURED COLLABORATION</span><i></i>
+                </div>
+                <div class="ribbon-group" aria-hidden="true">
+                    <span>OPEN SOURCE INTELLIGENCE</span><i></i>
+                    <span>RESPONSIVE WEB INTERFACE</span><i></i>
+                    <span>AUTHORIZED PENETRATION TESTING</span><i></i>
+                    <span>DIGITAL ETHICS & RESEARCH</span><i></i>
+                    <span>STRUCTURED COLLABORATION</span><i></i>
+                </div>
+            </div>
+        </div>
 
-        <section id="about" class="section" aria-labelledby="about-title">
-            <div class="about-grid">
-                <div class="reveal">
-                    <p class="eyebrow" data-i18n="aboutEyebrow">
-                        01 / Tentang saya
-                    </p>
-
+        <!-- =================================================
+             02. ABOUT & WORKFLOW SECTION
+        ================================================== -->
+        <section id="about" class="section container" aria-labelledby="about-title">
+            <div class="about-layout">
+                <div class="about-header reveal-item">
+                    <p class="eyebrow" data-i18n="aboutEyebrow">01 / Tentang saya</p>
                     <h2 id="about-title" class="section-title">
                         <span data-i18n="aboutTitleOne">Selalu penasaran.</span>
                         <br>
-                        <span class="muted" data-i18n="aboutTitleTwo">
-                            Selalu bertumbuh.
-                        </span>
+                        <span class="solar-gradient-text" data-i18n="aboutTitleTwo">Selalu bertumbuh.</span>
                     </h2>
+
+                    <div class="trait-pills">
+                        <span class="pill-tag" data-i18n="traitOne">Rasa ingin tahu</span>
+                        <span class="pill-tag" data-i18n="traitTwo">Teliti</span>
+                        <span class="pill-tag" data-i18n="traitThree">Terus belajar</span>
+                    </div>
                 </div>
 
-                <div class="about-copy reveal" style="--delay:80ms">
-                    <p>
-                        <strong data-i18n="aboutOpening">
-                            Saya Ghatfan Almer, seorang penggemar teknologi.
-                        </strong>
+                <div class="about-narrative reveal-item" style="--stagger: 90ms">
+                    <p class="lead-paragraph">
+                        <strong data-i18n="aboutOpening">Saya Ghatfan Almer, seorang penggemar teknologi.</strong>
                         <span data-i18n="aboutOne">
-                            Saya menikmati proses belajar, bereksperimen,
-                            dan memahami bagaimana sesuatu bekerja—mulai
-                            dari sebuah antarmuka hingga sistem di baliknya.
+                            Saya menikmati proses belajar, bereksperimen, dan memahami bagaimana sesuatu bekerja—mulai dari sebuah antarmuka hingga sistem di baliknya.
                         </span>
                     </p>
 
                     <p data-i18n="aboutTwo">
-                        Minat saya meliputi OSINT, pengembangan web, dan
-                        pengujian keamanan pada lingkungan yang memiliki izin.
-                        Saya senang menelusuri informasi, membangun antarmuka
-                        yang nyaman, serta mendokumentasikan temuan dengan jelas.
+                        Minat saya meliputi OSINT, pengembangan web, dan pengujian keamanan pada lingkungan yang memiliki izin. Saya senang menelusuri informasi, membangun antarmuka yang nyaman, serta mendokumentasikan temuan dengan jelas.
                     </p>
 
                     <p data-i18n="aboutThree">
-                        Saya juga menggunakan Microsoft dan Google Workspace
-                        untuk mengolah informasi dan berkolaborasi. Bagi saya,
-                        kemampuan teknis berjalan bersama ketelitian, etika,
-                        dan komunikasi yang baik.
+                        Saya juga menggunakan Microsoft dan Google Workspace untuk mengolah informasi dan berkolaborasi. Bagi saya, kemampuan teknis berjalan bersama ketelitian, etika, dan komunikasi yang baik.
                     </p>
-
-                    <div class="tags">
-                        <span class="tag" data-i18n="traitOne">Rasa ingin tahu</span>
-                        <span class="tag" data-i18n="traitTwo">Teliti</span>
-                        <span class="tag" data-i18n="traitThree">Terus belajar</span>
-                    </div>
                 </div>
             </div>
 
-            <div class="workflow motion-zone ambient reveal">
-                <article class="workflow-item">
-                    <span class="workflow-number">01</span>
+            <!-- GPU-Accelerated Workflow Cards -->
+            <div class="workflow-rail motion-zone reveal-item">
+                <div class="rail-beam ambient-anim" aria-hidden="true"></div>
+
+                <article class="workflow-step">
+                    <div class="step-badge">01</div>
                     <h3 data-i18n="workflowTitleOne">Eksplorasi</h3>
                     <p data-i18n="workflowOne">
-                        Mulai dari pertanyaan, cari konteks, dan pahami
-                        persoalannya terlebih dahulu.
+                        Mulai dari pertanyaan, cari konteks, dan pahami persoalannya terlebih dahulu.
                     </p>
                 </article>
 
-                <article class="workflow-item">
-                    <span class="workflow-number">02</span>
+                <article class="workflow-step">
+                    <div class="step-badge">02</div>
                     <h3 data-i18n="workflowTitleTwo">Bangun & uji</h3>
                     <p data-i18n="workflowTwo">
-                        Ubah ide menjadi sesuatu yang nyata, lalu pelajari
-                        apa yang bisa ditingkatkan.
+                        Ubah ide menjadi sesuatu yang nyata, lalu pelajari apa yang bisa ditingkatkan.
                     </p>
                 </article>
 
-                <article class="workflow-item">
-                    <span class="workflow-number">03</span>
+                <article class="workflow-step">
+                    <div class="step-badge">03</div>
                     <h3 data-i18n="workflowTitleThree">Sempurnakan</h3>
                     <p data-i18n="workflowThree">
-                        Rapikan detail, dokumentasikan proses, dan terus
-                        berkembang dari setiap percobaan.
+                        Rapikan detail, dokumentasikan proses, dan terus berkembang dari setiap percobaan.
                     </p>
                 </article>
             </div>
         </section>
 
         <!-- =================================================
-             SKILLS
+             03. SKILLS & TOOLKIT BENTO GRID
+             (All Platform Logos Pure Stylish White)
         ================================================== -->
-
-        <section id="skills" class="section" aria-labelledby="skills-title">
-            <div class="section-heading reveal">
+        <section id="skills" class="section container" aria-labelledby="skills-title">
+            <div class="section-head-row reveal-item">
                 <div>
-                    <p class="eyebrow" data-i18n="skillsEyebrow">
-                        02 / Keahlian & perangkat
-                    </p>
-
+                    <p class="eyebrow" data-i18n="skillsEyebrow">02 / Keahlian & perangkat</p>
                     <h2 id="skills-title" class="section-title">
-                        <span data-i18n="skillsTitle">Yang saya tekuni</span><span class="accent">.</span>
+                        <span data-i18n="skillsTitle">Yang saya tekuni</span><span class="solar-dot">.</span>
                     </h2>
-
-                    <p class="section-intro" data-i18n="skillsIntro">
-                        Perpaduan eksplorasi, pengembangan, dan perangkat
-                        produktivitas untuk mengubah ide menjadi hasil.
+                    <p class="section-subtitle" data-i18n="skillsIntro">
+                        Perpaduan eksplorasi, pengembangan, dan perangkat produktivitas untuk mengubah ide menjadi hasil.
                     </p>
                 </div>
 
-                <span class="section-count">05 / ∞</span>
+                <div class="index-counter" aria-hidden="true">
+                    <span class="counter-active">05</span>
+                    <span class="counter-sep">/</span>
+                    <span class="counter-inf">∞</span>
+                </div>
             </div>
 
-            <div class="skills-grid">
-                <article class="skill-card reveal">
-                    <div class="skill-card-top">
-                        <span class="skill-icon" aria-hidden="true">
-                            <svg class="icon"><use href="#i-search"/></svg>
+            <div class="skills-bento">
+                <!-- Card 01: OSINT -->
+                <article class="bento-card spotlight-card reveal-item">
+                    <div class="bento-top">
+                        <span class="bento-icon-wrap" aria-hidden="true">
+                            <svg class="icon"><use href="#i-osint"/></svg>
                         </span>
-                        <span class="skill-index">01</span>
+                        <span class="bento-num">01</span>
                     </div>
-
                     <h3>OSINT</h3>
-
                     <p data-i18n="osintDescription">
-                        Menelusuri dan memverifikasi informasi dari sumber
-                        terbuka untuk menyusun temuan yang terstruktur,
-                        dengan memperhatikan privasi dan etika.
+                        Menelusuri dan memverifikasi informasi dari sumber terbuka untuk menyusun temuan yang terstruktur, dengan memperhatikan privasi dan etika.
                     </p>
-
-                    <div class="tags">
-                        <span class="tag" data-i18n="researchTag">Riset</span>
-                        <span class="tag" data-i18n="verificationTag">Verifikasi</span>
+                    <div class="card-tags">
+                        <span class="chip" data-i18n="researchTag">Riset</span>
+                        <span class="chip" data-i18n="verificationTag">Verifikasi</span>
                     </div>
                 </article>
 
-                <article class="skill-card reveal" style="--delay:60ms">
-                    <div class="skill-card-top">
-                        <span class="skill-icon" aria-hidden="true">
-                            <svg class="icon"><use href="#i-code"/></svg>
+                <!-- Card 02: Web Development -->
+                <article class="bento-card spotlight-card reveal-item" style="--stagger: 60ms">
+                    <div class="bento-top">
+                        <span class="bento-icon-wrap" aria-hidden="true">
+                            <svg class="icon"><use href="#i-webdev"/></svg>
                         </span>
-                        <span class="skill-index">02</span>
+                        <span class="bento-num">02</span>
                     </div>
-
                     <h3>Web Development</h3>
-
                     <p data-i18n="webDescription">
-                        Membangun website responsif dengan antarmuka yang
-                        rapi, interaksi yang nyaman, dan perhatian pada
-                        pengalaman pengguna.
+                        Membangun website responsif dengan antarmuka yang rapi, interaksi yang nyaman, dan perhatian pada pengalaman pengguna.
                     </p>
-
-                    <div class="tags">
-                        <span class="tag">HTML / CSS</span>
-                        <span class="tag">JavaScript</span>
+                    <div class="card-tags">
+                        <span class="chip">HTML / CSS</span>
+                        <span class="chip">JavaScript</span>
                     </div>
                 </article>
 
-                <article class="skill-card reveal" style="--delay:120ms">
-                    <div class="skill-card-top">
-                        <span class="skill-icon" aria-hidden="true">
-                            <svg class="icon"><use href="#i-shield"/></svg>
+                <!-- Card 03: Penetration Testing -->
+                <article class="bento-card spotlight-card reveal-item" style="--stagger: 120ms">
+                    <div class="bento-top">
+                        <span class="bento-icon-wrap" aria-hidden="true">
+                            <svg class="icon"><use href="#i-pentest"/></svg>
                         </span>
-                        <span class="skill-index">03</span>
+                        <span class="bento-num">03</span>
                     </div>
-
                     <h3>Penetration Testing</h3>
-
                     <p data-i18n="securityDescription">
-                        Mendalami pengujian keamanan pada lingkungan
-                        berizin, mendokumentasikan temuan, dan memahami
-                        rekomendasi perbaikannya.
+                        Mendalami pengujian keamanan pada lingkungan berizin, mendokumentasikan temuan, dan memahami rekomendasi perbaikannya.
                     </p>
-
-                    <div class="tags">
-                        <span class="tag" data-i18n="securityTag">Keamanan</span>
-                        <span class="tag" data-i18n="reportingTag">Pelaporan</span>
+                    <div class="card-tags">
+                        <span class="chip" data-i18n="securityTag">Keamanan</span>
+                        <span class="chip" data-i18n="reportingTag">Pelaporan</span>
                     </div>
                 </article>
 
-                <article class="skill-card reveal">
-                    <div class="skill-card-top">
-                        <span class="skill-icon brand" aria-hidden="true">
-                            <svg class="brand-icon"><use href="#i-microsoft"/></svg>
+                <!-- Card 04: Microsoft (Stylish Monochrome White Icon) -->
+                <article class="bento-card spotlight-card reveal-item">
+                    <div class="bento-top">
+                        <span class="bento-icon-wrap platform-white" aria-hidden="true">
+                            <svg class="icon"><use href="#i-microsoft-white"/></svg>
                         </span>
-                        <span class="skill-index">04</span>
+                        <span class="bento-num">04</span>
                     </div>
-
                     <h3>Microsoft</h3>
-
                     <p data-i18n="microsoftDescription">
-                        Mengolah dokumen, merapikan data, dan menyusun
-                        presentasi menggunakan Word, Excel, serta PowerPoint.
+                        Mengolah dokumen, merapikan data, dan menyusun presentasi menggunakan Word, Excel, serta PowerPoint.
                     </p>
-
-                    <div class="tags">
-                        <span class="tag">Word</span>
-                        <span class="tag">Excel</span>
-                        <span class="tag">PowerPoint</span>
+                    <div class="card-tags">
+                        <span class="chip">Word</span>
+                        <span class="chip">Excel</span>
+                        <span class="chip">PowerPoint</span>
                     </div>
                 </article>
 
-                <article class="skill-card reveal" style="--delay:60ms">
-                    <div class="skill-card-top">
-                        <span class="skill-icon brand" aria-hidden="true">
-                            <svg class="brand-icon"><use href="#i-google"/></svg>
+                <!-- Card 05: Google Workspace (Stylish Monochrome Pure White Logo) -->
+                <article class="bento-card spotlight-card reveal-item" style="--stagger: 60ms">
+                    <div class="bento-top">
+                        <span class="bento-icon-wrap platform-white" aria-hidden="true">
+                            <svg class="icon"><use href="#i-workspace-white"/></svg>
                         </span>
-                        <span class="skill-index">05</span>
+                        <span class="bento-num">05</span>
                     </div>
-
                     <h3>Google Workspace</h3>
-
                     <p data-i18n="googleDescription">
-                        Mengelola informasi dan pekerjaan bersama melalui
-                        Docs, Sheets, Slides, serta Drive agar kolaborasi
-                        lebih tertata.
+                        Mengelola informasi dan pekerjaan bersama melalui Docs, Sheets, Slides, serta Drive agar kolaborasi lebih tertata.
                     </p>
-
-                    <div class="tags">
-                        <span class="tag">Docs / Sheets</span>
-                        <span class="tag" data-i18n="collaborationTag">Kolaborasi</span>
+                    <div class="card-tags">
+                        <span class="chip">Docs / Sheets</span>
+                        <span class="chip" data-i18n="collaborationTag">Kolaborasi</span>
                     </div>
                 </article>
 
-                <article
-                    class="skill-card learning-card reveal"
-                    style="--delay:120ms"
-                >
-                    <div class="skill-card-top">
-                        <span class="skill-icon" aria-hidden="true">
-                            <svg class="icon"><use href="#i-plus"/></svg>
+                <!-- Card 06: Continuous Learning -->
+                <article class="bento-card bento-next spotlight-card reveal-item" style="--stagger: 120ms">
+                    <div class="bento-top">
+                        <span class="bento-icon-wrap solar-ring-icon" aria-hidden="true">
+                            <svg class="icon"><use href="#i-spark-plus"/></svg>
                         </span>
-                        <span class="skill-index">NEXT</span>
+                        <span class="bento-num solar-label">NEXT</span>
                     </div>
-
                     <h3 data-i18n="learningTitle">Belajar tidak berhenti.</h3>
-
                     <p data-i18n="learningDescription">
-                        Selalu ada ruang untuk pengetahuan baru, tantangan
-                        berbeda, dan kesempatan berkembang bersama orang lain.
+                        Selalu ada ruang untuk pengetahuan baru, tantangan berbeda, dan kesempatan berkembang bersama orang lain.
                     </p>
-
-                    <div class="tags">
-                        <span class="tag" data-i18n="learningTag">Masih mengeksplorasi</span>
+                    <div class="card-tags">
+                        <span class="chip chip-solar" data-i18n="learningTag">Masih mengeksplorasi</span>
                     </div>
                 </article>
             </div>
         </section>
 
         <!-- =================================================
-             CONTACT
+             04. CONTACT SECTION
         ================================================== -->
+        <section id="contact" class="section container" aria-labelledby="contact-title">
+            <div class="contact-vault reveal-item">
+                <div class="contact-vault-glow" aria-hidden="true"></div>
 
-        <section id="contact" class="section" aria-labelledby="contact-title">
-            <div class="contact-panel reveal">
-                <div class="contact-top">
-                    <p class="eyebrow" data-i18n="contactEyebrow">
-                        03 / Mulai percakapan
-                    </p>
-
-                    <div class="availability">
-                        <span class="availability-dot" aria-hidden="true"></span>
-                        <span data-i18n="contactAvailability">
-                            Terbuka untuk ide baru
-                        </span>
+                <div class="contact-header-bar">
+                    <p class="eyebrow" data-i18n="contactEyebrow">03 / Mulai percakapan</p>
+                    <div class="status-pill">
+                        <span class="pulse-dot" aria-hidden="true"></span>
+                        <span data-i18n="contactAvailability">Terbuka untuk ide baru</span>
                     </div>
                 </div>
 
-                <h2 id="contact-title" class="contact-heading">
-                    <span style="color:inherit" data-i18n="contactTitleOne">
-                        Ide bagus dimulai
-                    </span>
-                    <span data-i18n="contactTitleTwo">
-                        dari percakapan.
-                    </span>
+                <h2 id="contact-title" class="contact-display">
+                    <span data-i18n="contactTitleOne">Ide bagus dimulai</span>
+                    <span class="solar-gradient-text" data-i18n="contactTitleTwo">dari percakapan.</span>
                 </h2>
 
-                <p class="contact-description" data-i18n="contactDescription">
-                    Ada ide, pertanyaan, atau kesempatan berkolaborasi?
-                    Kirim pesan. Mari lihat apa yang bisa kita bangun bersama.
+                <p class="contact-subcopy" data-i18n="contactDescription">
+                    Ada ide, pertanyaan, atau kesempatan berkolaborasi? Kirim pesan. Mari lihat apa yang bisa kita bangun bersama.
                 </p>
 
-                <div class="contact-email-row">
-                    <a href="mailto:fannalmer@gmail.com" class="email-link">
+                <div class="email-command-bar">
+                    <a href="mailto:fannalmer@gmail.com" class="email-cta">
                         <span>fannalmer@gmail.com</span>
-                        <svg class="icon" aria-hidden="true">
-                            <use href="#i-arrow-up-right"/>
-                        </svg>
+                        <span class="email-arrow" aria-hidden="true">
+                            <svg class="icon icon-sm"><use href="#i-pointer-ne"/></svg>
+                        </span>
                     </a>
 
                     <button
                         id="copy-email"
-                        class="icon-button"
+                        class="copy-trigger"
                         type="button"
                         data-i18n-aria="copyEmail"
                         aria-label="Salin alamat email"
                     >
-                        <svg class="icon icon-sm" aria-hidden="true">
+                        <svg class="icon icon-sm copy-default" aria-hidden="true">
                             <use href="#i-copy"/>
                         </svg>
+                        <svg class="icon icon-sm copy-done" aria-hidden="true">
+                            <use href="#i-check"/>
+                        </svg>
+                        <span class="copy-label" data-i18n="copyShort">Salin</span>
                     </button>
                 </div>
 
-                <div class="social-grid">
+                <!-- Stylish Monochrome White Social Platform Cards -->
+                <div class="social-dock">
                     <a
                         href="https://www.instagram.com/ghtfnalmr_/"
-                        class="social-card"
+                        class="social-tile spotlight-card"
                         target="_blank"
                         rel="noopener noreferrer"
                         data-i18n-aria="instagramLabel"
                         aria-label="Instagram ghtfnalmr_, buka tab baru"
                     >
-                        <span class="social-logo instagram" aria-hidden="true">
-                            <svg class="icon"><use href="#i-instagram"/></svg>
+                        <span class="social-emblem" aria-hidden="true">
+                            <svg class="icon"><use href="#i-instagram-white"/></svg>
                         </span>
-
-                        <span class="social-text">
+                        <span class="social-meta">
                             <strong>Instagram</strong>
                             <small>@ghtfnalmr_</small>
                         </span>
-
-                        <svg class="icon social-arrow" aria-hidden="true">
-                            <use href="#i-arrow-up-right"/>
-                        </svg>
+                        <span class="social-pointer" aria-hidden="true">
+                            <svg class="icon icon-sm"><use href="#i-pointer-ne"/></svg>
+                        </span>
                     </a>
 
                     <a
                         href="https://wa.me/6285781856132"
-                        class="social-card"
+                        class="social-tile spotlight-card"
                         target="_blank"
                         rel="noopener noreferrer"
                         data-i18n-aria="whatsappLabel"
                         aria-label="Hubungi melalui WhatsApp, buka tab baru"
                     >
-                        <span class="social-logo whatsapp" aria-hidden="true">
-                            <svg class="icon"><use href="#i-whatsapp"/></svg>
+                        <span class="social-emblem" aria-hidden="true">
+                            <svg class="icon"><use href="#i-whatsapp-white"/></svg>
                         </span>
-
-                        <span class="social-text">
+                        <span class="social-meta">
                             <strong>WhatsApp</strong>
                             <small>+62 857 8185 6132</small>
                         </span>
-
-                        <svg class="icon social-arrow" aria-hidden="true">
-                            <use href="#i-arrow-up-right"/>
-                        </svg>
+                        <span class="social-pointer" aria-hidden="true">
+                            <svg class="icon icon-sm"><use href="#i-pointer-ne"/></svg>
+                        </span>
                     </a>
 
                     <a
                         href="https://t.me/gxpnn"
-                        class="social-card"
+                        class="social-tile spotlight-card"
                         target="_blank"
                         rel="noopener noreferrer"
                         data-i18n-aria="telegramLabel"
                         aria-label="Telegram gxpnn, buka tab baru"
                     >
-                        <span class="social-logo telegram" aria-hidden="true">
-                            <svg class="icon"><use href="#i-telegram"/></svg>
+                        <span class="social-emblem" aria-hidden="true">
+                            <svg class="icon"><use href="#i-telegram-white"/></svg>
                         </span>
-
-                        <span class="social-text">
+                        <span class="social-meta">
                             <strong>Telegram</strong>
                             <small>@gxpnn</small>
                         </span>
-
-                        <svg class="icon social-arrow" aria-hidden="true">
-                            <use href="#i-arrow-up-right"/>
-                        </svg>
+                        <span class="social-pointer" aria-hidden="true">
+                            <svg class="icon icon-sm"><use href="#i-pointer-ne"/></svg>
+                        </span>
                     </a>
                 </div>
             </div>
@@ -2249,113 +806,21 @@
     <!-- =====================================================
          FOOTER
     ===================================================== -->
-
     <footer class="container site-footer">
-        <p>
-            © <span id="current-year">2026</span> Ghatfan Almer.
+        <p class="footer-copy">
+            © <span id="current-year">2026</span> <strong>Ghatfan Almer</strong>.
             <span data-i18n="footerNote">Dibangun dengan rasa ingin tahu.</span>
         </p>
 
-        <a href="#home" class="back-top">
+        <a href="#top" class="back-top-pill">
             <span data-i18n="backTop">Kembali ke atas</span>
-            <svg class="icon icon-sm" aria-hidden="true">
-                <use href="#i-arrow-up"/>
-            </svg>
+            <span class="up-capsule" aria-hidden="true">
+                <svg class="icon icon-xs"><use href="#i-pointer-up"/></svg>
+            </span>
         </a>
     </footer>
 
-    <!-- =====================================================
-         MUSIC WIDGET
-    ===================================================== -->
-
-    <aside
-        class="music-widget"
-        id="music-widget"
-        data-i18n-aria="musicWidgetLabel"
-        aria-label="Pemutar musik"
-    >
-        <section
-            id="music-panel"
-            class="music-panel"
-            aria-labelledby="music-title"
-            hidden
-        >
-            <div class="music-panel-header">
-                <div class="spotify-label">
-                    <svg class="brand-icon" aria-hidden="true">
-                        <use href="#i-spotify"/>
-                    </svg>
-                    <span>Spotify</span>
-                </div>
-
-                <button
-                    type="button"
-                    id="music-close"
-                    class="icon-button music-close"
-                    data-i18n-aria="closeMusic"
-                    aria-label="Tutup panel musik"
-                >
-                    <svg class="icon icon-sm" aria-hidden="true">
-                        <use href="#i-close"/>
-                    </svg>
-                </button>
-            </div>
-
-            <h2 id="music-title" class="music-title">Cancer</h2>
-            <p class="music-artist">My Chemical Romance</p>
-
-            <div class="spotify-frame" id="spotify-frame">
-                <div class="music-loading" data-i18n="musicLoading">
-                    Pemutar dimuat saat panel dibuka.
-                </div>
-            </div>
-
-            <p class="music-status" id="music-status" role="status">
-                Tekan Play pada pemutar Spotify. Tidak ada autoplay.
-            </p>
-
-            <a
-                href="https://open.spotify.com/track/0GgN4MhR5GKn5IcKN0e0rG"
-                class="spotify-external"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-i18n-aria="spotifyExternalLabel"
-                aria-label="Buka Cancer di Spotify, tab baru"
-            >
-                <span data-i18n="openSpotify">Buka di Spotify</span>
-                <svg class="icon icon-sm" aria-hidden="true">
-                    <use href="#i-arrow-up-right"/>
-                </svg>
-            </a>
-        </section>
-
-        <button
-            type="button"
-            id="music-trigger"
-            class="music-trigger"
-            aria-expanded="false"
-            aria-controls="music-panel"
-            data-i18n-aria="openMusic"
-            aria-label="Buka panel musik Cancer oleh My Chemical Romance"
-        >
-            <span class="music-trigger-icon" aria-hidden="true">
-                <svg class="icon icon-sm"><use href="#i-headphones"/></svg>
-            </span>
-
-            <span class="music-trigger-copy">
-                <strong>Cancer</strong>
-                <small>My Chemical Romance</small>
-            </span>
-
-            <span class="equalizer" aria-hidden="true">
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
-            </span>
-        </button>
-    </aside>
-
+    <!-- Notification Toast -->
     <div
         id="toast"
         class="toast"
@@ -2365,736 +830,6 @@
         hidden
     ></div>
 
-    <noscript>
-        <p style="padding:20px;color:#a2a8b1;text-align:center;font-size:12px">
-            JavaScript diperlukan untuk pergantian bahasa dan widget musik.
-            <a
-                href="https://open.spotify.com/track/0GgN4MhR5GKn5IcKN0e0rG"
-                style="color:#83dba8"
-            >
-                Dengarkan Cancer di Spotify.
-            </a>
-        </p>
-    </noscript>
-
-    <script>
-        (() => {
-            "use strict";
-
-            /* =============================================
-               01. TRANSLATIONS
-            ============================================= */
-
-            const translations = {
-                id: {
-                    pageTitle: "Ghatfan Almer — Portofolio",
-                    metaDescription:
-                        "Portofolio Ghatfan Almer — eksplorasi teknologi, OSINT, pengembangan web, dan keamanan digital.",
-
-                    skip: "Lewati ke konten utama",
-                    homeLabel: "Ghatfan Almer — beranda",
-                    portfolioLabel: "PORTOFOLIO PERSONAL",
-                    languageLabel: "Pilih bahasa",
-
-                    availability: "Terbuka untuk koneksi & kolaborasi",
-                    greeting: "Halo, saya",
-                    taglineOne: "Rasa ingin tahu.",
-                    taglineTwo: "Tanpa batas.",
-
-                    heroDescription:
-                        "Saya mengeksplorasi teknologi, membangun pengalaman web, dan mempelajari keamanan digital. Menghubungkan rasa penasaran dengan sesuatu yang berguna.",
-
-                    connectButton: "Mari terhubung",
-                    skillsButton: "Jelajahi keahlian",
-
-                    aboutEyebrow: "01 / Tentang saya",
-                    aboutTitleOne: "Selalu penasaran.",
-                    aboutTitleTwo: "Selalu bertumbuh.",
-
-                    aboutOpening:
-                        "Saya Ghatfan Almer, seorang penggemar teknologi.",
-
-                    aboutOne:
-                        "Saya menikmati proses belajar, bereksperimen, dan memahami bagaimana sesuatu bekerja—mulai dari sebuah antarmuka hingga sistem di baliknya.",
-
-                    aboutTwo:
-                        "Minat saya meliputi OSINT, pengembangan web, dan pengujian keamanan pada lingkungan yang memiliki izin. Saya senang menelusuri informasi, membangun antarmuka yang nyaman, serta mendokumentasikan temuan dengan jelas.",
-
-                    aboutThree:
-                        "Saya juga menggunakan Microsoft dan Google Workspace untuk mengolah informasi dan berkolaborasi. Bagi saya, kemampuan teknis berjalan bersama ketelitian, etika, dan komunikasi yang baik.",
-
-                    traitOne: "Rasa ingin tahu",
-                    traitTwo: "Teliti",
-                    traitThree: "Terus belajar",
-
-                    workflowTitleOne: "Eksplorasi",
-                    workflowTitleTwo: "Bangun & uji",
-                    workflowTitleThree: "Sempurnakan",
-
-                    workflowOne:
-                        "Mulai dari pertanyaan, cari konteks, dan pahami persoalannya terlebih dahulu.",
-
-                    workflowTwo:
-                        "Ubah ide menjadi sesuatu yang nyata, lalu pelajari apa yang bisa ditingkatkan.",
-
-                    workflowThree:
-                        "Rapikan detail, dokumentasikan proses, dan terus berkembang dari setiap percobaan.",
-
-                    skillsEyebrow: "02 / Keahlian & perangkat",
-                    skillsTitle: "Yang saya tekuni",
-
-                    skillsIntro:
-                        "Perpaduan eksplorasi, pengembangan, dan perangkat produktivitas untuk mengubah ide menjadi hasil.",
-
-                    osintDescription:
-                        "Menelusuri dan memverifikasi informasi dari sumber terbuka untuk menyusun temuan yang terstruktur, dengan memperhatikan privasi dan etika.",
-
-                    webDescription:
-                        "Membangun website responsif dengan antarmuka yang rapi, interaksi yang nyaman, dan perhatian pada pengalaman pengguna.",
-
-                    securityDescription:
-                        "Mendalami pengujian keamanan pada lingkungan berizin, mendokumentasikan temuan, dan memahami rekomendasi perbaikannya.",
-
-                    microsoftDescription:
-                        "Mengolah dokumen, merapikan data, dan menyusun presentasi menggunakan Word, Excel, serta PowerPoint.",
-
-                    googleDescription:
-                        "Mengelola informasi dan pekerjaan bersama melalui Docs, Sheets, Slides, serta Drive agar kolaborasi lebih tertata.",
-
-                    researchTag: "Riset",
-                    verificationTag: "Verifikasi",
-                    securityTag: "Keamanan",
-                    reportingTag: "Pelaporan",
-                    collaborationTag: "Kolaborasi",
-
-                    learningTitle: "Belajar tidak berhenti.",
-
-                    learningDescription:
-                        "Selalu ada ruang untuk pengetahuan baru, tantangan berbeda, dan kesempatan berkembang bersama orang lain.",
-
-                    learningTag: "Masih mengeksplorasi",
-
-                    contactEyebrow: "03 / Mulai percakapan",
-                    contactAvailability: "Terbuka untuk ide baru",
-                    contactTitleOne: "Ide bagus dimulai",
-                    contactTitleTwo: "dari percakapan.",
-
-                    contactDescription:
-                        "Ada ide, pertanyaan, atau kesempatan berkolaborasi? Kirim pesan. Mari lihat apa yang bisa kita bangun bersama.",
-
-                    copyEmail: "Salin alamat email",
-                    emailCopied: "Alamat email berhasil disalin.",
-                    emailCopyFailed:
-                        "Tidak dapat menyalin. Silakan salin alamat email secara manual.",
-
-                    instagramLabel: "Instagram ghtfnalmr_, buka tab baru",
-                    whatsappLabel: "Hubungi melalui WhatsApp, buka tab baru",
-                    telegramLabel: "Telegram gxpnn, buka tab baru",
-
-                    footerNote: "Dibangun dengan rasa ingin tahu.",
-                    backTop: "Kembali ke atas",
-
-                    musicWidgetLabel: "Pemutar musik",
-                    closeMusic: "Tutup panel musik",
-                    openMusic: "Buka panel musik Cancer oleh My Chemical Romance",
-                    collapseMusic: "Tutup panel musik Cancer oleh My Chemical Romance",
-
-                    musicLoading: "Pemutar dimuat saat panel dibuka.",
-                    musicConnecting: "Menghubungkan ke Spotify…",
-                    musicReady: "Tekan Play pada pemutar Spotify. Tidak ada autoplay.",
-                    musicPlaying: "Sedang diputar melalui Spotify.",
-                    musicPaused: "Pemutaran dijeda.",
-                    musicBuffering: "Menyiapkan audio…",
-
-                    musicFallback:
-                        "Gunakan pemutar Spotify di atas. Jika tidak termuat, buka tautan Spotify di bawah.",
-
-                    openSpotify: "Buka di Spotify",
-                    spotifyExternalLabel: "Buka Cancer di Spotify, tab baru"
-                },
-
-                en: {
-                    pageTitle: "Ghatfan Almer — Portfolio",
-                    metaDescription:
-                        "Ghatfan Almer's portfolio — exploring technology, OSINT, web development, and digital security.",
-
-                    skip: "Skip to main content",
-                    homeLabel: "Ghatfan Almer — home",
-                    portfolioLabel: "PERSONAL PORTFOLIO",
-                    languageLabel: "Choose language",
-
-                    availability: "Open to connections & collaboration",
-                    greeting: "Hello, I'm",
-                    taglineOne: "Curious mind.",
-                    taglineTwo: "No boundaries.",
-
-                    heroDescription:
-                        "I explore technology, build web experiences, and study digital security. Connecting curiosity with something useful.",
-
-                    connectButton: "Let's connect",
-                    skillsButton: "Explore my skills",
-
-                    aboutEyebrow: "01 / About me",
-                    aboutTitleOne: "Always curious.",
-                    aboutTitleTwo: "Always growing.",
-
-                    aboutOpening:
-                        "I'm Ghatfan Almer, a technology enthusiast.",
-
-                    aboutOne:
-                        "I enjoy learning, experimenting, and understanding how things work—from an interface to the systems behind it.",
-
-                    aboutTwo:
-                        "My interests include OSINT, web development, and security testing in authorized environments. I enjoy researching information, building comfortable interfaces, and documenting findings clearly.",
-
-                    aboutThree:
-                        "I also use Microsoft and Google Workspace to organize information and collaborate. To me, technical skills go hand in hand with attention to detail, ethics, and clear communication.",
-
-                    traitOne: "Curiosity-driven",
-                    traitTwo: "Detail-oriented",
-                    traitThree: "Continuous learner",
-
-                    workflowTitleOne: "Explore",
-                    workflowTitleTwo: "Build & test",
-                    workflowTitleThree: "Refine",
-
-                    workflowOne:
-                        "Start with a question, find the context, and understand the problem first.",
-
-                    workflowTwo:
-                        "Turn an idea into something real, then discover what can be improved.",
-
-                    workflowThree:
-                        "Polish the details, document the process, and grow with every experiment.",
-
-                    skillsEyebrow: "02 / Skills & toolkit",
-                    skillsTitle: "What I work with",
-
-                    skillsIntro:
-                        "A mix of exploration, development, and productivity tools to turn ideas into outcomes.",
-
-                    osintDescription:
-                        "Researching and verifying information from open sources to produce structured findings while respecting privacy and ethics.",
-
-                    webDescription:
-                        "Building responsive websites with clean interfaces, comfortable interactions, and attention to the user experience.",
-
-                    securityDescription:
-                        "Studying security testing in authorized environments, documenting findings, and understanding remediation recommendations.",
-
-                    microsoftDescription:
-                        "Working with documents, organizing data, and creating presentations using Word, Excel, and PowerPoint.",
-
-                    googleDescription:
-                        "Organizing information and teamwork through Docs, Sheets, Slides, and Drive for more structured collaboration.",
-
-                    researchTag: "Research",
-                    verificationTag: "Verification",
-                    securityTag: "Security",
-                    reportingTag: "Reporting",
-                    collaborationTag: "Collaboration",
-
-                    learningTitle: "Learning never stops.",
-
-                    learningDescription:
-                        "There's always room for new knowledge, different challenges, and opportunities to grow with others.",
-
-                    learningTag: "Still exploring",
-
-                    contactEyebrow: "03 / Start a conversation",
-                    contactAvailability: "Open to new ideas",
-                    contactTitleOne: "Good ideas start",
-                    contactTitleTwo: "with a conversation.",
-
-                    contactDescription:
-                        "Have an idea, a question, or an opportunity to collaborate? Send a message. Let's see what we can build together.",
-
-                    copyEmail: "Copy email address",
-                    emailCopied: "Email address copied.",
-                    emailCopyFailed:
-                        "Unable to copy. Please copy the email address manually.",
-
-                    instagramLabel: "Instagram ghtfnalmr_, opens in a new tab",
-                    whatsappLabel: "Contact via WhatsApp, opens in a new tab",
-                    telegramLabel: "Telegram gxpnn, opens in a new tab",
-
-                    footerNote: "Built with curiosity.",
-                    backTop: "Back to top",
-
-                    musicWidgetLabel: "Music player",
-                    closeMusic: "Close music panel",
-                    openMusic: "Open Cancer by My Chemical Romance music panel",
-                    collapseMusic: "Close Cancer by My Chemical Romance music panel",
-
-                    musicLoading: "The player loads when you open this panel.",
-                    musicConnecting: "Connecting to Spotify…",
-                    musicReady: "Press Play in the Spotify player. No autoplay.",
-                    musicPlaying: "Playing through Spotify.",
-                    musicPaused: "Playback paused.",
-                    musicBuffering: "Buffering audio…",
-
-                    musicFallback:
-                        "Use the Spotify player above. If it doesn't load, open the Spotify link below.",
-
-                    openSpotify: "Open in Spotify",
-                    spotifyExternalLabel: "Open Cancer on Spotify, opens in a new tab"
-                }
-            };
-
-            let currentLanguage = "id";
-            let musicStatusKey = "musicReady";
-
-            function translate(key) {
-                return translations[currentLanguage][key] || key;
-            }
-
-            function applyLanguage(language) {
-                currentLanguage = language === "en" ? "en" : "id";
-
-                document.documentElement.lang = currentLanguage;
-                document.title = translate("pageTitle");
-
-                document
-                    .querySelector('meta[name="description"]')
-                    .setAttribute("content", translate("metaDescription"));
-
-                document.querySelectorAll("[data-i18n]").forEach((element) => {
-                    const key = element.dataset.i18n;
-
-                    if (translations[currentLanguage][key]) {
-                        element.textContent = translate(key);
-                    }
-                });
-
-                document.querySelectorAll("[data-i18n-aria]").forEach((element) => {
-                    const key = element.dataset.i18nAria;
-
-                    if (translations[currentLanguage][key]) {
-                        element.setAttribute("aria-label", translate(key));
-                    }
-                });
-
-                document.querySelectorAll("[data-language]").forEach((button) => {
-                    button.setAttribute(
-                        "aria-pressed",
-                        String(button.dataset.language === currentLanguage)
-                    );
-                });
-
-                document.getElementById("music-status").textContent =
-                    translate(musicStatusKey);
-
-                const trigger = document.getElementById("music-trigger");
-
-                trigger.setAttribute(
-                    "aria-label",
-                    translate(
-                        trigger.getAttribute("aria-expanded") === "true"
-                            ? "collapseMusic"
-                            : "openMusic"
-                    )
-                );
-            }
-
-            try {
-                const savedLanguage = localStorage.getItem("ghatfan-language");
-
-                if (savedLanguage === "id" || savedLanguage === "en") {
-                    currentLanguage = savedLanguage;
-                }
-            } catch {
-                // Storage can be unavailable in restricted browser contexts.
-            }
-
-            applyLanguage(currentLanguage);
-
-            document.querySelectorAll("[data-language]").forEach((button) => {
-                button.addEventListener("click", () => {
-                    const language = button.dataset.language;
-
-                    applyLanguage(language);
-
-                    try {
-                        localStorage.setItem("ghatfan-language", language);
-                    } catch {
-                        // Language still works without persistent storage.
-                    }
-                });
-            });
-
-            document.getElementById("current-year").textContent =
-                new Date().getFullYear();
-
-            /* =============================================
-               02. REVEAL + OFFSCREEN ANIMATION PAUSING
-            ============================================= */
-
-            const motionPreference = window.matchMedia(
-                "(prefers-reduced-motion: reduce)"
-            );
-
-            const revealElements = [...document.querySelectorAll(".reveal")];
-
-            let revealObserver = null;
-            let revealSafetyTimer = null;
-
-            function revealEverything() {
-                revealElements.forEach((element) => {
-                    element.classList.remove("pending");
-                    element.classList.add("revealed");
-                });
-
-                if (revealObserver) {
-                    revealObserver.disconnect();
-                }
-            }
-
-            if (
-                "IntersectionObserver" in window &&
-                !motionPreference.matches
-            ) {
-                try {
-                    revealObserver = new IntersectionObserver(
-                        (entries, observer) => {
-                            entries.forEach((entry) => {
-                                if (!entry.isIntersecting) return;
-
-                                entry.target.classList.remove("pending");
-                                entry.target.classList.add("revealed");
-                                observer.unobserve(entry.target);
-                            });
-                        },
-                        {
-                            threshold: 0,
-                            rootMargin: "0px 0px -24px 0px"
-                        }
-                    );
-
-                    revealElements.forEach((element) => {
-                        element.classList.add("pending");
-                        revealObserver.observe(element);
-                    });
-
-                    /*
-                     * Safety fallback:
-                     * content won't stay hidden indefinitely if observation
-                     * behaves unexpectedly in an embedded browser.
-                     */
-                    revealSafetyTimer = window.setTimeout(
-                        revealEverything,
-                        4500
-                    );
-                } catch {
-                    revealEverything();
-                }
-            }
-
-            const motionZones = document.querySelectorAll(".motion-zone");
-
-            if ("IntersectionObserver" in window) {
-                const motionObserver = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach((entry) => {
-                            entry.target.classList.toggle(
-                                "in-view",
-                                entry.isIntersecting
-                            );
-                        });
-                    },
-                    { rootMargin: "60px 0px" }
-                );
-
-                motionZones.forEach((zone) => {
-                    motionObserver.observe(zone);
-                });
-            } else {
-                motionZones.forEach((zone) => {
-                    zone.classList.add("in-view");
-                });
-            }
-
-            function handleMotionPreference(event) {
-                if (!event.matches) return;
-
-                window.clearTimeout(revealSafetyTimer);
-                revealEverything();
-            }
-
-            if (motionPreference.addEventListener) {
-                motionPreference.addEventListener(
-                    "change",
-                    handleMotionPreference
-                );
-            } else if (motionPreference.addListener) {
-                motionPreference.addListener(handleMotionPreference);
-            }
-
-            document.addEventListener("visibilitychange", () => {
-                document.documentElement.classList.toggle(
-                    "page-hidden",
-                    document.hidden
-                );
-            });
-
-            /* =============================================
-               03. COPY EMAIL
-            ============================================= */
-
-            const toast = document.getElementById("toast");
-            let toastTimer = null;
-
-            function showToast(message) {
-                window.clearTimeout(toastTimer);
-
-                toast.textContent = message;
-                toast.hidden = false;
-
-                toastTimer = window.setTimeout(() => {
-                    toast.hidden = true;
-                }, 3500);
-            }
-
-            document
-                .getElementById("copy-email")
-                .addEventListener("click", async () => {
-                    try {
-                        if (
-                            !window.isSecureContext ||
-                            !navigator.clipboard ||
-                            !navigator.clipboard.writeText
-                        ) {
-                            throw new Error("Clipboard unavailable");
-                        }
-
-                        await navigator.clipboard.writeText(
-                            "fannalmer@gmail.com"
-                        );
-
-                        showToast(translate("emailCopied"));
-                    } catch {
-                        showToast(translate("emailCopyFailed"));
-                    }
-                });
-
-            /* =============================================
-               04. SPOTIFY WIDGET
-               - Loaded only after opening.
-               - No autoplay.
-               - Equalizer follows Spotify playback events.
-               - Official iframe fallback on API load failure.
-            ============================================= */
-
-            const TRACK_ID = "0GgN4MhR5GKn5IcKN0e0rG";
-            const TRACK_URI = `spotify:track:${TRACK_ID}`;
-
-            const musicWidget = document.getElementById("music-widget");
-            const musicTrigger = document.getElementById("music-trigger");
-            const musicPanel = document.getElementById("music-panel");
-            const musicClose = document.getElementById("music-close");
-            const spotifyFrame = document.getElementById("spotify-frame");
-
-            let playerRequested = false;
-            let playerMode = "idle";
-            let apiTimeout = null;
-            let playerReadyTimeout = null;
-
-            function setMusicStatus(key) {
-                musicStatusKey = key;
-
-                document.getElementById("music-status").textContent =
-                    translate(key);
-            }
-
-            function stopEqualizer() {
-                musicWidget.classList.remove("is-playing");
-            }
-
-            function loadFallbackPlayer() {
-                if (
-                    playerMode === "fallback" ||
-                    playerMode === "ready"
-                ) {
-                    return;
-                }
-
-                window.clearTimeout(apiTimeout);
-                window.clearTimeout(playerReadyTimeout);
-
-                playerMode = "fallback";
-                stopEqualizer();
-
-                const iframe = document.createElement("iframe");
-
-                iframe.src =
-                    `https://open.spotify.com/embed/track/${TRACK_ID}?theme=0`;
-
-                iframe.title =
-                    "Spotify — Cancer by My Chemical Romance";
-
-                iframe.width = "100%";
-                iframe.height = "152";
-
-                iframe.allow =
-                    "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
-
-                iframe.setAttribute("allowfullscreen", "");
-                iframe.referrerPolicy = "strict-origin-when-cross-origin";
-
-                spotifyFrame.replaceChildren(iframe);
-                setMusicStatus("musicFallback");
-            }
-
-            window.onSpotifyIframeApiReady = (IFrameAPI) => {
-                if (playerMode !== "loading") return;
-
-                window.clearTimeout(apiTimeout);
-                playerMode = "creating";
-
-                const mount = document.createElement("div");
-                spotifyFrame.replaceChildren(mount);
-
-                playerReadyTimeout = window.setTimeout(
-                    loadFallbackPlayer,
-                    12000
-                );
-
-                try {
-                    IFrameAPI.createController(
-                        mount,
-                        {
-                            uri: TRACK_URI,
-                            width: "100%",
-                            height: 152
-                        },
-                        (controller) => {
-                            if (playerMode === "fallback") return;
-
-                            controller.addListener("ready", () => {
-                                if (playerMode === "fallback") return;
-
-                                window.clearTimeout(playerReadyTimeout);
-
-                                playerMode = "ready";
-                                setMusicStatus("musicReady");
-
-                                const iframe =
-                                    spotifyFrame.querySelector("iframe");
-
-                                if (iframe) {
-                                    iframe.title =
-                                        "Spotify — Cancer by My Chemical Romance";
-                                }
-                            });
-
-                            controller.addListener(
-                                "playback_update",
-                                (event) => {
-                                    if (playerMode === "fallback") return;
-
-                                    window.clearTimeout(playerReadyTimeout);
-                                    playerMode = "ready";
-
-                                    const data = event.data || {};
-
-                                    const isPlaying =
-                                        data.isPaused === false &&
-                                        data.isBuffering === false;
-
-                                    musicWidget.classList.toggle(
-                                        "is-playing",
-                                        isPlaying
-                                    );
-
-                                    if (data.isBuffering) {
-                                        setMusicStatus("musicBuffering");
-                                    } else if (isPlaying) {
-                                        setMusicStatus("musicPlaying");
-                                    } else if (Number(data.position) > 0) {
-                                        setMusicStatus("musicPaused");
-                                    } else {
-                                        setMusicStatus("musicReady");
-                                    }
-                                }
-                            );
-                        }
-                    );
-                } catch {
-                    loadFallbackPlayer();
-                }
-            };
-
-            function requestSpotifyPlayer() {
-                if (playerRequested) return;
-
-                playerRequested = true;
-                playerMode = "loading";
-
-                setMusicStatus("musicConnecting");
-
-                const loading = document.createElement("div");
-                loading.className = "music-loading";
-                loading.dataset.i18n = "musicConnecting";
-                loading.textContent = translate("musicConnecting");
-
-                spotifyFrame.replaceChildren(loading);
-
-                const script = document.createElement("script");
-                script.src =
-                    "https://open.spotify.com/embed/iframe-api/v1";
-                script.async = true;
-                script.onerror = loadFallbackPlayer;
-
-                apiTimeout = window.setTimeout(
-                    loadFallbackPlayer,
-                    10000
-                );
-
-                document.head.appendChild(script);
-            }
-
-            function setMusicPanel(open, restoreFocus = false) {
-                musicPanel.hidden = !open;
-
-                musicTrigger.setAttribute(
-                    "aria-expanded",
-                    String(open)
-                );
-
-                musicTrigger.setAttribute(
-                    "aria-label",
-                    translate(open ? "collapseMusic" : "openMusic")
-                );
-
-                if (open) {
-                    requestSpotifyPlayer();
-                } else if (restoreFocus) {
-                    musicTrigger.focus({ preventScroll: true });
-                }
-            }
-
-            musicTrigger.addEventListener("click", () => {
-                setMusicPanel(musicPanel.hidden);
-            });
-
-            musicClose.addEventListener("click", () => {
-                setMusicPanel(false, true);
-            });
-
-            document.addEventListener("keydown", (event) => {
-                if (event.key === "Escape" && !musicPanel.hidden) {
-                    setMusicPanel(false, true);
-                }
-            });
-
-            document.addEventListener("pointerdown", (event) => {
-                if (
-                    !musicPanel.hidden &&
-                    !musicWidget.contains(event.target)
-                ) {
-                    setMusicPanel(false);
-                }
-            });
-        })();
-    </script>
+    <script src="main.js" defer></script>
 </body>
 </html>
